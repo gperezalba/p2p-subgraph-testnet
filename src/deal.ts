@@ -10,7 +10,7 @@ export function createDeal(event: NewPendingDeal): void {
         deal = new Deal(event.params.dealId.toHexString());
 
         deal.offer = event.params.offerId.toHexString();
-        deal.buyer = event.params.buyer;
+        deal.buyer = event.params.buyer.toHexString();
         deal.buyAmount = event.params.buyAmount.toBigDecimal();
         deal.sellerVote = BigDecimal.fromString('0');
         deal.buyerVote = BigDecimal.fromString('0');
@@ -28,7 +28,7 @@ export function createCommodityDeal(event: NewDeal): void {
         deal = new DealCommodity(event.params.offerId.toHexString());
 
         deal.offer = event.params.offerId.toHexString();
-        deal.buyer = event.params.buyer;
+        deal.buyer = event.params.buyer.toHexString();
 
         deal.save();
     }
@@ -52,7 +52,7 @@ export function updateVote(event: VoteDeal): void {
         deal.sellerVote = event.params.vote;
     }
 
-    if (event.transaction.from == deal.buyer) {
+    if (event.transaction.from == Address.fromString(deal.buyer)) {
         deal.buyerVote = event.params.vote;
     }
 }

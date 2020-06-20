@@ -23,7 +23,7 @@ export function handleNewDeal(event: NewDeal): void {
   finishDeal(event.params.dealId.toHexString(), event.params.success, event.params.sender);
   let deal = Deal.load(event.params.dealId.toHexString());
   let offer = Offer.load(deal.offer);
-  updateReputation(deal.buyer.toHexString(), event.address);
+  updateReputation(deal.buyer, event.address);
   updateReputation(offer.owner, event.address);
 }
 

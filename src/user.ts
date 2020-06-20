@@ -2,7 +2,7 @@ import { User } from "../generated/schema";
 import { BigInt, Address } from "@graphprotocol/graph-ts";
 import { PIBP2P } from "../generated/PIBP2P/PIBP2P";
 
-export function pushOffer(userId: string, offerId: string) {
+export function pushOffer(userId: string, offerId: string): void {
     createUserIfNull(userId);
     let user = User.load(userId);
 
@@ -13,7 +13,7 @@ export function pushOffer(userId: string, offerId: string) {
     user.save();
 }
 
-export function pushCommodityOffer(userId: string, offerId: string) {
+export function pushCommodityOffer(userId: string, offerId: string): void {
     createUserIfNull(userId);
     let user = User.load(userId);
 
