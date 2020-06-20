@@ -1,0 +1,58 @@
+import { Deal, Offer, DealCommodity } from "../generated/schema";
+import { NewPendingDeal, VoteDeal } from "../generated/PIBP2P/PIBP2P";
+import { BigDecimal, Address } from "@graphprotocol/graph-ts";
+import { NewDeal } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
+
+export function createDeal(event: NewPendingDeal): void {
+    let deal = Deal.load(event.params.dealId.toHexString());
+
+    if (deal == null) {
+        deal = new Deal(event.params.dealId.toHexString());
+
+        deal.offer = event.params.offerId.toHexString();
+        deal.buyer = event.params.buyer;
+        deal.buyAmount = event.params.buyAmount.toBigDecimal();
+        deal.sellerVote = BigDecimal.fromString('0');
+        deal.buyerVote = BigDecimal.fromString('0');
+        deal.auditorVote = BigDecimal.fromString('0');
+        deal.isPending = true;
+
+        deal.save();
+    }
+}
+
+export function createCommodityDeal(event: NewDeal): void {
+    let deal = DealCommodity.load(event.params.offerId.toHexString());
+
+    if (deal == null) {
+        deal = new DealCommodity(event.params.offerId.toHexString());
+
+        deal.offer = event.params.offerId.toHexString();
+        deal.buyer = event.params.buyer;
+
+        deal.save();
+    }
+}
+
+export function finishDeal(dealId: string, success: boolean, executor: Address): void {
+    let deal = Deal.load(dealId);
+
+    deal.isPending = false;
+    deal.isSuccess = success;
+    deal.executor = executor;
+
+    deal.save();
+}
+
+export function updateVote(event: VoteDeal): void {
+    let deal = Deal.load(event.params.dealId.toHexString());
+    let offer = Offer.load(deal.offer);
+
+    if (event.transaction.from == Address.fromString(offer.owner)) {
+        deal.sellerVote = event.params.vote;
+    }
+
+    if (event.transaction.from == deal.buyer) {
+        deal.buyerVote = event.params.vote;
+    }
+}

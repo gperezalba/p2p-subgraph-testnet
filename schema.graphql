@@ -1,6 +1,93 @@
-type ExampleEntity @entity {
+type Offer @entity {
   id: ID!
-  count: BigInt!
-  owner: Bytes! # address
+  owner: User! # address
   sellToken: Bytes! # address
+  buyToken: Bytes!
+  sellAmount: BigDecimal!
+  buyAmount: BigDecimal!
+  isPartial: Boolean!
+  isBuyFiat: Boolean!
+  auditor: Bytes
+  description: String
+  isOpen: Boolean!
+}
+
+#union Commodity = Gold | Diamond
+
+type OfferCommodity @entity {
+  id: ID!
+  owner: User! # address
+  sellToken: Bytes! # address
+  buyToken: Bytes!
+  sellId: Commodity! #tokenAddress - tokenId
+  buyAmount: BigDecimal!
+  description: String
+  isOpen: Boolean!
+}
+
+type Deal @entity {
+  id: ID!
+  offer: Offer!
+  buyer: User!
+  buyAmount: BigDecimal!
+  sellerVote: BigDecimal
+  buyerVote: BigDecimal
+  auditorVote: BigDecimal
+  isPending: Boolean!
+  isSuccess: Boolean
+  executor: Bytes
+}
+
+type DealCommodity @entity {
+  id: ID!
+  offer: OfferCommodity!
+  buyer: User!
+}
+
+type User @entity {
+  id: ID!
+  offers: [Offer!]
+  commodityOffers: [OfferCommodity!]
+  deals: [Deal!]
+  commodityDeals: [DealCommodity!]
+  goodReputation: BigInt
+  badReputation: BigInt
+}
+
+type Token @entity {
+  id: ID!
+  tokenSymbol: String!
+  tokenName: String!
+  isNFT: Boolean!
+  category: BigInt
+}
+
+type Commodity @entity {
+  id: ID!
+  gold: Gold
+  diamond: Diamond
+}
+
+type Gold @entity {
+  id: ID!
+  reference: String!
+  token: Token!
+  weight_brute: BigDecimal!
+  weight_fine: BigDecimal!
+  law: BigDecimal!
+}
+
+type Diamond @entity {
+  id: ID!
+  reference: String!
+  token: Token!
+  color: String!
+  clarity: String! #cambiar a BigDecimal para filtrar?
+  cut: String!
+  carat_weight: BigDecimal
+}
+
+type Auditor @entity {
+  id: ID!
+  requests: [Deal!]
 }
