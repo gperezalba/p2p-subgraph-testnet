@@ -308,37 +308,37 @@ export class Deal extends Entity {
     this.set("buyAmount", Value.fromBigDecimal(value));
   }
 
-  get sellerVote(): BigDecimal | null {
+  get sellerVote(): BigInt | null {
     let value = this.get("sellerVote");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set sellerVote(value: BigDecimal | null) {
+  set sellerVote(value: BigInt | null) {
     if (value === null) {
       this.unset("sellerVote");
     } else {
-      this.set("sellerVote", Value.fromBigDecimal(value as BigDecimal));
+      this.set("sellerVote", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get buyerVote(): BigDecimal | null {
+  get buyerVote(): BigInt | null {
     let value = this.get("buyerVote");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set buyerVote(value: BigDecimal | null) {
+  set buyerVote(value: BigInt | null) {
     if (value === null) {
       this.unset("buyerVote");
     } else {
-      this.set("buyerVote", Value.fromBigDecimal(value as BigDecimal));
+      this.set("buyerVote", Value.fromBigInt(value as BigInt));
     }
   }
 

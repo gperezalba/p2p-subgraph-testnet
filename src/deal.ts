@@ -1,6 +1,6 @@
 import { Deal, Offer, DealCommodity } from "../generated/schema";
 import { NewPendingDeal, VoteDeal } from "../generated/PIBP2P/PIBP2P";
-import { BigDecimal, Address } from "@graphprotocol/graph-ts";
+import { BigDecimal, Address, BigInt } from "@graphprotocol/graph-ts";
 import { NewDeal } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
 
 export function createDeal(event: NewPendingDeal): void {
@@ -12,8 +12,8 @@ export function createDeal(event: NewPendingDeal): void {
         deal.offer = event.params.offerId.toHexString();
         deal.buyer = event.params.buyer.toHexString();
         deal.buyAmount = event.params.buyAmount.toBigDecimal();
-        deal.sellerVote = BigDecimal.fromString('0');
-        deal.buyerVote = BigDecimal.fromString('0');
+        deal.sellerVote = BigInt.fromI32(0);
+        deal.buyerVote = BigInt.fromI32(0);
         deal.auditorVote = BigDecimal.fromString('0');
         deal.isPending = true;
 
@@ -49,10 +49,10 @@ export function updateVote(event: VoteDeal): void {
     let offer = Offer.load(deal.offer);
 
     if (event.transaction.from == Address.fromString(offer.owner)) {
-        deal.sellerVote = event.params.vote.toBigDecimal();
+        deal.sellerVote = BigInt.fromI32(event.params.vote);
     }
 
     if (event.transaction.from == Address.fromString(deal.buyer)) {
-        deal.buyerVote = event.params.vote.toBigDecimal();
+        deal.buyerVote = BigInt.fromI32(event.params.vote);
     }
 }
