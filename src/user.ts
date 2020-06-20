@@ -35,7 +35,7 @@ export function pushPendingDeal(userId: string, dealId: string): void {
     user.save();
 }
 
-export function pushCommodityDeal(userId: string, dealId): void {
+export function pushCommodityDeal(userId: string, dealId: string): void {
     createUserIfNull(userId);
     let user = User.load(userId);
 
