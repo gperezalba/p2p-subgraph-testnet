@@ -30,8 +30,8 @@ type Deal @entity {
   offer: Offer!
   buyer: User!
   buyAmount: BigDecimal!
-  sellerVote: String
-  buyerVote: String
+  sellerVote: BigInt
+  buyerVote: BigInt
   auditorVote: BigDecimal
   isPending: Boolean!
   isSuccess: Boolean

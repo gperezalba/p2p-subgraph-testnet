@@ -12,8 +12,8 @@ export function createDeal(event: NewPendingDeal): void {
         deal.offer = event.params.offerId.toHexString();
         deal.buyer = event.params.buyer.toHexString();
         deal.buyAmount = event.params.buyAmount.toBigDecimal();
-        deal.sellerVote = '0';
-        deal.buyerVote = '0';
+        deal.sellerVote = BigInt.fromI32(0);
+        deal.buyerVote = BigInt.fromI32(0);
         deal.auditorVote = BigDecimal.fromString('0');
         deal.isPending = true;
 
@@ -54,12 +54,14 @@ export function updateVote(event: VoteDeal): void {
 
         if (offer != null) {
             if (event.transaction.from == Address.fromString(offer.owner)) {
-                deal.sellerVote = event.params.vote.toString();
+                deal.sellerVote = BigInt.fromI32(event.params.vote);
             }
         }
 
         if (event.transaction.from == Address.fromString(deal.buyer)) {
-            deal.buyerVote = event.params.vote.toString();
+            deal.buyerVote = BigInt.fromI32(event.params.vote);
         }
+
+        deal.save();
     }
 }

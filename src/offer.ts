@@ -9,8 +9,8 @@ export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
 
     offer.owner = event.params.owner.toHexString();
-    offer.sellToken = event.params.sellToken;
-    offer.buyToken = event.params.buyToken;
+    offer.sellToken = event.params.sellToken.toHexString();
+    offer.buyToken = event.params.buyToken.toHexString();
     offer.sellAmount = event.params.sellAmount.toBigDecimal();
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
     offer.isPartial = event.params.isPartial;
@@ -26,8 +26,8 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     let offer = new OfferCommodity(event.params.offerId.toHexString());
 
     offer.owner = event.params.owner.toHexString();
-    offer.sellToken = event.params.sellToken;
-    offer.buyToken = event.params.buyToken;
+    offer.sellToken = event.params.sellToken.toHexString();
+    offer.buyToken = event.params.buyToken.toHexString();
     createCommodity(event);
     let commodityId = event.params.sellToken.toHexString().concat(event.params.sellId.toString());
     offer.sellId = commodityId;
