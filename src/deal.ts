@@ -49,10 +49,10 @@ export function updateVote(event: VoteDeal): void {
     let offer = Offer.load(deal.offer);
 
     if (event.transaction.from == Address.fromString(offer.owner)) {
-        deal.sellerVote = event.params.vote;
+        deal.sellerVote = event.params.vote.toBigDecimal();
     }
 
     if (event.transaction.from == Address.fromString(deal.buyer)) {
-        deal.buyerVote = event.params.vote;
+        deal.buyerVote = event.params.vote.toBigDecimal();
     }
 }
