@@ -1,8 +1,8 @@
 type Offer @entity {
   id: ID!
   owner: User! # address
-  sellToken: Bytes! # address
-  buyToken: Bytes!
+  sellToken: Token! # address
+  buyToken: Token!
   sellAmount: BigDecimal!
   buyAmount: BigDecimal!
   isPartial: Boolean!
@@ -17,8 +17,8 @@ type Offer @entity {
 type OfferCommodity @entity {
   id: ID!
   owner: User! # address
-  sellToken: Bytes! # address
-  buyToken: Bytes!
+  sellToken: Token! # address
+  buyToken: Token!
   sellId: Commodity! #tokenAddress - tokenId
   buyAmount: BigDecimal!
   description: String
@@ -30,8 +30,8 @@ type Deal @entity {
   offer: Offer!
   buyer: User!
   buyAmount: BigDecimal!
-  sellerVote: BigInt
-  buyerVote: BigInt
+  sellerVote: String
+  buyerVote: String
   auditorVote: BigDecimal
   isPending: Boolean!
   isSuccess: Boolean
