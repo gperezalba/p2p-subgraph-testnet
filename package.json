@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.17.1",
-    "@graphprotocol/graph-ts": "0.17.0",
-    "parse-json": "^5.0.0"
+    "@graphprotocol/graph-ts": "0.17.0"
   }
 }

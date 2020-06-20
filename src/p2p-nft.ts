@@ -13,8 +13,11 @@ export function handleNewOffer(event: NewOffer): void {
 export function handleNewDeal(event: NewDeal): void {
     createCommodityDeal(event);
     let offer = OfferCommodity.load(event.params.offerId.toHexString());
-    pushCommodityDeal(offer.owner, event.params.offerId);
-    pushCommodityDeal(event.params.buyer.toHexString(), event.params.offerId);
+    if (offer != null) {
+        pushCommodityDeal(offer.owner, event.params.offerId.toHexString());
+    }
+    
+    pushCommodityDeal(event.params.buyer.toHexString(), event.params.offerId.toHexString());
 }
 
 export function handleUpdateOffer(event: UpdateOffer): void {

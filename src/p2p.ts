@@ -22,16 +22,25 @@ export function handleNewOffer(event: NewOffer): void {
 export function handleNewDeal(event: NewDeal): void {
   finishDeal(event.params.dealId.toHexString(), event.params.success, event.params.sender);
   let deal = Deal.load(event.params.dealId.toHexString());
-  let offer = Offer.load(deal.offer);
-  updateReputation(deal.buyer, event.address);
-  updateReputation(offer.owner, event.address);
+
+  if (deal != null) {
+    let offer = Offer.load(deal.offer);
+    updateReputation(deal.buyer, event.address);
+
+    if(offer != null) {
+      updateReputation(offer.owner, event.address);
+    }
+  }
 }
 
 export function handleNewPendingDeal(event: NewPendingDeal): void {
   createDeal(event);
   pushPendingDeal(event.params.buyer.toHexString(), event.params.dealId.toHexString());
   let offer = Offer.load(event.params.offerId.toHexString());
-  pushPendingDeal(offer.owner, event.params.dealId.toHexString());
+
+  if (offer != null) {
+    pushPendingDeal(offer.owner, event.params.dealId.toHexString());
+  }
 }
 
 export function handleUpdateOffer(event: UpdateOffer): void {
@@ -48,16 +57,21 @@ export function handleVoteDeal(event: VoteDeal): void {
 
 export function handleAuditorNotification(event: AuditorNotification): void {
   let deal = Deal.load(event.params.dealId.toHexString());
-  let offer = Offer.load(deal.offer);
-  let auditor = Auditor.load(offer.auditor.toHexString());
 
-  if (auditor == null) {
-    auditor = new Auditor(offer.auditor.toHexString());
+  if (deal != null) {
+    let offer = Offer.load(deal.offer);
+
+    if (offer != null) {
+      let auditor = Auditor.load(offer.auditor.toHexString());
+
+      if (auditor == null) {
+        auditor = new Auditor(offer.auditor.toHexString());
+        let requests = auditor.requests;
+        requests.push(deal.id);
+        auditor.requests = requests;
+
+        auditor.save();
+      }
+    }
   }
-
-  let requests = auditor.requests;
-  requests.push(deal.id);
-  auditor.requests = requests;
-
-  auditor.save();
 }

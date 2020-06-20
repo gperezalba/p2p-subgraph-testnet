@@ -1,9 +1,9 @@
-import { BigInt, BigDecimal, JSONValue } from "@graphprotocol/graph-ts"
+import { BigInt, BigDecimal } from "@graphprotocol/graph-ts"
+//import { parseJson } from "@types/parse-json/index";
 import { NewOffer, UpdateOffer, CancelOffer } from "../generated/PIBP2P/PIBP2P";
 import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, CancelOffer as CancelOfferCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
 import { Offer, OfferCommodity, Commodity, Token, Gold, Diamond } from "../generated/schema";
 import { ERC721 } from "../generated/templates/ERC721/ERC721";
-import parseJson from "parse-json"
 
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
@@ -91,10 +91,10 @@ function createCommodity(event: NewOfferCommodity): void {
         }
 
         if (!metadata.reverted) {
-            let json = parseJson(metadata.value);
+            /*let json = JSON.parse(metadata.value);
             gold.weight_brute = json.weight_brute;
             gold.weight_fine = json.weight_fine;
-            gold.law = json.law;
+            gold.law = json.law;*/
         } else {
             gold.weight_brute = BigDecimal.fromString('0');
             gold.weight_fine = BigDecimal.fromString('0');
@@ -118,11 +118,11 @@ function createCommodity(event: NewOfferCommodity): void {
         }
 
         if (!metadata.reverted) {
-            let json = parseJson(metadata.value);
+            /*let json = JSON.parse(metadata.value);
             diamond.color = json.color;
             diamond.clarity = json.weight_fine;
             diamond.cut = json.cut;
-            diamond.carat_weight = json.carat_weight;
+            diamond.carat_weight = json.carat_weight;*/
         } else {
             diamond.color = "reverted";
             diamond.clarity = "reverted";
