@@ -637,20 +637,20 @@ export class Token extends Entity {
     this.set("isNFT", Value.fromBoolean(value));
   }
 
-  get category(): BigInt | null {
+  get category(): BigDecimal | null {
     let value = this.get("category");
     if (value === null) {
       return null;
     } else {
-      return value.toBigInt();
+      return value.toBigDecimal();
     }
   }
 
-  set category(value: BigInt | null) {
+  set category(value: BigDecimal | null) {
     if (value === null) {
       this.unset("category");
     } else {
-      this.set("category", Value.fromBigInt(value as BigInt));
+      this.set("category", Value.fromBigDecimal(value as BigDecimal));
     }
   }
 }

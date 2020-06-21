@@ -76,7 +76,7 @@ function createCommodity(event: NewOfferCommodity): void {
     let id = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     let commodity = new Commodity(id);
 
-    if (token.category == BigInt.fromI32(1)) {
+    if (token.category == BigDecimal.fromString('1')) {
         let gold = new Gold(id);
         let token = ERC721.bind(event.params.sellToken);
         gold.token = event.params.sellToken.toHexString();
@@ -103,7 +103,7 @@ function createCommodity(event: NewOfferCommodity): void {
 
         gold.save();
         commodity.gold = id;
-    } else if (token.category == BigInt.fromI32(2)) {
+    } else if (token.category == BigDecimal.fromString('2')) {
         let diamond = new Diamond(id);
         let token = ERC721.bind(event.params.sellToken);
         diamond.token = event.params.sellToken.toHexString();
