@@ -835,6 +835,15 @@ export class Gold extends Entity {
       this.set("law", Value.fromBigDecimal(value as BigDecimal));
     }
   }
+
+  get isLive(): boolean {
+    let value = this.get("isLive");
+    return value.toBoolean();
+  }
+
+  set isLive(value: boolean) {
+    this.set("isLive", Value.fromBoolean(value));
+  }
 }
 
 export class Diamond extends Entity {
@@ -951,6 +960,15 @@ export class Diamond extends Entity {
     } else {
       this.set("carat_weight", Value.fromBigDecimal(value as BigDecimal));
     }
+  }
+
+  get isLive(): boolean {
+    let value = this.get("isLive");
+    return value.toBoolean();
+  }
+
+  set isLive(value: boolean) {
+    this.set("isLive", Value.fromBoolean(value));
   }
 }
 

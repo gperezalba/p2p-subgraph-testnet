@@ -123,7 +123,7 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.1
       language: wasm/assemblyscript
-      file: ./src/token.ts
+      file: ./src/commodity.ts
       entities:
         - Transfer
       abis:
@@ -131,4 +131,4 @@ templates:
           file: ./abis/ERC721.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer  
+          handler: handleTransfer 

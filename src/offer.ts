@@ -1,9 +1,7 @@
-import { BigInt, BigDecimal } from "@graphprotocol/graph-ts"
-//import { parseJson } from "@types/parse-json/index";
 import { NewOffer, UpdateOffer, CancelOffer } from "../generated/PIBP2P/PIBP2P";
 import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, CancelOffer as CancelOfferCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
-import { Offer, OfferCommodity, Commodity, Token, Gold, Diamond } from "../generated/schema";
-import { ERC721 } from "../generated/templates/ERC721/ERC721";
+import { Offer, OfferCommodity } from "../generated/schema";
+import { mintCommodity } from "./commodity";
 
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
@@ -28,7 +26,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.owner = event.params.owner.toHexString();
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
-    createCommodity(event);
+    mintCommodity(event.params.sellToken.toHexString(), event.params.sellId);
     let commodityId = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     offer.sellId = commodityId;
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
@@ -71,7 +69,7 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
     offer.save();
 }
 
-function createCommodity(event: NewOfferCommodity): void {
+/*function createCommodity(event: NewOfferCommodity): void {
     let token = Token.load(event.params.sellToken.toHexString());
     let id = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     let commodity = new Commodity(id);
@@ -91,10 +89,10 @@ function createCommodity(event: NewOfferCommodity): void {
         }
 
         if (!metadata.reverted) {
-            /*let json = JSON.parse(metadata.value);
+            let json = JSON.parse(metadata.value);
             gold.weight_brute = json.weight_brute;
             gold.weight_fine = json.weight_fine;
-            gold.law = json.law;*/
+            gold.law = json.law;
             gold.metadata = metadata.value;
         } else {
             gold.weight_brute = BigDecimal.fromString('0');
@@ -119,11 +117,11 @@ function createCommodity(event: NewOfferCommodity): void {
         }
 
         if (!metadata.reverted) {
-            /*let json = JSON.parse(metadata.value);
+            let json = JSON.parse(metadata.value);
             diamond.color = json.color;
             diamond.clarity = json.weight_fine;
             diamond.cut = json.cut;
-            diamond.carat_weight = json.carat_weight;*/
+            diamond.carat_weight = json.carat_weight;
         } else {
             diamond.color = "reverted";
             diamond.clarity = "reverted";
@@ -136,4 +134,4 @@ function createCommodity(event: NewOfferCommodity): void {
     }
 
     commodity.save();
-}
+}*/

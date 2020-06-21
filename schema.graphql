@@ -76,6 +76,7 @@ type Gold @entity {
   weight_brute: BigDecimal
   weight_fine: BigDecimal
   law: BigDecimal
+  isLive: Boolean
 }
 
 type Diamond @entity {
@@ -86,6 +87,7 @@ type Diamond @entity {
   clarity: String #cambiar a BigDecimal para filtrar?
   cut: String
   carat_weight: BigDecimal
+  isLive: Boolean
 }
 
 type Auditor @entity {

@@ -5,6 +5,7 @@ import {
 } from "../generated/schema"
 
 import { Token as TokenContract } from "../generated/templates/Token/Token"
+import { ERC721 as ERC721Template } from "../generated/templates"
 
 const PI_ADDRESS = "0x0000000000000000000000000000000000000000";
 
@@ -40,6 +41,10 @@ export function createToken(tokenAddress: Address, isNFT: boolean, category: Big
 
         token.isNFT = isNFT;
         token.category = category;
+
+        if (isNFT) {
+            ERC721Template.create(tokenAddress);
+        }
 
     }
   
