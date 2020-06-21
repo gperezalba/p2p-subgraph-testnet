@@ -277,6 +277,11 @@
       },
       {
         "indexed": false,
+        "name": "sellAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
         "name": "buyAmount",
         "type": "uint256"
       }

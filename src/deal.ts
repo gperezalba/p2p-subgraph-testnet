@@ -11,6 +11,7 @@ export function createDeal(event: NewPendingDeal): void {
 
         deal.offer = event.params.offerId.toHexString();
         deal.buyer = event.params.buyer.toHexString();
+        deal.sellAmount = event.params.sellAmount.toBigDecimal();
         deal.buyAmount = event.params.buyAmount.toBigDecimal();
         deal.sellerVote = BigInt.fromI32(0);
         deal.buyerVote = BigInt.fromI32(0);

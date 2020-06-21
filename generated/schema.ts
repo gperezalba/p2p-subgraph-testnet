@@ -299,6 +299,15 @@ export class Deal extends Entity {
     this.set("buyer", Value.fromString(value));
   }
 
+  get sellAmount(): BigDecimal {
+    let value = this.get("sellAmount");
+    return value.toBigDecimal();
+  }
+
+  set sellAmount(value: BigDecimal) {
+    this.set("sellAmount", Value.fromBigDecimal(value));
+  }
+
   get buyAmount(): BigDecimal {
     let value = this.get("buyAmount");
     return value.toBigDecimal();

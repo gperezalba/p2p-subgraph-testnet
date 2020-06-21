@@ -120,8 +120,12 @@ export class NewPendingDeal__Params {
     return this._event.parameters[2].value.toAddress();
   }
 
-  get buyAmount(): BigInt {
+  get sellAmount(): BigInt {
     return this._event.parameters[3].value.toBigInt();
+  }
+
+  get buyAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 

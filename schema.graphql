@@ -29,6 +29,7 @@ type Deal @entity {
   id: ID!
   offer: Offer!
   buyer: User!
+  sellAmount: BigDecimal!
   buyAmount: BigDecimal!
   sellerVote: BigInt
   buyerVote: BigInt
