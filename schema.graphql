@@ -75,7 +75,7 @@ type Gold @entity {
   reference: String!
   token: Token!
   metadata: String
-  weight_brute: BigDecimal
+  weight_brute: String
   weight_fine: BigDecimal
   law: BigDecimal
   isLive: Boolean

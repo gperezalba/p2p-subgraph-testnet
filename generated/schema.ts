@@ -803,20 +803,20 @@ export class Gold extends Entity {
     }
   }
 
-  get weight_brute(): BigDecimal | null {
+  get weight_brute(): string | null {
     let value = this.get("weight_brute");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toString();
     }
   }
 
-  set weight_brute(value: BigDecimal | null) {
+  set weight_brute(value: string | null) {
     if (value === null) {
       this.unset("weight_brute");
     } else {
-      this.set("weight_brute", Value.fromBigDecimal(value as BigDecimal));
+      this.set("weight_brute", Value.fromString(value as string));
     }
   }
 
