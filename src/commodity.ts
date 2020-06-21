@@ -6,7 +6,7 @@ import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
 export function handleTransfer(event: Transfer): void {
 
     if (event.params._from == Address.fromString('0')) {
-        mintCommodity(event.address.toHexString(), event.params._tokenId);
+        mintCommodity(event.address, event.params._tokenId);
     }
 
     if (event.params._to == Address.fromString('0')) {
@@ -14,9 +14,9 @@ export function handleTransfer(event: Transfer): void {
     }
 }
 
-export function mintCommodity(tokenAddress: string, tokenId: BigInt): void {
-    let token = Token.load(tokenAddress);
-    let id = tokenAddress.concat("-").concat(tokenId.toString());
+export function mintCommodity(tokenAddress: Address, tokenId: BigInt): void {
+    let token = Token.load(tokenAddress.toHexString());
+    let id = tokenAddress.toHexString().concat("-").concat(tokenId.toString());
 
     let commodity = Commodity.load(id);
 
@@ -25,8 +25,8 @@ export function mintCommodity(tokenAddress: string, tokenId: BigInt): void {
 
         if (token.category == BigInt.fromI32(1)) {
             let gold = new Gold(id);
-            let token = ERC721.bind(Address.fromHexString(tokenAddress) as Address);
-            gold.token = tokenAddress;
+            let token = ERC721.bind(tokenAddress);
+            gold.token = tokenAddress.toHexString();
             gold.isLive = true;
 
             let ref = token.try_getRefById(tokenId);
@@ -54,8 +54,8 @@ export function mintCommodity(tokenAddress: string, tokenId: BigInt): void {
             commodity.gold = id;
         } else if (token.category == BigInt.fromI32(2)) {
             let diamond = new Diamond(id);
-            let token = ERC721.bind(Address.fromHexString(tokenAddress) as Address);
-            diamond.token = tokenAddress;
+            let token = ERC721.bind(tokenAddress);
+            diamond.token = tokenAddress.toHexString();
             diamond.isLive = true;
 
             let ref = token.try_getRefById(tokenId);

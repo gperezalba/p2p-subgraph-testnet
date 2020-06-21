@@ -26,7 +26,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.owner = event.params.owner.toHexString();
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
-    mintCommodity(event.params.sellToken.toHexString(), event.params.sellId);
+    mintCommodity(event.params.sellToken, event.params.sellId);
     let commodityId = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     offer.sellId = commodityId;
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
