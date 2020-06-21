@@ -39,7 +39,7 @@ export function createToken(tokenAddress: Address, isNFT: boolean, category: Big
         }
 
         token.isNFT = isNFT;
-        token.category = BigInt.fromI32(1);
+        token.category = category;
 
     }
   
