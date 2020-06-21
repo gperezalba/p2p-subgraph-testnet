@@ -1,6 +1,6 @@
 import { Transfer, ERC721 } from "../generated/templates/ERC721/ERC721";
 import { Token, Commodity, Gold, Diamond } from "../generated/schema";
-import { BigDecimal, BigInt, Address, JSONValue, JSONValuePayload } from "@graphprotocol/graph-ts";
+import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
@@ -40,13 +40,9 @@ export function mintCommodity(tokenAddress: Address, tokenId: BigInt): void {
             }
 
             if (!metadata.reverted) {
-                let json = new JSONValue();
-                json.data = metadata.value as JSONValuePayload;
-                let jsonObj = json.toObject();
-
-                //let json = JSON.parse(metadata.value);
+                /*let json = JSON.parse(metadata.value);
                 gold.weight_brute = jsonObj.get('weight_brute').toString();
-                /*gold.weight_fine = json.weight_fine;
+                gold.weight_fine = json.weight_fine;
                 gold.law = json.law;*/
                 gold.metadata = metadata.value;
             } else {
