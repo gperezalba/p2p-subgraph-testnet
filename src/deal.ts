@@ -5,11 +5,13 @@ import { NewDeal } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
 
 export function createDeal(event: NewPendingDeal): void {
     let deal = Deal.load(event.params.dealId.toHexString());
+    let offer = Offer.load(event.params.offerId.toHexString());
 
     if (deal == null) {
         deal = new Deal(event.params.dealId.toHexString());
 
         deal.offer = event.params.offerId.toHexString();
+        deal.seller = offer.owner;
         deal.buyer = event.params.buyer.toHexString();
         deal.sellAmount = event.params.sellAmount.toBigDecimal();
         deal.buyAmount = event.params.buyAmount.toBigDecimal();

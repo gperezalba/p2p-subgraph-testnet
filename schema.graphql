@@ -28,6 +28,7 @@ type OfferCommodity @entity {
 type Deal @entity {
   id: ID!
   offer: Offer!
+  seller: User!
   buyer: User!
   sellAmount: BigDecimal!
   buyAmount: BigDecimal!

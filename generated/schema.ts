@@ -290,6 +290,15 @@ export class Deal extends Entity {
     this.set("offer", Value.fromString(value));
   }
 
+  get seller(): string {
+    let value = this.get("seller");
+    return value.toString();
+  }
+
+  set seller(value: string) {
+    this.set("seller", Value.fromString(value));
+  }
+
   get buyer(): string {
     let value = this.get("buyer");
     return value.toString();
