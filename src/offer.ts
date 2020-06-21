@@ -95,6 +95,7 @@ function createCommodity(event: NewOfferCommodity): void {
             gold.weight_brute = json.weight_brute;
             gold.weight_fine = json.weight_fine;
             gold.law = json.law;*/
+            gold.metadata = metadata.value;
         } else {
             gold.weight_brute = BigDecimal.fromString('0');
             gold.weight_fine = BigDecimal.fromString('0');

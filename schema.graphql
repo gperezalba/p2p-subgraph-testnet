@@ -72,6 +72,7 @@ type Gold @entity {
   id: ID!
   reference: String!
   token: Token!
+  metadata: String
   weight_brute: BigDecimal
   weight_fine: BigDecimal
   law: BigDecimal

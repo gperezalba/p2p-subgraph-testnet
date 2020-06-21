@@ -768,6 +768,23 @@ export class Gold extends Entity {
     this.set("token", Value.fromString(value));
   }
 
+  get metadata(): string | null {
+    let value = this.get("metadata");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metadata(value: string | null) {
+    if (value === null) {
+      this.unset("metadata");
+    } else {
+      this.set("metadata", Value.fromString(value as string));
+    }
+  }
+
   get weight_brute(): BigDecimal | null {
     let value = this.get("weight_brute");
     if (value === null) {
