@@ -93,7 +93,7 @@ dataSources:
         - event: NewToken(address)
           handler: handleNewToken
         - event: NewNFToken(address,uint256)
-          handler: handleNewToken
+          handler: handleNewNFToken
       file: ./src/controller.ts
 templates:
   - name: Token

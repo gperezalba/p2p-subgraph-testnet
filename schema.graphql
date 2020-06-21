@@ -59,7 +59,7 @@ type Token @entity {
   tokenSymbol: String!
   tokenName: String!
   isNFT: Boolean!
-  category: BigDecimal
+  category: BigInt
 }
 
 type Commodity @entity {
