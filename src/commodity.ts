@@ -2,14 +2,15 @@ import { Transfer, ERC721 } from "../generated/templates/ERC721/ERC721";
 import { Token, Commodity, Gold, Diamond } from "../generated/schema";
 import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
 
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function handleTransfer(event: Transfer): void {
 
-    if (event.params._from == Address.fromString('0')) {
+    if (event.params._from == Address.fromString(ZERO_ADDRESS)) {
         mintCommodity(event.address, event.params._tokenId);
     }
 
-    if (event.params._to == Address.fromString('0')) {
+    if (event.params._to == Address.fromString(ZERO_ADDRESS)) {
         burnCommodity(event.address.toHexString(), event.params._tokenId);
     }
 }
