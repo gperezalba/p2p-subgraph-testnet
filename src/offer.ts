@@ -29,7 +29,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
     createCommodity(event);
-    let commodityId = event.params.sellToken.toHexString().concat(event.params.sellId.toString());
+    let commodityId = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     offer.sellId = commodityId;
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
     offer.description = event.params.description;
@@ -73,7 +73,7 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
 
 function createCommodity(event: NewOfferCommodity): void {
     let token = Token.load(event.params.sellToken.toHexString());
-    let id = event.params.sellToken.toHexString().concat(event.params.sellId.toString());
+    let id = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     let commodity = new Commodity(id);
 
     if (token.category == BigInt.fromI32(1)) {
