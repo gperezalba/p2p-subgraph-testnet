@@ -20,7 +20,7 @@ export function createOffer(event: NewOffer): void {
     let metadata: Array<BigInt> = event.params.metadata
     offer.country = metadata[0];
     offer.subcountry = metadata[1];
-    offer.subcountry = metadata[2];
+    offer.subsubcountry = metadata[2];
     let methods: Array<BigInt> = [];
     
     for (let i = 3; i < metadata.length; i++) {
@@ -47,7 +47,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     let metadata: Array<BigInt> = event.params.metadata
     offer.country = metadata[0];
     offer.subcountry = metadata[1];
-    offer.subcountry = metadata[2];
+    offer.subsubcountry = metadata[2];
     let methods: Array<BigInt> = [];
     
     for (let i = 3; i < metadata.length; i++) {
