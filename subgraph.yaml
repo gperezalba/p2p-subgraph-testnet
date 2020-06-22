@@ -6,7 +6,7 @@ dataSources:
     name: PIBP2P
     network: mainnet
     source:
-      address: "0x981d9bfDB8cA3404b91c045eb4Ee73d23facc9d2"
+      address: "0x18D573ee40a74Ed5C97E8A33228F8040862f9d63"
       abi: PIBP2P
     mapping:
       kind: ethereum/events
@@ -24,7 +24,7 @@ dataSources:
         - name: PIBP2P
           file: ./abis/PIBP2P.json
       eventHandlers:
-        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,bool,bool,address,string,indexed bytes32)
+        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,bool,bool,address,string,indexed bytes32,uint256[])
           handler: handleNewOffer
         - event: NewDeal(indexed bytes32,bool,indexed address)
           handler: handleNewDeal
@@ -43,7 +43,7 @@ dataSources:
     name: PIBP2PCommodity
     network: mainnet
     source:
-      address: "0xba29452F475BdBB30E97bE01868af969Dd4b1A9b"
+      address: "0x66139ef1FbC83246b02A919325B76afd0fc4786F"
       abi: PIBP2PCommodity
     mapping:
       kind: ethereum/events
@@ -60,7 +60,7 @@ dataSources:
         - name: ERC721
           file: ./abis/ERC721.json
       eventHandlers:
-        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,string,indexed bytes32)
+        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,string,indexed bytes32,uint256[])
           handler: handleNewOffer
         - event: NewDeal(indexed bytes32,indexed address,uint256)
           handler: handleNewDeal
@@ -73,7 +73,7 @@ dataSources:
     name: Controller
     network: mainnet
     source:
-      address: "0x3cF50f12426861039ebc21a452f4C82FFfbeFC57"
+      address: "0x1647d76c21548698d1308d54Bf559bF04EED09Ec"
       abi: Controller
     mapping:
       kind: ethereum/events
@@ -132,3 +132,5 @@ templates:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer 
+        - event: NewJson(indexed uint256,uint256[])
+          handler: handleNewJson

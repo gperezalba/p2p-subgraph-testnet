@@ -110,6 +110,11 @@
         "indexed": true,
         "name": "offerId",
         "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "metadata",
+        "type": "uint256[]"
       }
     ],
     "name": "NewOffer",
@@ -193,6 +198,10 @@
       {
         "name": "_description",
         "type": "string"
+      },
+      {
+        "name": "_metadata",
+        "type": "uint256[]"
       }
     ],
     "name": "offer",

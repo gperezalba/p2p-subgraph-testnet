@@ -10,6 +10,10 @@ type Offer @entity {
   auditor: Bytes
   description: String
   isOpen: Boolean!
+  country: BigInt
+  subcountry: BigInt
+  subsubcountry: BigInt
+  payMethod: [BigInt!]
 }
 
 #union Commodity = Gold | Diamond
@@ -23,6 +27,10 @@ type OfferCommodity @entity {
   buyAmount: BigDecimal!
   description: String
   isOpen: Boolean!
+  country: BigInt
+  subcountry: BigInt
+  subsubcountry: BigInt
+  payMethod: [BigInt!]
 }
 
 type Deal @entity {
@@ -66,8 +74,10 @@ type Token @entity {
 
 type Commodity @entity {
   id: ID!
+  tokenId: BigInt!
   gold: Gold
   diamond: Diamond
+  offer: OfferCommodity @derivedFrom(field: "sellId")
 }
 
 type Gold @entity {
@@ -75,21 +85,25 @@ type Gold @entity {
   reference: String!
   token: Token!
   metadata: String
-  weight_brute: String
+  weight_brute: BigDecimal
   weight_fine: BigDecimal
   law: BigDecimal
   isLive: Boolean
+  isP2P: Boolean
+  commodity: Commodity! @derivedFrom(field: "gold")
 }
 
 type Diamond @entity {
   id: ID!
   reference: String!
   token: Token!
-  color: String
-  clarity: String #cambiar a BigDecimal para filtrar?
-  cut: String
+  color: BigDecimal
+  clarity: BigDecimal #cambiar a BigDecimal para filtrar?
+  cut: BigDecimal
   carat_weight: BigDecimal
   isLive: Boolean
+  isP2P: Boolean
+  commodity: Commodity! @derivedFrom(field: "diamond")
 }
 
 type Auditor @entity {

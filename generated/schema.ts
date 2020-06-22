@@ -147,6 +147,74 @@ export class Offer extends Entity {
   set isOpen(value: boolean) {
     this.set("isOpen", Value.fromBoolean(value));
   }
+
+  get country(): BigInt | null {
+    let value = this.get("country");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set country(value: BigInt | null) {
+    if (value === null) {
+      this.unset("country");
+    } else {
+      this.set("country", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get subcountry(): BigInt | null {
+    let value = this.get("subcountry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set subcountry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("subcountry");
+    } else {
+      this.set("subcountry", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get subsubcountry(): BigInt | null {
+    let value = this.get("subsubcountry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set subsubcountry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("subsubcountry");
+    } else {
+      this.set("subsubcountry", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get payMethod(): Array<BigInt> | null {
+    let value = this.get("payMethod");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set payMethod(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("payMethod");
+    } else {
+      this.set("payMethod", Value.fromBigIntArray(value as Array<BigInt>));
+    }
+  }
 }
 
 export class OfferCommodity extends Entity {
@@ -248,6 +316,74 @@ export class OfferCommodity extends Entity {
 
   set isOpen(value: boolean) {
     this.set("isOpen", Value.fromBoolean(value));
+  }
+
+  get country(): BigInt | null {
+    let value = this.get("country");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set country(value: BigInt | null) {
+    if (value === null) {
+      this.unset("country");
+    } else {
+      this.set("country", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get subcountry(): BigInt | null {
+    let value = this.get("subcountry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set subcountry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("subcountry");
+    } else {
+      this.set("subcountry", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get subsubcountry(): BigInt | null {
+    let value = this.get("subsubcountry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set subsubcountry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("subsubcountry");
+    } else {
+      this.set("subsubcountry", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get payMethod(): Array<BigInt> | null {
+    let value = this.get("payMethod");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set payMethod(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("payMethod");
+    } else {
+      this.set("payMethod", Value.fromBigIntArray(value as Array<BigInt>));
+    }
   }
 }
 
@@ -703,6 +839,15 @@ export class Commodity extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
   get gold(): string | null {
     let value = this.get("gold");
     if (value === null) {
@@ -734,6 +879,23 @@ export class Commodity extends Entity {
       this.unset("diamond");
     } else {
       this.set("diamond", Value.fromString(value as string));
+    }
+  }
+
+  get offer(): string | null {
+    let value = this.get("offer");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set offer(value: string | null) {
+    if (value === null) {
+      this.unset("offer");
+    } else {
+      this.set("offer", Value.fromString(value as string));
     }
   }
 }
@@ -803,20 +965,20 @@ export class Gold extends Entity {
     }
   }
 
-  get weight_brute(): string | null {
+  get weight_brute(): BigDecimal | null {
     let value = this.get("weight_brute");
     if (value === null) {
       return null;
     } else {
-      return value.toString();
+      return value.toBigDecimal();
     }
   }
 
-  set weight_brute(value: string | null) {
+  set weight_brute(value: BigDecimal | null) {
     if (value === null) {
       this.unset("weight_brute");
     } else {
-      this.set("weight_brute", Value.fromString(value as string));
+      this.set("weight_brute", Value.fromBigDecimal(value as BigDecimal));
     }
   }
 
@@ -861,6 +1023,24 @@ export class Gold extends Entity {
 
   set isLive(value: boolean) {
     this.set("isLive", Value.fromBoolean(value));
+  }
+
+  get isP2P(): boolean {
+    let value = this.get("isP2P");
+    return value.toBoolean();
+  }
+
+  set isP2P(value: boolean) {
+    this.set("isP2P", Value.fromBoolean(value));
+  }
+
+  get commodity(): string {
+    let value = this.get("commodity");
+    return value.toString();
+  }
+
+  set commodity(value: string) {
+    this.set("commodity", Value.fromString(value));
   }
 }
 
@@ -912,54 +1092,54 @@ export class Diamond extends Entity {
     this.set("token", Value.fromString(value));
   }
 
-  get color(): string | null {
+  get color(): BigDecimal | null {
     let value = this.get("color");
     if (value === null) {
       return null;
     } else {
-      return value.toString();
+      return value.toBigDecimal();
     }
   }
 
-  set color(value: string | null) {
+  set color(value: BigDecimal | null) {
     if (value === null) {
       this.unset("color");
     } else {
-      this.set("color", Value.fromString(value as string));
+      this.set("color", Value.fromBigDecimal(value as BigDecimal));
     }
   }
 
-  get clarity(): string | null {
+  get clarity(): BigDecimal | null {
     let value = this.get("clarity");
     if (value === null) {
       return null;
     } else {
-      return value.toString();
+      return value.toBigDecimal();
     }
   }
 
-  set clarity(value: string | null) {
+  set clarity(value: BigDecimal | null) {
     if (value === null) {
       this.unset("clarity");
     } else {
-      this.set("clarity", Value.fromString(value as string));
+      this.set("clarity", Value.fromBigDecimal(value as BigDecimal));
     }
   }
 
-  get cut(): string | null {
+  get cut(): BigDecimal | null {
     let value = this.get("cut");
     if (value === null) {
       return null;
     } else {
-      return value.toString();
+      return value.toBigDecimal();
     }
   }
 
-  set cut(value: string | null) {
+  set cut(value: BigDecimal | null) {
     if (value === null) {
       this.unset("cut");
     } else {
-      this.set("cut", Value.fromString(value as string));
+      this.set("cut", Value.fromBigDecimal(value as BigDecimal));
     }
   }
 
@@ -987,6 +1167,24 @@ export class Diamond extends Entity {
 
   set isLive(value: boolean) {
     this.set("isLive", Value.fromBoolean(value));
+  }
+
+  get isP2P(): boolean {
+    let value = this.get("isP2P");
+    return value.toBoolean();
+  }
+
+  set isP2P(value: boolean) {
+    this.set("isP2P", Value.fromBoolean(value));
+  }
+
+  get commodity(): string {
+    let value = this.get("commodity");
+    return value.toString();
+  }
+
+  set commodity(value: string) {
+    this.set("commodity", Value.fromString(value));
   }
 }
 

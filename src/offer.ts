@@ -1,7 +1,8 @@
 import { NewOffer, UpdateOffer, CancelOffer } from "../generated/PIBP2P/PIBP2P";
 import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, CancelOffer as CancelOfferCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
 import { Offer, OfferCommodity } from "../generated/schema";
-import { mintCommodity } from "./commodity";
+import { pushP2P } from "./commodity";
+import { BigInt } from "@graphprotocol/graph-ts";
 
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
@@ -16,6 +17,17 @@ export function createOffer(event: NewOffer): void {
     offer.auditor = event.params.auditor;
     offer.description = event.params.description;
     offer.isOpen = true;
+    let metadata: Array<BigInt> = event.params.metadata
+    offer.country = metadata[0];
+    offer.subcountry = metadata[1];
+    offer.subcountry = metadata[2];
+    let methods: Array<BigInt> = [];
+    
+    for (let i = 3; i < metadata.length; i++) {
+        methods.push(metadata[i]);
+    }
+
+    offer.payMethod = methods;
 
     offer.save();
 }
@@ -26,12 +38,23 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.owner = event.params.owner.toHexString();
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
-    mintCommodity(event.params.sellToken, event.params.sellId);
+    pushP2P(event.params.sellToken.toHexString(), event.params.sellId);
     let commodityId = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     offer.sellId = commodityId;
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
     offer.description = event.params.description;
     offer.isOpen = true;
+    let metadata: Array<BigInt> = event.params.metadata
+    offer.country = metadata[0];
+    offer.subcountry = metadata[1];
+    offer.subcountry = metadata[2];
+    let methods: Array<BigInt> = [];
+    
+    for (let i = 3; i < metadata.length; i++) {
+        methods.push(metadata[i]);
+    }
+
+    offer.payMethod = methods;
 
     offer.save();
 }

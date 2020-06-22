@@ -67,6 +67,10 @@ export class NewOffer__Params {
   get offerId(): Bytes {
     return this._event.parameters[9].value.toBytes();
   }
+
+  get metadata(): Array<BigInt> {
+    return this._event.parameters[10].value.toBigIntArray();
+  }
 }
 
 export class NewDeal extends EthereumEvent {
@@ -546,6 +550,10 @@ export class OfferCall__Inputs {
 
   get _description(): string {
     return this._call.inputValues[7].value.toString();
+  }
+
+  get _metadata(): Array<BigInt> {
+    return this._call.inputValues[8].value.toBigIntArray();
   }
 }
 

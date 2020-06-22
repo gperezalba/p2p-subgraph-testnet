@@ -93,6 +93,28 @@ export class ApprovalForAll__Params {
   }
 }
 
+export class NewJson extends EthereumEvent {
+  get params(): NewJson__Params {
+    return new NewJson__Params(this);
+  }
+}
+
+export class NewJson__Params {
+  _event: NewJson;
+
+  constructor(event: NewJson) {
+    this._event = event;
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get json(): Array<BigInt> {
+    return this._event.parameters[1].value.toBigIntArray();
+  }
+}
+
 export class ERC721 extends SmartContract {
   static bind(address: Address): ERC721 {
     return new ERC721("ERC721", address);
@@ -211,15 +233,15 @@ export class ERC721 extends SmartContract {
     return CallResult.fromValue(value[0].toString());
   }
 
-  getMetadata(_tokenId: BigInt): string {
+  getMetadata(_tokenId: BigInt): Array<BigInt> {
     let result = super.call("getMetadata", [
       EthereumValue.fromUnsignedBigInt(_tokenId)
     ]);
 
-    return result[0].toString();
+    return result[0].toBigIntArray();
   }
 
-  try_getMetadata(_tokenId: BigInt): CallResult<string> {
+  try_getMetadata(_tokenId: BigInt): CallResult<Array<BigInt>> {
     let result = super.tryCall("getMetadata", [
       EthereumValue.fromUnsignedBigInt(_tokenId)
     ]);
@@ -227,7 +249,7 @@ export class ERC721 extends SmartContract {
       return new CallResult();
     }
     let value = result.value;
-    return CallResult.fromValue(value[0].toString());
+    return CallResult.fromValue(value[0].toBigIntArray());
   }
 }
 
