@@ -87,6 +87,15 @@ export class Offer extends Entity {
     this.set("buyAmount", Value.fromBigDecimal(value));
   }
 
+  get price(): BigDecimal {
+    let value = this.get("price");
+    return value.toBigDecimal();
+  }
+
+  set price(value: BigDecimal) {
+    this.set("price", Value.fromBigDecimal(value));
+  }
+
   get isPartial(): boolean {
     let value = this.get("isPartial");
     return value.toBoolean();
@@ -273,6 +282,33 @@ export class OfferCommodity extends Entity {
 
   set buyAmount(value: BigDecimal) {
     this.set("buyAmount", Value.fromBigDecimal(value));
+  }
+
+  get price(): BigDecimal {
+    let value = this.get("price");
+    return value.toBigDecimal();
+  }
+
+  set price(value: BigDecimal) {
+    this.set("price", Value.fromBigDecimal(value));
+  }
+
+  get price_per_brute_weight(): BigDecimal {
+    let value = this.get("price_per_brute_weight");
+    return value.toBigDecimal();
+  }
+
+  set price_per_brute_weight(value: BigDecimal) {
+    this.set("price_per_brute_weight", Value.fromBigDecimal(value));
+  }
+
+  get price_per_fine_weight(): BigDecimal {
+    let value = this.get("price_per_fine_weight");
+    return value.toBigDecimal();
+  }
+
+  set price_per_fine_weight(value: BigDecimal) {
+    this.set("price_per_fine_weight", Value.fromBigDecimal(value));
   }
 
   get description(): string | null {

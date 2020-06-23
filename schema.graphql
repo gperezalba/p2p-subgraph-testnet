@@ -5,6 +5,7 @@ type Offer @entity {
   buyToken: Token!
   sellAmount: BigDecimal!
   buyAmount: BigDecimal!
+  price: BigDecimal!
   isPartial: Boolean!
   isBuyFiat: Boolean!
   auditor: Bytes
@@ -24,6 +25,9 @@ type OfferCommodity @entity {
   buyToken: Token!
   sellId: Commodity! #tokenAddress - tokenId
   buyAmount: BigDecimal!
+  price: BigDecimal!
+  price_per_brute_weight: BigDecimal!
+  price_per_fine_weight: BigDecimal!
   description: String
   isOpen: Boolean!
   country: [BigInt!]
