@@ -4,6 +4,8 @@ import { Offer, OfferCommodity, Commodity, Token, Gold } from "../generated/sche
 import { pushP2P } from "./commodity";
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 
+const ONE_ETHER = "1000000000000000000";
+
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
 
@@ -62,8 +64,8 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal);
-        offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal);
+        offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal).div(BigDecimal.fromString(ONE_ETHER));
+        offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal).div(BigDecimal.fromString(ONE_ETHER));
     }
 
     let metadata: Array<BigInt> = event.params.metadata
@@ -110,8 +112,8 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal);
-        offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal);
+        offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal).div(BigDecimal.fromString(ONE_ETHER));
+        offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal).div(BigDecimal.fromString(ONE_ETHER));
     }
 
     offer.save();
