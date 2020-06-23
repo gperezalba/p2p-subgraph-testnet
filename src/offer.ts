@@ -61,7 +61,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     let token = Token.load(event.params.sellToken.toHexString());
 
     if (token.category == BigInt.fromI32(1)) {
-        let gold = Gold.load(event.params.sellId.toHexString());
+        let gold = Gold.load(commodityId);
         offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal);
         offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal);
     }
@@ -102,13 +102,14 @@ export function updateOffer(event: UpdateOffer): void {
 
 export function updateOfferCommodity(event: UpdateOfferCommodity): void {
     let offer = OfferCommodity.load(event.params.offerId.toHexString());
+    let commodityId = offer.sellToken.concat("-").concat(event.params.sellId.toString());
 
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
     offer.price = event.params.buyAmount.toBigDecimal();
     let token = Token.load(offer.sellToken);
 
     if (token.category == BigInt.fromI32(1)) {
-        let gold = Gold.load(event.params.sellId.toHexString());
+        let gold = Gold.load(commodityId);
         offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal);
         offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal);
     }
