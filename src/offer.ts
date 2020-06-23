@@ -20,20 +20,20 @@ export function createOffer(event: NewOffer): void {
     offer.timestamp = event.block.timestamp;
     let metadata: Array<BigInt> = event.params.metadata
     
-    let i = 0;
+    let isCountry = true;
     let countries: Array<BigInt> = [];
     let methods: Array<BigInt> = [];
-    countries.push(BigInt.fromI32(0));
-    methods.push(BigInt.fromI32(0));
 
-    while(metadata[i] != BigInt.fromI32(0)) {
-        countries.push(metadata[i]);
-        i++;
-    }
+    for (let i = 0; i < metadata.length; i++) {
 
-    while(metadata[i] != BigInt.fromI32(0)) {
-        methods.push(metadata[i]);
-        i++;
+        if (isCountry) {
+            countries.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isCountry = false;
+            }
+        } else {
+            methods.push(metadata[i]);
+        }
     }
 
     offer.country = countries;
@@ -57,20 +57,20 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.timestamp = event.block.timestamp;
     let metadata: Array<BigInt> = event.params.metadata
     
-    let i = 0;
+    let isCountry = true;
     let countries: Array<BigInt> = [];
     let methods: Array<BigInt> = [];
-    countries.push(BigInt.fromI32(0));
-    methods.push(BigInt.fromI32(0));
 
-    while(metadata[i] != BigInt.fromI32(0)) {
-        countries.push(metadata[i]);
-        i++;
-    }
+    for (let i = 0; i < metadata.length; i++) {
 
-    while(metadata[i] != BigInt.fromI32(0)) {
-        methods.push(metadata[i]);
-        i++;
+        if (isCountry) {
+            countries.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isCountry = false;
+            }
+        } else {
+            methods.push(metadata[i]);
+        }
     }
 
     offer.country = countries;
