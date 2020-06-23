@@ -17,16 +17,26 @@ export function createOffer(event: NewOffer): void {
     offer.auditor = event.params.auditor;
     offer.description = event.params.description;
     offer.isOpen = true;
+    offer.timestamp = event.block.timestamp;
     let metadata: Array<BigInt> = event.params.metadata
-    offer.country = metadata[0];
-    offer.subcountry = metadata[1];
-    offer.subsubcountry = metadata[2];
-    let methods: Array<BigInt> = [];
     
-    for (let i = 3; i < metadata.length; i++) {
-        methods.push(metadata[i]);
+    let i = 0;
+    let countries: Array<BigInt> = [];
+    let methods: Array<BigInt> = [];
+    countries.push(BigInt.fromI32(0));
+    methods.push(BigInt.fromI32(0));
+
+    while(metadata[i] != BigInt.fromI32(0)) {
+        countries.push(metadata[i]);
+        i++;
     }
 
+    while(metadata[i] != BigInt.fromI32(0)) {
+        methods.push(metadata[i]);
+        i++;
+    }
+
+    offer.country = countries;
     offer.payMethod = methods;
 
     offer.save();
@@ -44,16 +54,26 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
     offer.description = event.params.description;
     offer.isOpen = true;
+    offer.timestamp = event.block.timestamp;
     let metadata: Array<BigInt> = event.params.metadata
-    offer.country = metadata[0];
-    offer.subcountry = metadata[1];
-    offer.subsubcountry = metadata[2];
-    let methods: Array<BigInt> = [];
     
-    for (let i = 3; i < metadata.length; i++) {
-        methods.push(metadata[i]);
+    let i = 0;
+    let countries: Array<BigInt> = [];
+    let methods: Array<BigInt> = [];
+    countries.push(BigInt.fromI32(0));
+    methods.push(BigInt.fromI32(0));
+
+    while(metadata[i] != BigInt.fromI32(0)) {
+        countries.push(metadata[i]);
+        i++;
     }
 
+    while(metadata[i] != BigInt.fromI32(0)) {
+        methods.push(metadata[i]);
+        i++;
+    }
+
+    offer.country = countries;
     offer.payMethod = methods;
 
     offer.save();

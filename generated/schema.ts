@@ -148,25 +148,25 @@ export class Offer extends Entity {
     this.set("isOpen", Value.fromBoolean(value));
   }
 
-  get country(): BigInt | null {
+  get country(): Array<BigInt> | null {
     let value = this.get("country");
     if (value === null) {
       return null;
     } else {
-      return value.toBigInt();
+      return value.toBigIntArray();
     }
   }
 
-  set country(value: BigInt | null) {
+  set country(value: Array<BigInt> | null) {
     if (value === null) {
       this.unset("country");
     } else {
-      this.set("country", Value.fromBigInt(value as BigInt));
+      this.set("country", Value.fromBigIntArray(value as Array<BigInt>));
     }
   }
 
-  get subcountry(): BigInt | null {
-    let value = this.get("subcountry");
+  get timestamp(): BigInt | null {
+    let value = this.get("timestamp");
     if (value === null) {
       return null;
     } else {
@@ -174,28 +174,11 @@ export class Offer extends Entity {
     }
   }
 
-  set subcountry(value: BigInt | null) {
+  set timestamp(value: BigInt | null) {
     if (value === null) {
-      this.unset("subcountry");
+      this.unset("timestamp");
     } else {
-      this.set("subcountry", Value.fromBigInt(value as BigInt));
-    }
-  }
-
-  get subsubcountry(): BigInt | null {
-    let value = this.get("subsubcountry");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set subsubcountry(value: BigInt | null) {
-    if (value === null) {
-      this.unset("subsubcountry");
-    } else {
-      this.set("subsubcountry", Value.fromBigInt(value as BigInt));
+      this.set("timestamp", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -318,25 +301,25 @@ export class OfferCommodity extends Entity {
     this.set("isOpen", Value.fromBoolean(value));
   }
 
-  get country(): BigInt | null {
+  get country(): Array<BigInt> | null {
     let value = this.get("country");
     if (value === null) {
       return null;
     } else {
-      return value.toBigInt();
+      return value.toBigIntArray();
     }
   }
 
-  set country(value: BigInt | null) {
+  set country(value: Array<BigInt> | null) {
     if (value === null) {
       this.unset("country");
     } else {
-      this.set("country", Value.fromBigInt(value as BigInt));
+      this.set("country", Value.fromBigIntArray(value as Array<BigInt>));
     }
   }
 
-  get subcountry(): BigInt | null {
-    let value = this.get("subcountry");
+  get timestamp(): BigInt | null {
+    let value = this.get("timestamp");
     if (value === null) {
       return null;
     } else {
@@ -344,28 +327,11 @@ export class OfferCommodity extends Entity {
     }
   }
 
-  set subcountry(value: BigInt | null) {
+  set timestamp(value: BigInt | null) {
     if (value === null) {
-      this.unset("subcountry");
+      this.unset("timestamp");
     } else {
-      this.set("subcountry", Value.fromBigInt(value as BigInt));
-    }
-  }
-
-  get subsubcountry(): BigInt | null {
-    let value = this.get("subsubcountry");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set subsubcountry(value: BigInt | null) {
-    if (value === null) {
-      this.unset("subsubcountry");
-    } else {
-      this.set("subsubcountry", Value.fromBigInt(value as BigInt));
+      this.set("timestamp", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -946,23 +912,6 @@ export class Gold extends Entity {
 
   set token(value: string) {
     this.set("token", Value.fromString(value));
-  }
-
-  get metadata(): string | null {
-    let value = this.get("metadata");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set metadata(value: string | null) {
-    if (value === null) {
-      this.unset("metadata");
-    } else {
-      this.set("metadata", Value.fromString(value as string));
-    }
   }
 
   get weight_brute(): BigDecimal | null {

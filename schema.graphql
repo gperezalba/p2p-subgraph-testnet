@@ -10,9 +10,8 @@ type Offer @entity {
   auditor: Bytes
   description: String
   isOpen: Boolean!
-  country: BigInt
-  subcountry: BigInt
-  subsubcountry: BigInt
+  country: [BigInt!]
+  timestamp: BigInt
   payMethod: [BigInt!]
 }
 
@@ -27,9 +26,8 @@ type OfferCommodity @entity {
   buyAmount: BigDecimal!
   description: String
   isOpen: Boolean!
-  country: BigInt
-  subcountry: BigInt
-  subsubcountry: BigInt
+  country: [BigInt!]
+  timestamp: BigInt
   payMethod: [BigInt!]
 }
 
