@@ -630,6 +630,23 @@ export class User extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
   get offers(): Array<string> | null {
     let value = this.get("offers");
     if (value === null) {

@@ -13,3 +13,9 @@ export class ERC721 extends DataSourceTemplate {
     DataSourceTemplate.create("ERC721", [address.toHex()]);
   }
 }
+
+export class NameService extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("NameService", [address.toHex()]);
+  }
+}

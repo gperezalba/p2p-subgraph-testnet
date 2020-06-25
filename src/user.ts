@@ -1,6 +1,7 @@
 import { User } from "../generated/schema";
 import { BigInt, Address } from "@graphprotocol/graph-ts";
 import { PIBP2P } from "../generated/PIBP2P/PIBP2P";
+import { NameService, CreateName } from "../generated/templates/NameService/NameService";
 
 export function pushOffer(userId: string, offerId: string): void {
     createUserIfNull(userId);
@@ -77,6 +78,17 @@ export function createUserIfNull(userId: string): void {
         user.goodReputation = BigInt.fromI32(0);
         user.badReputation = BigInt.fromI32(0);
 
+        let nameService = NameService.bind(Address.fromString("0x7dbc415f5B7Ac2b658372b185BE821F561F54731"));
+        let name = nameService.try_name(Address.fromString(userId));
+
+        if (!name.reverted) {
+            user.name = name.value;
+        }
+
         user.save();
     }
+}
+
+export function handleCreateName(event: CreateName): void {
+
 }

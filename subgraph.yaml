@@ -134,3 +134,21 @@ templates:
           handler: handleTransfer 
         - event: NewJson(indexed uint256,uint256[])
           handler: handleNewJson
+  - name: NameService
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: NameService
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.1
+      language: wasm/assemblyscript
+      file: ./src/user.ts
+      entities:
+        - Transfer
+      abis:
+        - name: NameService
+          file: ./abis/NameService.json
+      eventHandlers:
+        - event: CreateName(string,indexed address,indexed address)
+          handler: handleCreateName

@@ -58,6 +58,7 @@ type DealCommodity @entity {
 
 type User @entity {
   id: ID!
+  name: String
   offers: [Offer!]
   commodityOffers: [OfferCommodity!]
   deals: [Deal!]
