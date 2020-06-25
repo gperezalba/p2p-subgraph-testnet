@@ -6,7 +6,7 @@ dataSources:
     name: PIBP2P
     network: mainnet
     source:
-      address: "0x9eC6E511E168c2d9b9EC55BA4D00Fe8C2e3C2577"
+      address: "0x2687099090707Bd1e1ACfEc7584cB2221c98805C"
       abi: PIBP2P
     mapping:
       kind: ethereum/events
@@ -42,12 +42,14 @@ dataSources:
           handler: handleAuditorNotification
         - event: UpdateReputation(address,uint256)
           handler: handleUpdateReputation
+        - event: DealLock(indexed address,bool)
+          handler: handleDealLock
       file: ./src/p2p.ts
   - kind: ethereum/contract
     name: PIBP2PCommodity
     network: mainnet
     source:
-      address: "0xCeB898091d6A0dd0E8CA067FCB500974090F21eC"
+      address: "0x208d35516228E84E2aad5E3a6B70933bf9018265"
       abi: PIBP2PCommodity
     mapping:
       kind: ethereum/events
@@ -79,7 +81,7 @@ dataSources:
     name: Controller
     network: mainnet
     source:
-      address: "0x72964DE09bF6504139303DDa74B821c3F3e377fa"
+      address: "0xb2903F85084f6389f2B1923F91d96Cf5768a9F2d"
       abi: Controller
     mapping:
       kind: ethereum/events

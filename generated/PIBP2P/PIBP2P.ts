@@ -247,6 +247,28 @@ export class UpdateReputation__Params {
   }
 }
 
+export class DealLock extends EthereumEvent {
+  get params(): DealLock__Params {
+    return new DealLock__Params(this);
+  }
+}
+
+export class DealLock__Params {
+  _event: DealLock;
+
+  constructor(event: DealLock) {
+    this._event = event;
+  }
+
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get isLocked(): boolean {
+    return this._event.parameters[1].value.toBoolean();
+  }
+}
+
 export class PIBP2P__offersResult {
   value0: Address;
   value1: Address;
@@ -548,6 +570,25 @@ export class PIBP2P extends SmartContract {
     }
     let value = result.value;
     return CallResult.fromValue(value[0].toAddress());
+  }
+
+  dealLockedUser(param0: Address): boolean {
+    let result = super.call("dealLockedUser", [
+      EthereumValue.fromAddress(param0)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_dealLockedUser(param0: Address): CallResult<boolean> {
+    let result = super.tryCall("dealLockedUser", [
+      EthereumValue.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBoolean());
   }
 }
 

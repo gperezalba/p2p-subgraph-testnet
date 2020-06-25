@@ -78,6 +78,8 @@ export function createUserIfNull(userId: string): void {
         user.goodReputation = BigInt.fromI32(0);
         user.badReputation = BigInt.fromI32(0);
         user.name = getNickname(userId);
+        user.offchainReputation = BigInt.fromI32(0);
+        user.isDealLocked = false;
 
         user.save();
     }

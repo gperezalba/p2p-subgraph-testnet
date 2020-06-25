@@ -796,6 +796,15 @@ export class User extends Entity {
     }
   }
 
+  get isDealLocked(): boolean {
+    let value = this.get("isDealLocked");
+    return value.toBoolean();
+  }
+
+  set isDealLocked(value: boolean) {
+    this.set("isDealLocked", Value.fromBoolean(value));
+  }
+
   get goodReputation(): BigInt | null {
     let value = this.get("goodReputation");
     if (value === null) {

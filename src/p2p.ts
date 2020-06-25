@@ -8,7 +8,8 @@ import {
   CancelOffer,
   VoteDeal,
   AuditorNotification,
-  UpdateReputation
+  UpdateReputation,
+  DealLock
 } from "../generated/PIBP2P/PIBP2P"
 import { Offer, Deal, Auditor, User } from "../generated/schema"
 import { pushOffer, pushPendingDeal, updateReputation, createUserIfNull } from "./user";
@@ -82,6 +83,15 @@ export function handleUpdateReputation(event: UpdateReputation): void {
   let user = User.load(event.params.user.toHexString());
 
   user.offchainReputation = event.params.reputation;
+
+  user.save();
+}
+
+export function handleDealLock(event: DealLock): void {
+  createUserIfNull(event.params.user .toHexString());
+  let user = User.load(event.params.user.toHexString());
+
+  user.isDealLocked = event.params.isLocked;
 
   user.save();
 }

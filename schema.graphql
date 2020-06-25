@@ -69,6 +69,7 @@ type User @entity {
   deals: [Deal!]
   commodityDeals: [DealCommodity!]
   offchainReputation: BigInt
+  isDealLocked: Boolean
   goodReputation: BigInt
   badReputation: BigInt
 }
