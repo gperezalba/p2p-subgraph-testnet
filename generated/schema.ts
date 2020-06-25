@@ -131,6 +131,33 @@ export class Offer extends Entity {
     this.set("isBuyFiat", Value.fromBoolean(value));
   }
 
+  get minDealAmount(): BigDecimal {
+    let value = this.get("minDealAmount");
+    return value.toBigDecimal();
+  }
+
+  set minDealAmount(value: BigDecimal) {
+    this.set("minDealAmount", Value.fromBigDecimal(value));
+  }
+
+  get maxDealAmount(): BigDecimal {
+    let value = this.get("maxDealAmount");
+    return value.toBigDecimal();
+  }
+
+  set maxDealAmount(value: BigDecimal) {
+    this.set("maxDealAmount", Value.fromBigDecimal(value));
+  }
+
+  get minReputation(): BigInt {
+    let value = this.get("minReputation");
+    return value.toBigInt();
+  }
+
+  set minReputation(value: BigInt) {
+    this.set("minReputation", Value.fromBigInt(value));
+  }
+
   get auditor(): Bytes | null {
     let value = this.get("auditor");
     if (value === null) {
@@ -749,6 +776,23 @@ export class User extends Entity {
       this.unset("commodityDeals");
     } else {
       this.set("commodityDeals", Value.fromStringArray(value as Array<string>));
+    }
+  }
+
+  get offchainReputation(): BigInt | null {
+    let value = this.get("offchainReputation");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set offchainReputation(value: BigInt | null) {
+    if (value === null) {
+      this.unset("offchainReputation");
+    } else {
+      this.set("offchainReputation", Value.fromBigInt(value as BigInt));
     }
   }
 

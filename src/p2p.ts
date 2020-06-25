@@ -7,10 +7,11 @@ import {
   UpdateOffer,
   CancelOffer,
   VoteDeal,
-  AuditorNotification
+  AuditorNotification,
+  UpdateReputation
 } from "../generated/PIBP2P/PIBP2P"
-import { Offer, Deal, Auditor } from "../generated/schema"
-import { pushOffer, pushPendingDeal, updateReputation } from "./user";
+import { Offer, Deal, Auditor, User } from "../generated/schema"
+import { pushOffer, pushPendingDeal, updateReputation, createUserIfNull } from "./user";
 import { createDeal, finishDeal, updateVote } from "./deal";
 import { createOffer, updateOffer, cancelOffer } from "./offer";
 
@@ -74,4 +75,13 @@ export function handleAuditorNotification(event: AuditorNotification): void {
       }
     }
   }
+}
+
+export function handleUpdateReputation(event: UpdateReputation): void {
+  createUserIfNull(event.params.user .toHexString());
+  let user = User.load(event.params.user.toHexString());
+
+  user.offchainReputation = event.params.reputation;
+
+  user.save();
 }

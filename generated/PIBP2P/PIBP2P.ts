@@ -56,20 +56,24 @@ export class NewOffer__Params {
     return this._event.parameters[6].value.toBoolean();
   }
 
+  get limits(): Array<BigInt> {
+    return this._event.parameters[7].value.toBigIntArray();
+  }
+
   get auditor(): Address {
-    return this._event.parameters[7].value.toAddress();
+    return this._event.parameters[8].value.toAddress();
   }
 
   get description(): string {
-    return this._event.parameters[8].value.toString();
+    return this._event.parameters[9].value.toString();
   }
 
   get offerId(): Bytes {
-    return this._event.parameters[9].value.toBytes();
+    return this._event.parameters[10].value.toBytes();
   }
 
   get metadata(): Array<BigInt> {
-    return this._event.parameters[10].value.toBigIntArray();
+    return this._event.parameters[11].value.toBigIntArray();
   }
 }
 
@@ -221,6 +225,28 @@ export class AuditorNotification__Params {
   }
 }
 
+export class UpdateReputation extends EthereumEvent {
+  get params(): UpdateReputation__Params {
+    return new UpdateReputation__Params(this);
+  }
+}
+
+export class UpdateReputation__Params {
+  _event: UpdateReputation;
+
+  constructor(event: UpdateReputation) {
+    this._event = event;
+  }
+
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get reputation(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class PIBP2P__offersResult {
   value0: Address;
   value1: Address;
@@ -229,7 +255,10 @@ export class PIBP2P__offersResult {
   value4: Address;
   value5: BigInt;
   value6: boolean;
-  value7: Address;
+  value7: BigInt;
+  value8: BigInt;
+  value9: BigInt;
+  value10: Address;
 
   constructor(
     value0: Address,
@@ -239,7 +268,10 @@ export class PIBP2P__offersResult {
     value4: Address,
     value5: BigInt,
     value6: boolean,
-    value7: Address
+    value7: BigInt,
+    value8: BigInt,
+    value9: BigInt,
+    value10: Address
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -249,6 +281,9 @@ export class PIBP2P__offersResult {
     this.value5 = value5;
     this.value6 = value6;
     this.value7 = value7;
+    this.value8 = value8;
+    this.value9 = value9;
+    this.value10 = value10;
   }
 
   toMap(): TypedMap<string, EthereumValue> {
@@ -260,7 +295,10 @@ export class PIBP2P__offersResult {
     map.set("value4", EthereumValue.fromAddress(this.value4));
     map.set("value5", EthereumValue.fromUnsignedBigInt(this.value5));
     map.set("value6", EthereumValue.fromBoolean(this.value6));
-    map.set("value7", EthereumValue.fromAddress(this.value7));
+    map.set("value7", EthereumValue.fromUnsignedBigInt(this.value7));
+    map.set("value8", EthereumValue.fromUnsignedBigInt(this.value8));
+    map.set("value9", EthereumValue.fromUnsignedBigInt(this.value9));
+    map.set("value10", EthereumValue.fromAddress(this.value10));
     return map;
   }
 }
@@ -347,6 +385,21 @@ export class PIBP2P extends SmartContract {
     return CallResult.fromValue(value[0].toBigInt());
   }
 
+  reputationHandler(): Address {
+    let result = super.call("reputationHandler", []);
+
+    return result[0].toAddress();
+  }
+
+  try_reputationHandler(): CallResult<Address> {
+    let result = super.tryCall("reputationHandler", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toAddress());
+  }
+
   offers(param0: Bytes): PIBP2P__offersResult {
     let result = super.call("offers", [EthereumValue.fromFixedBytes(param0)]);
 
@@ -358,7 +411,10 @@ export class PIBP2P extends SmartContract {
       result[4].toAddress(),
       result[5].toBigInt(),
       result[6].toBoolean(),
-      result[7].toAddress()
+      result[7].toBigInt(),
+      result[8].toBigInt(),
+      result[9].toBigInt(),
+      result[10].toAddress()
     );
   }
 
@@ -379,7 +435,10 @@ export class PIBP2P extends SmartContract {
         value[4].toAddress(),
         value[5].toBigInt(),
         value[6].toBoolean(),
-        value[7].toAddress()
+        value[7].toBigInt(),
+        value[8].toBigInt(),
+        value[9].toBigInt(),
+        value[10].toAddress()
       )
     );
   }
@@ -421,6 +480,25 @@ export class PIBP2P extends SmartContract {
         value[9].toAddress()
       )
     );
+  }
+
+  offchainReputation(param0: Address): BigInt {
+    let result = super.call("offchainReputation", [
+      EthereumValue.fromAddress(param0)
+    ]);
+
+    return result[0].toBigInt();
+  }
+
+  try_offchainReputation(param0: Address): CallResult<BigInt> {
+    let result = super.tryCall("offchainReputation", [
+      EthereumValue.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   badReputation(param0: Address): BigInt {
@@ -493,6 +571,10 @@ export class ConstructorCall__Inputs {
   get _controllerAddress(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
+
+  get _reputation(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
 }
 
 export class ConstructorCall__Outputs {
@@ -520,40 +602,32 @@ export class OfferCall__Inputs {
     this._call = call;
   }
 
-  get _sellToken(): Address {
-    return this._call.inputValues[0].value.toAddress();
+  get _tokens(): Array<Address> {
+    return this._call.inputValues[0].value.toAddressArray();
   }
 
-  get _sellAmount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get _amounts(): Array<BigInt> {
+    return this._call.inputValues[1].value.toBigIntArray();
   }
 
-  get _isPartial(): boolean {
-    return this._call.inputValues[2].value.toBoolean();
+  get _settings(): Array<boolean> {
+    return this._call.inputValues[2].value.toBooleanArray();
   }
 
-  get _buyToken(): Address {
-    return this._call.inputValues[3].value.toAddress();
-  }
-
-  get _buyAmount(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
-  }
-
-  get _isBuyFiat(): boolean {
-    return this._call.inputValues[5].value.toBoolean();
+  get _limits(): Array<BigInt> {
+    return this._call.inputValues[3].value.toBigIntArray();
   }
 
   get _auditor(): Address {
-    return this._call.inputValues[6].value.toAddress();
+    return this._call.inputValues[4].value.toAddress();
   }
 
   get _description(): string {
-    return this._call.inputValues[7].value.toString();
+    return this._call.inputValues[5].value.toString();
   }
 
   get _metadata(): Array<BigInt> {
-    return this._call.inputValues[8].value.toBigIntArray();
+    return this._call.inputValues[6].value.toBigIntArray();
   }
 }
 
@@ -765,6 +839,40 @@ export class UpdateBuyAmountCall__Outputs {
   _call: UpdateBuyAmountCall;
 
   constructor(call: UpdateBuyAmountCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateReputationCall extends EthereumCall {
+  get inputs(): UpdateReputationCall__Inputs {
+    return new UpdateReputationCall__Inputs(this);
+  }
+
+  get outputs(): UpdateReputationCall__Outputs {
+    return new UpdateReputationCall__Outputs(this);
+  }
+}
+
+export class UpdateReputationCall__Inputs {
+  _call: UpdateReputationCall;
+
+  constructor(call: UpdateReputationCall) {
+    this._call = call;
+  }
+
+  get _user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _reputation(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class UpdateReputationCall__Outputs {
+  _call: UpdateReputationCall;
+
+  constructor(call: UpdateReputationCall) {
     this._call = call;
   }
 }

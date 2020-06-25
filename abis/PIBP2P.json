@@ -20,6 +20,20 @@
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "reputationHandler",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -55,6 +69,18 @@
       {
         "name": "isBuyFiat",
         "type": "bool"
+      },
+      {
+        "name": "minDealAmount",
+        "type": "uint256"
+      },
+      {
+        "name": "maxDealAmount",
+        "type": "uint256"
+      },
+      {
+        "name": "minReputation",
+        "type": "uint256"
       },
       {
         "name": "auditor",
@@ -128,6 +154,25 @@
         "type": "address"
       }
     ],
+    "name": "offchainReputation",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "badReputation",
     "outputs": [
       {
@@ -172,6 +217,10 @@
       {
         "name": "_controllerAddress",
         "type": "address"
+      },
+      {
+        "name": "_reputation",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -215,6 +264,11 @@
         "indexed": false,
         "name": "isBuyFiat",
         "type": "bool"
+      },
+      {
+        "indexed": false,
+        "name": "limits",
+        "type": "uint256[3]"
       },
       {
         "indexed": false,
@@ -363,31 +417,40 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "reputation",
+        "type": "uint256"
+      }
+    ],
+    "name": "UpdateReputation",
+    "type": "event"
+  },
+  {
     "constant": false,
     "inputs": [
       {
-        "name": "_sellToken",
-        "type": "address"
+        "name": "_tokens",
+        "type": "address[2]"
       },
       {
-        "name": "_sellAmount",
-        "type": "uint256"
+        "name": "_amounts",
+        "type": "uint256[2]"
       },
       {
-        "name": "_isPartial",
-        "type": "bool"
+        "name": "_settings",
+        "type": "bool[2]"
       },
       {
-        "name": "_buyToken",
-        "type": "address"
-      },
-      {
-        "name": "_buyAmount",
-        "type": "uint256"
-      },
-      {
-        "name": "_isBuyFiat",
-        "type": "bool"
+        "name": "_limits",
+        "type": "uint256[3]"
       },
       {
         "name": "_auditor",
@@ -513,6 +576,24 @@
       }
     ],
     "name": "updateBuyAmount",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "name": "_reputation",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateReputation",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
