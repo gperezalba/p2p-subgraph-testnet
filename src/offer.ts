@@ -14,6 +14,7 @@ export function createOffer(event: NewOffer): void {
     offer.name = getNickname(event.params.owner.toHexString());
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
+    offer.initialSellAmount = event.params.sellAmount.toBigDecimal();
     offer.sellAmount = event.params.sellAmount.toBigDecimal();
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
     offer.isPartial = event.params.isPartial;

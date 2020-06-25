@@ -86,6 +86,15 @@ export class Offer extends Entity {
     this.set("buyToken", Value.fromString(value));
   }
 
+  get initialSellAmount(): BigDecimal {
+    let value = this.get("initialSellAmount");
+    return value.toBigDecimal();
+  }
+
+  set initialSellAmount(value: BigDecimal) {
+    this.set("initialSellAmount", Value.fromBigDecimal(value));
+  }
+
   get sellAmount(): BigDecimal {
     let value = this.get("sellAmount");
     return value.toBigDecimal();

@@ -4,6 +4,7 @@ type Offer @entity {
   name: String
   sellToken: Token! # address
   buyToken: Token!
+  initialSellAmount: BigDecimal!
   sellAmount: BigDecimal!
   buyAmount: BigDecimal!
   price: BigDecimal!
