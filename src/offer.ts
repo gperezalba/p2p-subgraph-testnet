@@ -3,6 +3,7 @@ import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, Can
 import { Offer, OfferCommodity, Commodity, Token, Gold } from "../generated/schema";
 import { pushP2P } from "./commodity";
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
+import { getNickname } from "./user";
 
 const ONE_ETHER = "1000000000000000000";
 
@@ -10,6 +11,7 @@ export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
 
     offer.owner = event.params.owner.toHexString();
+    offer.name = getNickname(event.params.owner.toHexString());
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
     offer.sellAmount = event.params.sellAmount.toBigDecimal();
@@ -50,6 +52,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     let offer = new OfferCommodity(event.params.offerId.toHexString());
 
     offer.owner = event.params.owner.toHexString();
+    offer.name = getNickname(event.params.owner.toHexString());
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
     pushP2P(event.params.sellToken.toHexString(), event.params.sellId);

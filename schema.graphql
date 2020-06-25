@@ -1,6 +1,7 @@
 type Offer @entity {
   id: ID!
   owner: User! # address
+  name: String
   sellToken: Token! # address
   buyToken: Token!
   sellAmount: BigDecimal!
@@ -21,6 +22,7 @@ type Offer @entity {
 type OfferCommodity @entity {
   id: ID!
   owner: User! # address
+  name: String
   sellToken: Token! # address
   buyToken: Token!
   sellId: Commodity! #tokenAddress - tokenId

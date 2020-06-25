@@ -51,6 +51,23 @@ export class Offer extends Entity {
     this.set("owner", Value.fromString(value));
   }
 
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
   get sellToken(): string {
     let value = this.get("sellToken");
     return value.toString();
@@ -246,6 +263,23 @@ export class OfferCommodity extends Entity {
 
   set owner(value: string) {
     this.set("owner", Value.fromString(value));
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
   }
 
   get sellToken(): string {
