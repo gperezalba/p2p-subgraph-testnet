@@ -3,6 +3,7 @@ import { Token, Commodity, Gold, Diamond } from "../generated/schema";
 import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+const ONE_ETHER = "1000000000000000000";
 
 export function handleTransfer(event: Transfer): void {
 
@@ -38,9 +39,9 @@ export function handleNewJson(event: NewJson): void {
             }
 
             let json: Array<BigInt> = event.params.json;
-            gold.weight_brute = json[0].toBigDecimal();
-            gold.law = json[1].toBigDecimal();
-            gold.weight_fine = json[2].toBigDecimal();
+            gold.weight_brute = json[0].toBigDecimal().times(BigDecimal.fromString(ONE_ETHER));
+            gold.law = json[1].toBigDecimal().times(BigDecimal.fromString(ONE_ETHER));
+            gold.weight_fine = json[2].toBigDecimal().times(BigDecimal.fromString(ONE_ETHER));
 
             gold.save();
             commodity.gold = id;
