@@ -27,7 +27,7 @@ export function createOffer(event: NewOffer): void {
     offer.description = event.params.description;
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
-    offer.price = event.params.buyAmount.toBigDecimal().div(event.params.sellAmount.toBigDecimal());
+    offer.price = event.params.buyAmount.toBigDecimal().div(event.params.sellAmount.toBigDecimal()).times(BigDecimal.fromString(ONE_ETHER));
 
     let metadata: Array<BigInt> = event.params.metadata
     
@@ -105,7 +105,7 @@ export function updateOffer(event: UpdateOffer): void {
 
     offer.sellAmount = event.params.sellAmount.toBigDecimal();
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
-    offer.price = event.params.buyAmount.toBigDecimal().div(event.params.sellAmount.toBigDecimal());
+    offer.price = event.params.buyAmount.toBigDecimal().div(event.params.sellAmount.toBigDecimal()).times(BigDecimal.fromString(ONE_ETHER));
 
     offer.save();
 }
