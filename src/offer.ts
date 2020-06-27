@@ -115,7 +115,7 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
     let commodityId = offer.sellToken.concat("-").concat(event.params.sellId.toString());
 
     offer.buyAmount = event.params.buyAmount.toBigDecimal();
-    offer.price = event.params.buyAmount.toBigDecimal();
+    offer.price = event.params.buyAmount.toBigDecimal().times(BigDecimal.fromString(ONE_ETHER));
     let token = Token.load(offer.sellToken);
 
     if (token.category == BigInt.fromI32(1)) {
