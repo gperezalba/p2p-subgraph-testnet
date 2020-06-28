@@ -4,11 +4,16 @@ import { Offer, OfferCommodity, Commodity, Token, Gold } from "../generated/sche
 import { pushP2P } from "./commodity";
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 import { getNickname } from "./user";
+import { createToken } from "./token";
 
 const ONE_ETHER = "1000000000000000000";
 
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
+
+    if (event.params.buyToken.toHexString() == "0x2a3ec23c9d781aa431d300b2475b305cad27d98d") {
+        createToken(event.params.buyToken, false, BigInt.fromI32(0));
+    }
 
     offer.owner = event.params.owner.toHexString();
     offer.name = getNickname(event.params.owner.toHexString());
