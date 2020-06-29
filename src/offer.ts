@@ -126,7 +126,8 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
+        //offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_brute_weight = BigInt.fromI32(10);
         offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
     }
 
