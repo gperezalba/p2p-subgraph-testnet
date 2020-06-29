@@ -77,8 +77,8 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
-        offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine ).times(BigInt.fromI32(ONE_ETHER as i32));
     }
 
     let metadata: Array<BigInt> = event.params.metadata
@@ -120,13 +120,13 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
     let commodityId = offer.sellToken.concat("-").concat(event.params.sellId.toString());
 
     offer.buyAmount = event.params.buyAmount;
-    offer.price = event.params.buyAmount.times(BigInt.fromI32(ONE_ETHER as i32));
+    offer.price = event.params.buyAmount;
     let token = Token.load(offer.sellToken);
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
-        offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine).times(BigInt.fromI32(ONE_ETHER as i32));
     }
 
     offer.save();
