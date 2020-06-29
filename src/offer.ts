@@ -6,7 +6,7 @@ import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 import { getNickname } from "./user";
 import { createToken } from "./token";
 
-const ONE_ETHER = "1000000000000000000";
+const ONE_ETHER = 1000000000000000000;
 
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
@@ -19,20 +19,20 @@ export function createOffer(event: NewOffer): void {
     offer.name = getNickname(event.params.owner.toHexString());
     offer.sellToken = event.params.sellToken.toHexString();
     offer.buyToken = event.params.buyToken.toHexString();
-    offer.initialSellAmount = event.params.sellAmount.toBigDecimal();
-    offer.sellAmount = event.params.sellAmount.toBigDecimal();
-    offer.buyAmount = event.params.buyAmount.toBigDecimal();
+    offer.initialSellAmount = event.params.sellAmount;
+    offer.sellAmount = event.params.sellAmount;
+    offer.buyAmount = event.params.buyAmount;
     offer.isPartial = event.params.isPartial;
     offer.isBuyFiat = event.params.isBuyFiat;
     offer.auditor = event.params.auditor;
     let limits = event.params.limits;
-    offer.minDealAmount = limits[0].toBigDecimal();
-    offer.maxDealAmount = limits[1].toBigDecimal();
+    offer.minDealAmount = limits[0];
+    offer.maxDealAmount = limits[1];
     offer.minReputation = limits[2];
     offer.description = event.params.description;
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
-    offer.price = event.params.buyAmount.toBigDecimal().div(event.params.sellAmount.toBigDecimal()).times(BigDecimal.fromString(ONE_ETHER));
+    offer.price = event.params.buyAmount.div(event.params.sellAmount).times(BigInt.fromI32(ONE_ETHER as i32));
 
     let metadata: Array<BigInt> = event.params.metadata
     
@@ -68,17 +68,17 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     pushP2P(event.params.sellToken.toHexString(), event.params.sellId);
     let commodityId = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
     offer.sellId = commodityId;
-    offer.buyAmount = event.params.buyAmount.toBigDecimal();
+    offer.buyAmount = event.params.buyAmount;
     offer.description = event.params.description;
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
-    offer.price = event.params.buyAmount.toBigDecimal();
+    offer.price = event.params.buyAmount;
     let token = Token.load(event.params.sellToken.toHexString());
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal).times(BigDecimal.fromString(ONE_ETHER));
-        offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal).times(BigDecimal.fromString(ONE_ETHER));
+        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
     }
 
     let metadata: Array<BigInt> = event.params.metadata
@@ -108,9 +108,9 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
 export function updateOffer(event: UpdateOffer): void {
     let offer = Offer.load(event.params.offerId.toHexString());
 
-    offer.sellAmount = event.params.sellAmount.toBigDecimal();
-    offer.buyAmount = event.params.buyAmount.toBigDecimal();
-    offer.price = event.params.buyAmount.toBigDecimal().div(event.params.sellAmount.toBigDecimal()).times(BigDecimal.fromString(ONE_ETHER));
+    offer.sellAmount = event.params.sellAmount;
+    offer.buyAmount = event.params.buyAmount;
+    offer.price = event.params.buyAmount.div(event.params.sellAmount).times(BigInt.fromI32(ONE_ETHER as i32));
 
     offer.save();
 }
@@ -119,14 +119,14 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
     let offer = OfferCommodity.load(event.params.offerId.toHexString());
     let commodityId = offer.sellToken.concat("-").concat(event.params.sellId.toString());
 
-    offer.buyAmount = event.params.buyAmount.toBigDecimal();
-    offer.price = event.params.buyAmount.toBigDecimal().times(BigDecimal.fromString(ONE_ETHER));
+    offer.buyAmount = event.params.buyAmount;
+    offer.price = event.params.buyAmount.times(BigInt.fromI32(ONE_ETHER as i32));
     let token = Token.load(offer.sellToken);
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_brute as BigDecimal).times(BigDecimal.fromString(ONE_ETHER));
-        offer.price_per_fine_weight = event.params.buyAmount.toBigDecimal().div(gold.weight_fine as BigDecimal).times(BigDecimal.fromString(ONE_ETHER));
+        offer.price_per_brute_weight = event.params.buyAmount.div(gold.weight_brute as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
+        offer.price_per_fine_weight = event.params.buyAmount.div(gold.weight_fine as BigInt).times(BigInt.fromI32(ONE_ETHER as i32));
     }
 
     offer.save();
@@ -147,70 +147,3 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
 
     offer.save();
 }
-
-/*function createCommodity(event: NewOfferCommodity): void {
-    let token = Token.load(event.params.sellToken.toHexString());
-    let id = event.params.sellToken.toHexString().concat("-").concat(event.params.sellId.toString());
-    let commodity = new Commodity(id);
-
-    if (token.category == BigInt.fromI32(1)) {
-        let gold = new Gold(id);
-        let token = ERC721.bind(event.params.sellToken);
-        gold.token = event.params.sellToken.toHexString();
-
-        let ref = token.try_getRefById(event.params.sellId);
-        let metadata = token.try_getMetadata(event.params.sellId);
-
-        if (!ref.reverted) {
-            gold.reference = ref.value;
-        } else {
-            gold.reference = "reverted";
-        }
-
-        if (!metadata.reverted) {
-            let json = JSON.parse(metadata.value);
-            gold.weight_brute = json.weight_brute;
-            gold.weight_fine = json.weight_fine;
-            gold.law = json.law;
-            gold.metadata = metadata.value;
-        } else {
-            gold.weight_brute = BigDecimal.fromString('0');
-            gold.weight_fine = BigDecimal.fromString('0');
-            gold.law = BigDecimal.fromString('0');
-        }
-
-        gold.save();
-        commodity.gold = id;
-    } else if (token.category == BigInt.fromI32(2)) {
-        let diamond = new Diamond(id);
-        let token = ERC721.bind(event.params.sellToken);
-        diamond.token = event.params.sellToken.toHexString();
-
-        let ref = token.try_getRefById(event.params.sellId);
-        let metadata = token.try_getMetadata(event.params.sellId);
-
-        if (!ref.reverted) {
-            diamond.reference = ref.value;
-        } else {
-            diamond.reference = "reverted";
-        }
-
-        if (!metadata.reverted) {
-            let json = JSON.parse(metadata.value);
-            diamond.color = json.color;
-            diamond.clarity = json.weight_fine;
-            diamond.cut = json.cut;
-            diamond.carat_weight = json.carat_weight;
-        } else {
-            diamond.color = "reverted";
-            diamond.clarity = "reverted";
-            diamond.cut = "reverted";
-            diamond.carat_weight = BigDecimal.fromString('0');
-        }
-
-        diamond.save();
-        commodity.diamond = id;
-    }
-
-    commodity.save();
-}*/

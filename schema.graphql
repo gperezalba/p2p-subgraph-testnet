@@ -4,14 +4,14 @@ type Offer @entity {
   name: String
   sellToken: Token! # address
   buyToken: Token!
-  initialSellAmount: BigDecimal!
-  sellAmount: BigDecimal!
-  buyAmount: BigDecimal!
-  price: BigDecimal!
+  initialSellAmount: BigInt!
+  sellAmount: BigInt!
+  buyAmount: BigInt!
+  price: BigInt!
   isPartial: Boolean!
   isBuyFiat: Boolean!
-  minDealAmount: BigDecimal!
-  maxDealAmount: BigDecimal!
+  minDealAmount: BigInt!
+  maxDealAmount: BigInt!
   minReputation: BigInt!
   auditor: Bytes
   description: String
@@ -30,10 +30,10 @@ type OfferCommodity @entity {
   sellToken: Token! # address
   buyToken: Token!
   sellId: Commodity! #tokenAddress - tokenId
-  buyAmount: BigDecimal!
-  price: BigDecimal!
-  price_per_brute_weight: BigDecimal!
-  price_per_fine_weight: BigDecimal!
+  buyAmount: BigInt!
+  price: BigInt!
+  price_per_brute_weight: BigInt!
+  price_per_fine_weight: BigInt!
   description: String
   isOpen: Boolean!
   country: [BigInt!]
@@ -46,11 +46,11 @@ type Deal @entity {
   offer: Offer!
   seller: User!
   buyer: User!
-  sellAmount: BigDecimal!
-  buyAmount: BigDecimal!
+  sellAmount: BigInt!
+  buyAmount: BigInt!
   sellerVote: BigInt
   buyerVote: BigInt
-  auditorVote: BigDecimal
+  auditorVote: BigInt
   isPending: Boolean!
   isSuccess: Boolean
   executor: Bytes
@@ -95,9 +95,9 @@ type Gold @entity {
   id: ID!
   reference: String!
   token: Token!
-  weight_brute: BigDecimal
-  weight_fine: BigDecimal
-  law: BigDecimal
+  weight_brute: BigInt
+  weight_fine: BigInt
+  law: BigInt
   isLive: Boolean
   isP2P: Boolean
   commodity: Commodity! @derivedFrom(field: "gold")
@@ -107,10 +107,10 @@ type Diamond @entity {
   id: ID!
   reference: String!
   token: Token!
-  color: BigDecimal
-  clarity: BigDecimal #cambiar a BigDecimal para filtrar?
-  cut: BigDecimal
-  carat_weight: BigDecimal
+  color: BigInt
+  clarity: BigInt #cambiar a BigDecimal para filtrar?
+  cut: BigInt
+  carat_weight: BigInt
   isLive: Boolean
   isP2P: Boolean
   commodity: Commodity! @derivedFrom(field: "diamond")

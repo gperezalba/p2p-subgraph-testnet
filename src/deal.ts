@@ -13,11 +13,11 @@ export function createDeal(event: NewPendingDeal): void {
         deal.offer = event.params.offerId.toHexString();
         deal.seller = offer.owner;
         deal.buyer = event.params.buyer.toHexString();
-        deal.sellAmount = event.params.sellAmount.toBigDecimal();
-        deal.buyAmount = event.params.buyAmount.toBigDecimal();
+        deal.sellAmount = event.params.sellAmount;
+        deal.buyAmount = event.params.buyAmount;
         deal.sellerVote = BigInt.fromI32(0);
         deal.buyerVote = BigInt.fromI32(0);
-        deal.auditorVote = BigDecimal.fromString('0');
+        deal.auditorVote = BigInt.fromI32(0);
         deal.isPending = true;
 
         deal.save();

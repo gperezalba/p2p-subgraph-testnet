@@ -86,40 +86,40 @@ export class Offer extends Entity {
     this.set("buyToken", Value.fromString(value));
   }
 
-  get initialSellAmount(): BigDecimal {
+  get initialSellAmount(): BigInt {
     let value = this.get("initialSellAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set initialSellAmount(value: BigDecimal) {
-    this.set("initialSellAmount", Value.fromBigDecimal(value));
+  set initialSellAmount(value: BigInt) {
+    this.set("initialSellAmount", Value.fromBigInt(value));
   }
 
-  get sellAmount(): BigDecimal {
+  get sellAmount(): BigInt {
     let value = this.get("sellAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set sellAmount(value: BigDecimal) {
-    this.set("sellAmount", Value.fromBigDecimal(value));
+  set sellAmount(value: BigInt) {
+    this.set("sellAmount", Value.fromBigInt(value));
   }
 
-  get buyAmount(): BigDecimal {
+  get buyAmount(): BigInt {
     let value = this.get("buyAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set buyAmount(value: BigDecimal) {
-    this.set("buyAmount", Value.fromBigDecimal(value));
+  set buyAmount(value: BigInt) {
+    this.set("buyAmount", Value.fromBigInt(value));
   }
 
-  get price(): BigDecimal {
+  get price(): BigInt {
     let value = this.get("price");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set price(value: BigDecimal) {
-    this.set("price", Value.fromBigDecimal(value));
+  set price(value: BigInt) {
+    this.set("price", Value.fromBigInt(value));
   }
 
   get isPartial(): boolean {
@@ -140,22 +140,22 @@ export class Offer extends Entity {
     this.set("isBuyFiat", Value.fromBoolean(value));
   }
 
-  get minDealAmount(): BigDecimal {
+  get minDealAmount(): BigInt {
     let value = this.get("minDealAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set minDealAmount(value: BigDecimal) {
-    this.set("minDealAmount", Value.fromBigDecimal(value));
+  set minDealAmount(value: BigInt) {
+    this.set("minDealAmount", Value.fromBigInt(value));
   }
 
-  get maxDealAmount(): BigDecimal {
+  get maxDealAmount(): BigInt {
     let value = this.get("maxDealAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set maxDealAmount(value: BigDecimal) {
-    this.set("maxDealAmount", Value.fromBigDecimal(value));
+  set maxDealAmount(value: BigInt) {
+    this.set("maxDealAmount", Value.fromBigInt(value));
   }
 
   get minReputation(): BigInt {
@@ -345,40 +345,40 @@ export class OfferCommodity extends Entity {
     this.set("sellId", Value.fromString(value));
   }
 
-  get buyAmount(): BigDecimal {
+  get buyAmount(): BigInt {
     let value = this.get("buyAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set buyAmount(value: BigDecimal) {
-    this.set("buyAmount", Value.fromBigDecimal(value));
+  set buyAmount(value: BigInt) {
+    this.set("buyAmount", Value.fromBigInt(value));
   }
 
-  get price(): BigDecimal {
+  get price(): BigInt {
     let value = this.get("price");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set price(value: BigDecimal) {
-    this.set("price", Value.fromBigDecimal(value));
+  set price(value: BigInt) {
+    this.set("price", Value.fromBigInt(value));
   }
 
-  get price_per_brute_weight(): BigDecimal {
+  get price_per_brute_weight(): BigInt {
     let value = this.get("price_per_brute_weight");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set price_per_brute_weight(value: BigDecimal) {
-    this.set("price_per_brute_weight", Value.fromBigDecimal(value));
+  set price_per_brute_weight(value: BigInt) {
+    this.set("price_per_brute_weight", Value.fromBigInt(value));
   }
 
-  get price_per_fine_weight(): BigDecimal {
+  get price_per_fine_weight(): BigInt {
     let value = this.get("price_per_fine_weight");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set price_per_fine_weight(value: BigDecimal) {
-    this.set("price_per_fine_weight", Value.fromBigDecimal(value));
+  set price_per_fine_weight(value: BigInt) {
+    this.set("price_per_fine_weight", Value.fromBigInt(value));
   }
 
   get description(): string | null {
@@ -516,22 +516,22 @@ export class Deal extends Entity {
     this.set("buyer", Value.fromString(value));
   }
 
-  get sellAmount(): BigDecimal {
+  get sellAmount(): BigInt {
     let value = this.get("sellAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set sellAmount(value: BigDecimal) {
-    this.set("sellAmount", Value.fromBigDecimal(value));
+  set sellAmount(value: BigInt) {
+    this.set("sellAmount", Value.fromBigInt(value));
   }
 
-  get buyAmount(): BigDecimal {
+  get buyAmount(): BigInt {
     let value = this.get("buyAmount");
-    return value.toBigDecimal();
+    return value.toBigInt();
   }
 
-  set buyAmount(value: BigDecimal) {
-    this.set("buyAmount", Value.fromBigDecimal(value));
+  set buyAmount(value: BigInt) {
+    this.set("buyAmount", Value.fromBigInt(value));
   }
 
   get sellerVote(): BigInt | null {
@@ -568,20 +568,20 @@ export class Deal extends Entity {
     }
   }
 
-  get auditorVote(): BigDecimal | null {
+  get auditorVote(): BigInt | null {
     let value = this.get("auditorVote");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set auditorVote(value: BigDecimal | null) {
+  set auditorVote(value: BigInt | null) {
     if (value === null) {
       this.unset("auditorVote");
     } else {
-      this.set("auditorVote", Value.fromBigDecimal(value as BigDecimal));
+      this.set("auditorVote", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -1063,54 +1063,54 @@ export class Gold extends Entity {
     this.set("token", Value.fromString(value));
   }
 
-  get weight_brute(): BigDecimal | null {
+  get weight_brute(): BigInt | null {
     let value = this.get("weight_brute");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set weight_brute(value: BigDecimal | null) {
+  set weight_brute(value: BigInt | null) {
     if (value === null) {
       this.unset("weight_brute");
     } else {
-      this.set("weight_brute", Value.fromBigDecimal(value as BigDecimal));
+      this.set("weight_brute", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get weight_fine(): BigDecimal | null {
+  get weight_fine(): BigInt | null {
     let value = this.get("weight_fine");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set weight_fine(value: BigDecimal | null) {
+  set weight_fine(value: BigInt | null) {
     if (value === null) {
       this.unset("weight_fine");
     } else {
-      this.set("weight_fine", Value.fromBigDecimal(value as BigDecimal));
+      this.set("weight_fine", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get law(): BigDecimal | null {
+  get law(): BigInt | null {
     let value = this.get("law");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set law(value: BigDecimal | null) {
+  set law(value: BigInt | null) {
     if (value === null) {
       this.unset("law");
     } else {
-      this.set("law", Value.fromBigDecimal(value as BigDecimal));
+      this.set("law", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -1190,71 +1190,71 @@ export class Diamond extends Entity {
     this.set("token", Value.fromString(value));
   }
 
-  get color(): BigDecimal | null {
+  get color(): BigInt | null {
     let value = this.get("color");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set color(value: BigDecimal | null) {
+  set color(value: BigInt | null) {
     if (value === null) {
       this.unset("color");
     } else {
-      this.set("color", Value.fromBigDecimal(value as BigDecimal));
+      this.set("color", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get clarity(): BigDecimal | null {
+  get clarity(): BigInt | null {
     let value = this.get("clarity");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set clarity(value: BigDecimal | null) {
+  set clarity(value: BigInt | null) {
     if (value === null) {
       this.unset("clarity");
     } else {
-      this.set("clarity", Value.fromBigDecimal(value as BigDecimal));
+      this.set("clarity", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get cut(): BigDecimal | null {
+  get cut(): BigInt | null {
     let value = this.get("cut");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set cut(value: BigDecimal | null) {
+  set cut(value: BigInt | null) {
     if (value === null) {
       this.unset("cut");
     } else {
-      this.set("cut", Value.fromBigDecimal(value as BigDecimal));
+      this.set("cut", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get carat_weight(): BigDecimal | null {
+  get carat_weight(): BigInt | null {
     let value = this.get("carat_weight");
     if (value === null) {
       return null;
     } else {
-      return value.toBigDecimal();
+      return value.toBigInt();
     }
   }
 
-  set carat_weight(value: BigDecimal | null) {
+  set carat_weight(value: BigInt | null) {
     if (value === null) {
       this.unset("carat_weight");
     } else {
-      this.set("carat_weight", Value.fromBigDecimal(value as BigDecimal));
+      this.set("carat_weight", Value.fromBigInt(value as BigInt));
     }
   }
 
