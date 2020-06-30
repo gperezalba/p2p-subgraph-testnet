@@ -100,6 +100,7 @@ type Gold @entity {
   law: BigInt
   isLive: Boolean
   isP2P: Boolean
+  isFake: Boolean
   commodity: Commodity! @derivedFrom(field: "gold")
 }
 
@@ -113,6 +114,7 @@ type Diamond @entity {
   carat_weight: BigInt
   isLive: Boolean
   isP2P: Boolean
+  isFake: Boolean
   commodity: Commodity! @derivedFrom(field: "diamond")
 }
 
