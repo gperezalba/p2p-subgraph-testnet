@@ -112,6 +112,10 @@ export function updateOffer(event: UpdateOffer): void {
     offer.buyAmount = event.params.buyAmount;
     offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount as BigInt);
 
+    if ((event.params.sellAmount == BigInt.fromI32(0)) && (event.params.buyAmount == BigInt.fromI32(0))) {
+        offer.isOpen = false;
+    }
+
     offer.save();
 }
 
@@ -127,6 +131,10 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
         let gold = Gold.load(commodityId);
         offer.price_per_brute_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_brute as BigInt);
         offer.price_per_fine_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_fine as BigInt);
+    }
+
+    if ((event.params.sellId == BigInt.fromI32(0)) && (event.params.buyAmount == BigInt.fromI32(0))) {
+        offer.isOpen = false;
     }
 
     offer.save();
