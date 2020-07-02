@@ -131,6 +131,24 @@ export class CancelOffer__Params {
   }
 }
 
+export class NewCommission extends EthereumEvent {
+  get params(): NewCommission__Params {
+    return new NewCommission__Params(this);
+  }
+}
+
+export class NewCommission__Params {
+  _event: NewCommission;
+
+  constructor(event: NewCommission) {
+    this._event = event;
+  }
+
+  get commission(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
 export class PIBP2PCommodity__offersResult {
   value0: Address;
   value1: Address;
@@ -199,6 +217,21 @@ export class PIBP2PCommodity extends SmartContract {
     );
   }
 
+  on(): boolean {
+    let result = super.call("on", []);
+
+    return result[0].toBoolean();
+  }
+
+  try_on(): CallResult<boolean> {
+    let result = super.tryCall("on", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBoolean());
+  }
+
   salt(): BigInt {
     let result = super.call("salt", []);
 
@@ -207,6 +240,21 @@ export class PIBP2PCommodity extends SmartContract {
 
   try_salt(): CallResult<BigInt> {
     let result = super.tryCall("salt", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBigInt());
+  }
+
+  commission(): BigInt {
+    let result = super.call("commission", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_commission(): CallResult<BigInt> {
+    let result = super.tryCall("commission", []);
     if (result.reverted) {
       return new CallResult();
     }
@@ -285,12 +333,72 @@ export class ConstructorCall__Inputs {
   get _controllerAddress(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
+
+  get _commission(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
 }
 
 export class ConstructorCall__Outputs {
   _call: ConstructorCall;
 
   constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class SetCommissionCall extends EthereumCall {
+  get inputs(): SetCommissionCall__Inputs {
+    return new SetCommissionCall__Inputs(this);
+  }
+
+  get outputs(): SetCommissionCall__Outputs {
+    return new SetCommissionCall__Outputs(this);
+  }
+}
+
+export class SetCommissionCall__Inputs {
+  _call: SetCommissionCall;
+
+  constructor(call: SetCommissionCall) {
+    this._call = call;
+  }
+
+  get _newCommission(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class SetCommissionCall__Outputs {
+  _call: SetCommissionCall;
+
+  constructor(call: SetCommissionCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleSwitchCall extends EthereumCall {
+  get inputs(): ToggleSwitchCall__Inputs {
+    return new ToggleSwitchCall__Inputs(this);
+  }
+
+  get outputs(): ToggleSwitchCall__Outputs {
+    return new ToggleSwitchCall__Outputs(this);
+  }
+}
+
+export class ToggleSwitchCall__Inputs {
+  _call: ToggleSwitchCall;
+
+  constructor(call: ToggleSwitchCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleSwitchCall__Outputs {
+  _call: ToggleSwitchCall;
+
+  constructor(call: ToggleSwitchCall) {
     this._call = call;
   }
 }

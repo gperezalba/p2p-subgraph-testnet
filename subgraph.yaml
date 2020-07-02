@@ -44,6 +44,8 @@ dataSources:
           handler: handleUpdateReputation
         - event: DealLock(indexed address,bool)
           handler: handleDealLock
+        - event: NewCommission(uint256)
+          handler: handleNewCommission
       file: ./src/p2p.ts
   - kind: ethereum/contract
     name: PIBP2PCommodity
@@ -76,6 +78,8 @@ dataSources:
           handler: handleUpdateOffer
         - event: CancelOffer(indexed bytes32)
           handler: handleCancelOffer
+        - event: NewCommission(uint256)
+          handler: handleNewCommission
       file: ./src/p2p-nft.ts
   - kind: ethereum/contract
     name: Controller

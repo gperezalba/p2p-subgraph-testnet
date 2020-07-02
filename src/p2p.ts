@@ -9,9 +9,10 @@ import {
   VoteDeal,
   AuditorNotification,
   UpdateReputation,
-  DealLock
+  DealLock,
+  NewCommission
 } from "../generated/PIBP2P/PIBP2P"
-import { Offer, Deal, Auditor, User } from "../generated/schema"
+import { Offer, Deal, Auditor, User, P2P } from "../generated/schema"
 import { pushOffer, pushPendingDeal, updateReputation, createUserIfNull } from "./user";
 import { createDeal, finishDeal, updateVote } from "./deal";
 import { createOffer, updateOffer, cancelOffer } from "./offer";
@@ -94,4 +95,16 @@ export function handleDealLock(event: DealLock): void {
   user.isDealLocked = event.params.isLocked;
 
   user.save();
+}
+
+export function handleNewCommission(event: NewCommission): void {
+  let p2p = P2P.load(event.address.toHexString());
+
+  if (p2p == null) {
+    p2p = new P2P(event.address.toHexString());
+  }
+
+  p2p.commission = event.params.commission;
+
+  p2p.save();
 }

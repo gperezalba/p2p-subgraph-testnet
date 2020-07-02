@@ -7,6 +7,25 @@
         "type": "address"
       }
     ],
+    "name": "isTDN",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "goodReputation",
     "outputs": [
       {
@@ -55,6 +74,10 @@
         "type": "uint256"
       },
       {
+        "name": "commission",
+        "type": "uint256"
+      },
+      {
         "name": "isPartial",
         "type": "bool"
       },
@@ -85,6 +108,20 @@
       {
         "name": "auditor",
         "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "on",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
       }
     ],
     "payable": false,
@@ -127,6 +164,10 @@
       },
       {
         "name": "sellAmount",
+        "type": "uint256"
+      },
+      {
+        "name": "commission",
         "type": "uint256"
       },
       {
@@ -200,6 +241,43 @@
   },
   {
     "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "priceOracle",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "commission",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "controller",
     "outputs": [
@@ -240,6 +318,10 @@
       {
         "name": "_reputation",
         "type": "address"
+      },
+      {
+        "name": "_commission",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -468,6 +550,95 @@
     ],
     "name": "DealLock",
     "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "commission",
+        "type": "uint256"
+      }
+    ],
+    "name": "NewCommission",
+    "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_newCommission",
+        "type": "uint256"
+      }
+    ],
+    "name": "setCommission",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_newHandler",
+        "type": "address"
+      }
+    ],
+    "name": "setReputationHandler",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "name": "_isTDN",
+        "type": "bool"
+      }
+    ],
+    "name": "setTDN",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_token1",
+        "type": "address"
+      },
+      {
+        "name": "_token2",
+        "type": "address"
+      },
+      {
+        "name": "_oracle",
+        "type": "address"
+      }
+    ],
+    "name": "setPriceOracle",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "toggleSwitch",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "constant": false,

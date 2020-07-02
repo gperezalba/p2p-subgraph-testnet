@@ -37,7 +37,35 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "on",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "salt",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "commission",
     "outputs": [
       {
         "name": "",
@@ -67,6 +95,10 @@
       {
         "name": "_controllerAddress",
         "type": "address"
+      },
+      {
+        "name": "_commission",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -175,6 +207,41 @@
     ],
     "name": "CancelOffer",
     "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "commission",
+        "type": "uint256"
+      }
+    ],
+    "name": "NewCommission",
+    "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_newCommission",
+        "type": "uint256"
+      }
+    ],
+    "name": "setCommission",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "toggleSwitch",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "constant": false,

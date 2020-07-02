@@ -12,6 +12,86 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
+export class P2P extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save P2P entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save P2P entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("P2P", id.toString(), this);
+  }
+
+  static load(id: string): P2P | null {
+    return store.get("P2P", id) as P2P | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get commission(): BigInt {
+    let value = this.get("commission");
+    return value.toBigInt();
+  }
+
+  set commission(value: BigInt) {
+    this.set("commission", Value.fromBigInt(value));
+  }
+}
+
+export class P2PCommodity extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save P2PCommodity entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save P2PCommodity entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("P2PCommodity", id.toString(), this);
+  }
+
+  static load(id: string): P2PCommodity | null {
+    return store.get("P2PCommodity", id) as P2PCommodity | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get commission(): BigInt {
+    let value = this.get("commission");
+    return value.toBigInt();
+  }
+
+  set commission(value: BigInt) {
+    this.set("commission", Value.fromBigInt(value));
+  }
+}
+
 export class Offer extends Entity {
   constructor(id: string) {
     super();

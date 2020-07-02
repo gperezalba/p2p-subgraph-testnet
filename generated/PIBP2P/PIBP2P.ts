@@ -269,30 +269,108 @@ export class DealLock__Params {
   }
 }
 
+export class NewCommission extends EthereumEvent {
+  get params(): NewCommission__Params {
+    return new NewCommission__Params(this);
+  }
+}
+
+export class NewCommission__Params {
+  _event: NewCommission;
+
+  constructor(event: NewCommission) {
+    this._event = event;
+  }
+
+  get commission(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
 export class PIBP2P__offersResult {
   value0: Address;
   value1: Address;
   value2: BigInt;
-  value3: boolean;
-  value4: Address;
-  value5: BigInt;
-  value6: boolean;
-  value7: BigInt;
+  value3: BigInt;
+  value4: boolean;
+  value5: Address;
+  value6: BigInt;
+  value7: boolean;
   value8: BigInt;
   value9: BigInt;
-  value10: Address;
+  value10: BigInt;
+  value11: Address;
 
   constructor(
     value0: Address,
     value1: Address,
     value2: BigInt,
-    value3: boolean,
-    value4: Address,
-    value5: BigInt,
-    value6: boolean,
-    value7: BigInt,
+    value3: BigInt,
+    value4: boolean,
+    value5: Address,
+    value6: BigInt,
+    value7: boolean,
     value8: BigInt,
     value9: BigInt,
+    value10: BigInt,
+    value11: Address
+  ) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+    this.value3 = value3;
+    this.value4 = value4;
+    this.value5 = value5;
+    this.value6 = value6;
+    this.value7 = value7;
+    this.value8 = value8;
+    this.value9 = value9;
+    this.value10 = value10;
+    this.value11 = value11;
+  }
+
+  toMap(): TypedMap<string, EthereumValue> {
+    let map = new TypedMap<string, EthereumValue>();
+    map.set("value0", EthereumValue.fromAddress(this.value0));
+    map.set("value1", EthereumValue.fromAddress(this.value1));
+    map.set("value2", EthereumValue.fromUnsignedBigInt(this.value2));
+    map.set("value3", EthereumValue.fromUnsignedBigInt(this.value3));
+    map.set("value4", EthereumValue.fromBoolean(this.value4));
+    map.set("value5", EthereumValue.fromAddress(this.value5));
+    map.set("value6", EthereumValue.fromUnsignedBigInt(this.value6));
+    map.set("value7", EthereumValue.fromBoolean(this.value7));
+    map.set("value8", EthereumValue.fromUnsignedBigInt(this.value8));
+    map.set("value9", EthereumValue.fromUnsignedBigInt(this.value9));
+    map.set("value10", EthereumValue.fromUnsignedBigInt(this.value10));
+    map.set("value11", EthereumValue.fromAddress(this.value11));
+    return map;
+  }
+}
+
+export class PIBP2P__dealsResult {
+  value0: Address;
+  value1: Address;
+  value2: boolean;
+  value3: Address;
+  value4: Address;
+  value5: BigInt;
+  value6: BigInt;
+  value7: BigInt;
+  value8: i32;
+  value9: i32;
+  value10: Address;
+
+  constructor(
+    value0: Address,
+    value1: Address,
+    value2: boolean,
+    value3: Address,
+    value4: Address,
+    value5: BigInt,
+    value6: BigInt,
+    value7: BigInt,
+    value8: i32,
+    value9: i32,
     value10: Address
   ) {
     this.value0 = value0;
@@ -312,73 +390,21 @@ export class PIBP2P__offersResult {
     let map = new TypedMap<string, EthereumValue>();
     map.set("value0", EthereumValue.fromAddress(this.value0));
     map.set("value1", EthereumValue.fromAddress(this.value1));
-    map.set("value2", EthereumValue.fromUnsignedBigInt(this.value2));
-    map.set("value3", EthereumValue.fromBoolean(this.value3));
-    map.set("value4", EthereumValue.fromAddress(this.value4));
-    map.set("value5", EthereumValue.fromUnsignedBigInt(this.value5));
-    map.set("value6", EthereumValue.fromBoolean(this.value6));
-    map.set("value7", EthereumValue.fromUnsignedBigInt(this.value7));
-    map.set("value8", EthereumValue.fromUnsignedBigInt(this.value8));
-    map.set("value9", EthereumValue.fromUnsignedBigInt(this.value9));
-    map.set("value10", EthereumValue.fromAddress(this.value10));
-    return map;
-  }
-}
-
-export class PIBP2P__dealsResult {
-  value0: Address;
-  value1: Address;
-  value2: boolean;
-  value3: Address;
-  value4: Address;
-  value5: BigInt;
-  value6: BigInt;
-  value7: i32;
-  value8: i32;
-  value9: Address;
-
-  constructor(
-    value0: Address,
-    value1: Address,
-    value2: boolean,
-    value3: Address,
-    value4: Address,
-    value5: BigInt,
-    value6: BigInt,
-    value7: i32,
-    value8: i32,
-    value9: Address
-  ) {
-    this.value0 = value0;
-    this.value1 = value1;
-    this.value2 = value2;
-    this.value3 = value3;
-    this.value4 = value4;
-    this.value5 = value5;
-    this.value6 = value6;
-    this.value7 = value7;
-    this.value8 = value8;
-    this.value9 = value9;
-  }
-
-  toMap(): TypedMap<string, EthereumValue> {
-    let map = new TypedMap<string, EthereumValue>();
-    map.set("value0", EthereumValue.fromAddress(this.value0));
-    map.set("value1", EthereumValue.fromAddress(this.value1));
     map.set("value2", EthereumValue.fromBoolean(this.value2));
     map.set("value3", EthereumValue.fromAddress(this.value3));
     map.set("value4", EthereumValue.fromAddress(this.value4));
     map.set("value5", EthereumValue.fromUnsignedBigInt(this.value5));
     map.set("value6", EthereumValue.fromUnsignedBigInt(this.value6));
-    map.set(
-      "value7",
-      EthereumValue.fromUnsignedBigInt(BigInt.fromI32(this.value7))
-    );
+    map.set("value7", EthereumValue.fromUnsignedBigInt(this.value7));
     map.set(
       "value8",
       EthereumValue.fromUnsignedBigInt(BigInt.fromI32(this.value8))
     );
-    map.set("value9", EthereumValue.fromAddress(this.value9));
+    map.set(
+      "value9",
+      EthereumValue.fromUnsignedBigInt(BigInt.fromI32(this.value9))
+    );
+    map.set("value10", EthereumValue.fromAddress(this.value10));
     return map;
   }
 }
@@ -386,6 +412,21 @@ export class PIBP2P__dealsResult {
 export class PIBP2P extends SmartContract {
   static bind(address: Address): PIBP2P {
     return new PIBP2P("PIBP2P", address);
+  }
+
+  isTDN(param0: Address): boolean {
+    let result = super.call("isTDN", [EthereumValue.fromAddress(param0)]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isTDN(param0: Address): CallResult<boolean> {
+    let result = super.tryCall("isTDN", [EthereumValue.fromAddress(param0)]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   goodReputation(param0: Address): BigInt {
@@ -429,14 +470,15 @@ export class PIBP2P extends SmartContract {
       result[0].toAddress(),
       result[1].toAddress(),
       result[2].toBigInt(),
-      result[3].toBoolean(),
-      result[4].toAddress(),
-      result[5].toBigInt(),
-      result[6].toBoolean(),
-      result[7].toBigInt(),
+      result[3].toBigInt(),
+      result[4].toBoolean(),
+      result[5].toAddress(),
+      result[6].toBigInt(),
+      result[7].toBoolean(),
       result[8].toBigInt(),
       result[9].toBigInt(),
-      result[10].toAddress()
+      result[10].toBigInt(),
+      result[11].toAddress()
     );
   }
 
@@ -453,16 +495,32 @@ export class PIBP2P extends SmartContract {
         value[0].toAddress(),
         value[1].toAddress(),
         value[2].toBigInt(),
-        value[3].toBoolean(),
-        value[4].toAddress(),
-        value[5].toBigInt(),
-        value[6].toBoolean(),
-        value[7].toBigInt(),
+        value[3].toBigInt(),
+        value[4].toBoolean(),
+        value[5].toAddress(),
+        value[6].toBigInt(),
+        value[7].toBoolean(),
         value[8].toBigInt(),
         value[9].toBigInt(),
-        value[10].toAddress()
+        value[10].toBigInt(),
+        value[11].toAddress()
       )
     );
+  }
+
+  on(): boolean {
+    let result = super.call("on", []);
+
+    return result[0].toBoolean();
+  }
+
+  try_on(): CallResult<boolean> {
+    let result = super.tryCall("on", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   deals(param0: Bytes): PIBP2P__dealsResult {
@@ -476,9 +534,10 @@ export class PIBP2P extends SmartContract {
       result[4].toAddress(),
       result[5].toBigInt(),
       result[6].toBigInt(),
-      result[7].toI32(),
+      result[7].toBigInt(),
       result[8].toI32(),
-      result[9].toAddress()
+      result[9].toI32(),
+      result[10].toAddress()
     );
   }
 
@@ -497,9 +556,10 @@ export class PIBP2P extends SmartContract {
         value[4].toAddress(),
         value[5].toBigInt(),
         value[6].toBigInt(),
-        value[7].toI32(),
+        value[7].toBigInt(),
         value[8].toI32(),
-        value[9].toAddress()
+        value[9].toI32(),
+        value[10].toAddress()
       )
     );
   }
@@ -550,6 +610,42 @@ export class PIBP2P extends SmartContract {
 
   try_salt(): CallResult<BigInt> {
     let result = super.tryCall("salt", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toBigInt());
+  }
+
+  priceOracle(param0: Address, param1: Address): Address {
+    let result = super.call("priceOracle", [
+      EthereumValue.fromAddress(param0),
+      EthereumValue.fromAddress(param1)
+    ]);
+
+    return result[0].toAddress();
+  }
+
+  try_priceOracle(param0: Address, param1: Address): CallResult<Address> {
+    let result = super.tryCall("priceOracle", [
+      EthereumValue.fromAddress(param0),
+      EthereumValue.fromAddress(param1)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+    return CallResult.fromValue(value[0].toAddress());
+  }
+
+  commission(): BigInt {
+    let result = super.call("commission", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_commission(): CallResult<BigInt> {
+    let result = super.tryCall("commission", []);
     if (result.reverted) {
       return new CallResult();
     }
@@ -616,12 +712,174 @@ export class ConstructorCall__Inputs {
   get _reputation(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
+
+  get _commission(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
 }
 
 export class ConstructorCall__Outputs {
   _call: ConstructorCall;
 
   constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class SetCommissionCall extends EthereumCall {
+  get inputs(): SetCommissionCall__Inputs {
+    return new SetCommissionCall__Inputs(this);
+  }
+
+  get outputs(): SetCommissionCall__Outputs {
+    return new SetCommissionCall__Outputs(this);
+  }
+}
+
+export class SetCommissionCall__Inputs {
+  _call: SetCommissionCall;
+
+  constructor(call: SetCommissionCall) {
+    this._call = call;
+  }
+
+  get _newCommission(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class SetCommissionCall__Outputs {
+  _call: SetCommissionCall;
+
+  constructor(call: SetCommissionCall) {
+    this._call = call;
+  }
+}
+
+export class SetReputationHandlerCall extends EthereumCall {
+  get inputs(): SetReputationHandlerCall__Inputs {
+    return new SetReputationHandlerCall__Inputs(this);
+  }
+
+  get outputs(): SetReputationHandlerCall__Outputs {
+    return new SetReputationHandlerCall__Outputs(this);
+  }
+}
+
+export class SetReputationHandlerCall__Inputs {
+  _call: SetReputationHandlerCall;
+
+  constructor(call: SetReputationHandlerCall) {
+    this._call = call;
+  }
+
+  get _newHandler(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetReputationHandlerCall__Outputs {
+  _call: SetReputationHandlerCall;
+
+  constructor(call: SetReputationHandlerCall) {
+    this._call = call;
+  }
+}
+
+export class SetTDNCall extends EthereumCall {
+  get inputs(): SetTDNCall__Inputs {
+    return new SetTDNCall__Inputs(this);
+  }
+
+  get outputs(): SetTDNCall__Outputs {
+    return new SetTDNCall__Outputs(this);
+  }
+}
+
+export class SetTDNCall__Inputs {
+  _call: SetTDNCall;
+
+  constructor(call: SetTDNCall) {
+    this._call = call;
+  }
+
+  get _token(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _isTDN(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+}
+
+export class SetTDNCall__Outputs {
+  _call: SetTDNCall;
+
+  constructor(call: SetTDNCall) {
+    this._call = call;
+  }
+}
+
+export class SetPriceOracleCall extends EthereumCall {
+  get inputs(): SetPriceOracleCall__Inputs {
+    return new SetPriceOracleCall__Inputs(this);
+  }
+
+  get outputs(): SetPriceOracleCall__Outputs {
+    return new SetPriceOracleCall__Outputs(this);
+  }
+}
+
+export class SetPriceOracleCall__Inputs {
+  _call: SetPriceOracleCall;
+
+  constructor(call: SetPriceOracleCall) {
+    this._call = call;
+  }
+
+  get _token1(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _token2(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _oracle(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class SetPriceOracleCall__Outputs {
+  _call: SetPriceOracleCall;
+
+  constructor(call: SetPriceOracleCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleSwitchCall extends EthereumCall {
+  get inputs(): ToggleSwitchCall__Inputs {
+    return new ToggleSwitchCall__Inputs(this);
+  }
+
+  get outputs(): ToggleSwitchCall__Outputs {
+    return new ToggleSwitchCall__Outputs(this);
+  }
+}
+
+export class ToggleSwitchCall__Inputs {
+  _call: ToggleSwitchCall;
+
+  constructor(call: ToggleSwitchCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleSwitchCall__Outputs {
+  _call: ToggleSwitchCall;
+
+  constructor(call: ToggleSwitchCall) {
     this._call = call;
   }
 }

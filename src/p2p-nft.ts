@@ -1,8 +1,8 @@
-import { NewOffer, NewDeal, UpdateOffer, CancelOffer } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
+import { NewOffer, NewDeal, UpdateOffer, CancelOffer, NewCommission } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
 import { createOfferCommodity, updateOfferCommodity, cancelOfferCommodity } from "./offer";
 import { pushCommodityOffer, pushCommodityDeal } from "./user";
 import { createCommodityDeal } from "./deal";
-import { OfferCommodity, Commodity } from "../generated/schema";
+import { OfferCommodity, Commodity, P2PCommodity } from "../generated/schema";
 import { popP2P } from "./commodity";
 
 
@@ -30,3 +30,15 @@ export function handleUpdateOffer(event: UpdateOffer): void {
 export function handleCancelOffer(event: CancelOffer): void {
     cancelOfferCommodity(event);
 }
+
+export function handleNewCommission(event: NewCommission): void {
+    let p2p = P2PCommodity.load(event.address.toHexString());
+  
+    if (p2p == null) {
+      p2p = new P2PCommodity(event.address.toHexString());
+    }
+  
+    p2p.commission = event.params.commission;
+  
+    p2p.save();
+  }
