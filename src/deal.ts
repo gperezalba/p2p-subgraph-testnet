@@ -2,6 +2,7 @@ import { Deal, Offer, DealCommodity } from "../generated/schema";
 import { NewPendingDeal, VoteDeal } from "../generated/PIBP2P/PIBP2P";
 import { BigDecimal, Address, BigInt } from "@graphprotocol/graph-ts";
 import { NewDeal } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
+import { pushDealToOffer } from "./offer";
 
 export function createDeal(event: NewPendingDeal): void {
     let deal = Deal.load(event.params.dealId.toHexString());
@@ -21,6 +22,8 @@ export function createDeal(event: NewPendingDeal): void {
         deal.isPending = true;
 
         deal.save();
+
+        pushDealToOffer(event.params.offerId.toHexString(), event.params.dealId.toHexString());
     }
 }
 

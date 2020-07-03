@@ -29,6 +29,7 @@ export function createOffer(event: NewOffer): void {
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
     offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
+    offer.deals = [];
 
     let metadata: Array<BigInt> = event.params.metadata
     
@@ -152,6 +153,18 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
     offer.isOpen = false;
 
     offer.save();
+}
+
+export function pushDealToOffer(offerId: string, dealId: string): void {
+    let offer = Offer.load(offerId);
+
+    if (offer != null) {
+        let array = offer.deals;
+        array.push(dealId);
+        offer.deals = array;
+
+        offer.save();
+    }
 }
 
 export function getOneEther(): BigInt {

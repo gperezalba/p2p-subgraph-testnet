@@ -340,6 +340,23 @@ export class Offer extends Entity {
       this.set("payMethod", Value.fromBigIntArray(value as Array<BigInt>));
     }
   }
+
+  get deals(): Array<string> | null {
+    let value = this.get("deals");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set deals(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("deals");
+    } else {
+      this.set("deals", Value.fromStringArray(value as Array<string>));
+    }
+  }
 }
 
 export class OfferCommodity extends Entity {
@@ -535,6 +552,23 @@ export class OfferCommodity extends Entity {
       this.unset("payMethod");
     } else {
       this.set("payMethod", Value.fromBigIntArray(value as Array<BigInt>));
+    }
+  }
+
+  get deals(): Array<string> | null {
+    let value = this.get("deals");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set deals(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("deals");
+    } else {
+      this.set("deals", Value.fromStringArray(value as Array<string>));
     }
   }
 }

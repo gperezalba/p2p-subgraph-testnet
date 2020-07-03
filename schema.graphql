@@ -29,6 +29,7 @@ type Offer @entity {
   country: [BigInt!]
   timestamp: BigInt
   payMethod: [BigInt!]
+  deals: [Deal!]
 }
 
 #union Commodity = Gold | Diamond
@@ -49,6 +50,7 @@ type OfferCommodity @entity {
   country: [BigInt!]
   timestamp: BigInt
   payMethod: [BigInt!]
+  deals: [Deal!]
 }
 
 type Deal @entity {
