@@ -104,12 +104,14 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
 export function updateOffer(event: UpdateOffer): void {
     let offer = Offer.load(event.params.offerId.toHexString());
 
-    offer.sellAmount = event.params.sellAmount;
-    offer.buyAmount = event.params.buyAmount;
-    offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount as BigInt);
-
     if ((event.params.sellAmount == BigInt.fromI32(0)) && (event.params.buyAmount == BigInt.fromI32(0))) {
         offer.isOpen = false;
+        offer.sellAmount = event.params.sellAmount;
+        offer.buyAmount = event.params.buyAmount;
+    } else {
+        offer.sellAmount = event.params.sellAmount;
+        offer.buyAmount = event.params.buyAmount;
+        offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount as BigInt);
     }
 
     offer.save();
