@@ -3,6 +3,11 @@ type P2P @entity {
   commission: BigInt!
 }
 
+type Error @entity {
+  id: ID!
+  offerId: String!
+}
+
 type P2PCommodity @entity {
   id: ID!
   commission: BigInt!
