@@ -71,6 +71,7 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.timestamp = event.block.timestamp;
     offer.price = event.params.buyAmount;
     let token = Token.load(event.params.sellToken.toHexString());
+    offer.deals = [];
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
@@ -157,6 +158,18 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
 
 export function pushDealToOffer(offerId: string, dealId: string): void {
     let offer = Offer.load(offerId);
+
+    if (offer != null) {
+        let array = offer.deals;
+        array.push(dealId);
+        offer.deals = array;
+
+        offer.save();
+    }
+}
+
+export function pushDealToOfferCommodity(offerId: string, dealId: string): void {
+    let offer = OfferCommodity.load(offerId);
 
     if (offer != null) {
         let array = offer.deals;
