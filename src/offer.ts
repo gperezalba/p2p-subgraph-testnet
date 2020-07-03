@@ -1,6 +1,6 @@
 import { NewOffer, UpdateOffer, CancelOffer } from "../generated/PIBP2P/PIBP2P";
 import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, CancelOffer as CancelOfferCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
-import { Offer, OfferCommodity, Commodity, Token, Gold, Error } from "../generated/schema";
+import { Offer, OfferCommodity, Commodity, Token, Gold } from "../generated/schema";
 import { pushP2P } from "./commodity";
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 import { getNickname } from "./user";
@@ -15,56 +15,51 @@ export function createOffer(event: NewOffer): void {
         createToken(event.params.buyToken, false, BigInt.fromI32(0));
     }
 
-    let token = Token.load(event.params.buyToken.toHexString());
-    if (token != null) {
-        offer.owner = event.params.owner.toHexString();
-        offer.name = getNickname(event.params.owner.toHexString());
-        offer.sellToken = event.params.sellToken.toHexString();
-        offer.buyToken = event.params.buyToken.toHexString();
-        offer.initialSellAmount = event.params.sellAmount;
-        offer.sellAmount = event.params.sellAmount;
-        offer.buyAmount = event.params.buyAmount;
-        offer.isPartial = event.params.isPartial;
-        offer.isBuyFiat = event.params.isBuyFiat;
-        offer.auditor = event.params.auditor;
-        let limits = event.params.limits;
-        offer.minDealAmount = limits[0];
-        offer.maxDealAmount = limits[1];
-        offer.minReputation = limits[2];
-        offer.description = event.params.description;
-        offer.isOpen = true;
-        offer.timestamp = event.block.timestamp;
-        offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
-
-        let metadata: Array<BigInt> = event.params.metadata
-        
-        let isCountry = true;
-        let countries: Array<BigInt> = [];
-        let methods: Array<BigInt> = [];
-
-        for (let i = 0; i < metadata.length; i++) {
-
-            if (isCountry) {
-                countries.push(metadata[i]);
-                if (metadata[i] == BigInt.fromI32(0)) {
-                    isCountry = false;
-                }
-            } else {
-                methods.push(metadata[i]);
-            }
-        }
-
-        offer.country = countries;
-        offer.payMethod = methods;
-
-        offer.save();
-    } else {
-        let error = new Error(event.params.offerId.toHexString());
-        error.offerId = event.params.offerId.toHexString();
-        error.save();
+    if (event.params.buyToken.toHexString() == "0x2bD64c5A25fcd9c124E9e5d20B582D8a8942b2Cc") {
+        createToken(event.params.buyToken, false, BigInt.fromI32(0));
     }
 
+    offer.owner = event.params.owner.toHexString();
+    offer.name = getNickname(event.params.owner.toHexString());
+    offer.sellToken = event.params.sellToken.toHexString();
+    offer.buyToken = event.params.buyToken.toHexString();
+    offer.initialSellAmount = event.params.sellAmount;
+    offer.sellAmount = event.params.sellAmount;
+    offer.buyAmount = event.params.buyAmount;
+    offer.isPartial = event.params.isPartial;
+    offer.isBuyFiat = event.params.isBuyFiat;
+    offer.auditor = event.params.auditor;
+    let limits = event.params.limits;
+    offer.minDealAmount = limits[0];
+    offer.maxDealAmount = limits[1];
+    offer.minReputation = limits[2];
+    offer.description = event.params.description;
+    offer.isOpen = true;
+    offer.timestamp = event.block.timestamp;
+    offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
+
+    let metadata: Array<BigInt> = event.params.metadata
     
+    let isCountry = true;
+    let countries: Array<BigInt> = [];
+    let methods: Array<BigInt> = [];
+
+    for (let i = 0; i < metadata.length; i++) {
+
+        if (isCountry) {
+            countries.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isCountry = false;
+            }
+        } else {
+            methods.push(metadata[i]);
+        }
+    }
+
+    offer.country = countries;
+    offer.payMethod = methods;
+
+    offer.save();
 }
 
 export function createOfferCommodity(event: NewOfferCommodity): void {

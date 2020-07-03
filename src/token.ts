@@ -18,6 +18,9 @@ export function createToken(tokenAddress: Address, isNFT: boolean, category: Big
         if (tokenAddress.toHexString() == "0x2a3ec23c9d781aa431d300b2475b305cad27d98d") {
             token.tokenSymbol = "USDs";
             token.tokenName = "USD Invent";
+        } else if (tokenAddress.toHexString() == "0x2bD64c5A25fcd9c124E9e5d20B582D8a8942b2Cc") {
+            token.tokenSymbol = "VESs";
+            token.tokenName = "VES Invent";
         } else {
             if (tokenAddress.toHexString() != PI_ADDRESS) {
             
