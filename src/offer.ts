@@ -133,13 +133,10 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
             offer.isOpen = false;
         } else {
             let gold = Gold.load(commodityId);
-            offer.buyAmount = event.params.buyAmount;
             offer.price_per_brute_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_brute as BigInt);
             offer.price_per_fine_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_fine as BigInt);
         }
     }
-
-    
 
     offer.save();
 }
