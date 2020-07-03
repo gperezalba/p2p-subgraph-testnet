@@ -52,46 +52,6 @@ export class P2P extends Entity {
   }
 }
 
-export class Error extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save Error entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save Error entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("Error", id.toString(), this);
-  }
-
-  static load(id: string): Error | null {
-    return store.get("Error", id) as Error | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get offerId(): string {
-    let value = this.get("offerId");
-    return value.toString();
-  }
-
-  set offerId(value: string) {
-    this.set("offerId", Value.fromString(value));
-  }
-}
-
 export class P2PCommodity extends Entity {
   constructor(id: string) {
     super();

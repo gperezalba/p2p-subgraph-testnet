@@ -11,14 +11,6 @@ const ONE_ETHER = 1000000000000000000;
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
 
-    if (event.params.buyToken.toHexString() == "0x2a3ec23c9d781aa431d300b2475b305cad27d98d") {
-        createToken(event.params.buyToken, false, BigInt.fromI32(0));
-    }
-
-    if (event.params.buyToken.toHexString() == "0x2bD64c5A25fcd9c124E9e5d20B582D8a8942b2Cc") {
-        createToken(event.params.buyToken, false, BigInt.fromI32(0));
-    }
-
     offer.owner = event.params.owner.toHexString();
     offer.name = getNickname(event.params.owner.toHexString());
     offer.sellToken = event.params.sellToken.toHexString();
