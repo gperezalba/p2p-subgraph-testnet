@@ -69,20 +69,6 @@ export function handleNewJson(event: NewJson): void {
             diamond.save();
             commodity.diamond = id;
         }
-    } else {
-        if (token.category == BigInt.fromI32(1)) {
-            let gold = new Gold(id);
-            
-            gold.isLive = true;
-
-            gold.save();
-        } else if (token.category == BigInt.fromI32(2)) {
-            let diamond = new Diamond(id);
-            
-            diamond.isLive = true;
-
-            diamond.save();
-        }
     }
 
     commodity.save();
@@ -133,15 +119,38 @@ function burnCommodity(tokenAddress: string, tokenId: BigInt): void {
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(id);
         
-        gold.isLive = false;
-
-        gold.save();
+        if (gold != null) {
+            gold.isLive = false;
+            gold.save();
+        }
     } else if (token.category == BigInt.fromI32(2)) {
         let diamond = Diamond.load(id);
         
-        diamond.isLive = false;
+        if (diamond != null) {
+            diamond.isLive = false;
+            diamond.save();
+        }
+    }
+}
 
-        diamond.save();
+export function mintCommodity(tokenAddress: string, tokenId: BigInt): void {
+    let token = Token.load(tokenAddress);
+    let id = tokenAddress.concat("-").concat(tokenId.toString());
+
+    if (token.category == BigInt.fromI32(1)) {
+        let gold = Gold.load(id);
+        
+        if (gold != null) {
+            gold.isLive = true;
+            gold.save();
+        }
+    } else if (token.category == BigInt.fromI32(2)) {
+        let diamond = Diamond.load(id);
+        
+        if (diamond != null) {
+            diamond.isLive = true;
+            diamond.save();
+        }
     }
 }
 
