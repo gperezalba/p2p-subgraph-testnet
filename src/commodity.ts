@@ -55,7 +55,7 @@ export function handleNewJson(event: NewJson): void {
         let json: Array<BigInt> = event.params.json;
         gold.weight_brute = json[0];
         gold.law = json[1];
-        gold.weight_fine = json[2];
+        gold.weight_fine = json[0].times(json[1]).div(BigInt.fromI32(1000).times(getOneEther()));
 
         gold.save();
         commodity.gold = id;
@@ -194,4 +194,12 @@ export function handleFakeToken(event: FakeToken): void {
             diamond.save();
         }
     }
+}
+
+export function getOneEther(): BigInt {
+    let n = BigInt.fromI32(1);
+    for(let i = 0; i < 18; i++) {
+        n = n.times(BigInt.fromI32(10));
+    }
+    return n;
 }
