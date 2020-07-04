@@ -165,15 +165,17 @@ export function handleFakeToken(event: FakeToken): void {
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(id);
-        
-        gold.isFake = true;
 
-        gold.save();
+        if (gold != null) {
+            gold.isFake = true;
+            gold.save();
+        }
     } else if (token.category == BigInt.fromI32(2)) {
         let diamond = Diamond.load(id);
-        
-        diamond.isFake = true;
 
-        diamond.save();
+        if (diamond != null) {
+            diamond.isFake = true;
+            diamond.save();
+        }
     }
 }

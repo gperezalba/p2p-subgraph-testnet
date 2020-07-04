@@ -1,12 +1,9 @@
 import { NewOffer, UpdateOffer, CancelOffer } from "../generated/PIBP2P/PIBP2P";
 import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, CancelOffer as CancelOfferCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
 import { Offer, OfferCommodity, Commodity, Token, Gold } from "../generated/schema";
-import { pushP2P } from "./commodity";
+import { pushP2P, popP2P } from "./commodity";
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 import { getNickname } from "./user";
-import { createToken } from "./token";
-
-const ONE_ETHER = 1000000000000000000;
 
 export function createOffer(event: NewOffer): void {
     let offer = new Offer(event.params.offerId.toHexString());
@@ -28,10 +25,16 @@ export function createOffer(event: NewOffer): void {
     offer.description = event.params.description;
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
-    offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
+
+    if (event.params.sellAmount > BigInt.fromI32(0)) {
+        offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
+    } else {
+        offer.price = BigInt.fromI32(-1);
+    }
+    
     offer.deals = [];
 
-    let metadata: Array<BigInt> = event.params.metadata
+    let metadata: Array<BigInt> = event.params.metadata;
     
     let isCountry = true;
     let countries: Array<BigInt> = [];
@@ -75,8 +78,18 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
 
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(commodityId);
-        offer.price_per_brute_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_brute as BigInt);
-        offer.price_per_fine_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_fine as BigInt);
+
+        if (gold.weight_brute > BigInt.fromI32(0)) {
+            offer.price_per_brute_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_brute as BigInt);
+        } else {
+            offer.price_per_brute_weight = BigInt.fromI32(-1);
+        }
+
+        if (gold.weight_fine > BigInt.fromI32(0)) {
+            offer.price_per_fine_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_fine as BigInt);
+        } else {
+            offer.price_per_fine_weight = BigInt.fromI32(-1);
+        }
     }
 
     let metadata: Array<BigInt> = event.params.metadata
@@ -113,7 +126,12 @@ export function updateOffer(event: UpdateOffer): void {
     } else {
         offer.sellAmount = event.params.sellAmount;
         offer.buyAmount = event.params.buyAmount;
-        offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount as BigInt);
+
+        if (event.params.sellAmount > BigInt.fromI32(0)) {
+            offer.price = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount as BigInt);
+        } else {
+            offer.price = BigInt.fromI32(-1);
+        }
     }
 
     offer.save();
@@ -133,8 +151,18 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
             offer.isOpen = false;
         } else {
             let gold = Gold.load(commodityId);
-            offer.price_per_brute_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_brute as BigInt);
-            offer.price_per_fine_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_fine as BigInt);
+            
+            if (gold.weight_brute > BigInt.fromI32(0)) {
+                offer.price_per_brute_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_brute as BigInt);
+            } else {
+                offer.price_per_brute_weight = BigInt.fromI32(-1);
+            }
+    
+            if (gold.weight_fine > BigInt.fromI32(0)) {
+                offer.price_per_fine_weight = event.params.buyAmount.times(getOneEther()).div(gold.weight_fine as BigInt);
+            } else {
+                offer.price_per_fine_weight = BigInt.fromI32(-1);
+            }
         }
     }
 
@@ -153,6 +181,9 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
     let offer = OfferCommodity.load(event.params.offerId.toHexString());
 
     offer.isOpen = false;
+
+    let commodity = Commodity.load(offer.sellId);
+    popP2P(offer.sellToken, commodity.tokenId);
 
     offer.save();
 }
