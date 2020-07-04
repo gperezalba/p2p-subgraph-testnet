@@ -20,59 +20,67 @@ export function handleNewJson(event: NewJson): void {
     let id = event.address.toHexString().concat("-").concat(event.params.tokenId.toString());
 
     let commodity = Commodity.load(id);
+    let gold = Gold.load(id);
+    let diamond = Diamond.load(id);
 
     if (commodity == null) {
         commodity = new Commodity(id);
-
-        commodity.tokenId = event.params.tokenId;
-
         if (token.category == BigInt.fromI32(1)) {
-            let gold = new Gold(id);
-            let token = ERC721.bind(event.address);
-            gold.token = event.address.toHexString();
-            gold.isLive = true;
-            gold.isP2P = false;
-            gold.isFake = false;
-
-            let ref = token.try_getRefById(event.params.tokenId);
-
-            if (!ref.reverted) {
-                gold.reference = ref.value;
-            } else {
-                gold.reference = "reverted";
+            if (gold == null) {
+                gold = new Gold(id);
             }
-
-            let json: Array<BigInt> = event.params.json;
-            gold.weight_brute = json[0];
-            gold.law = json[1];
-            gold.weight_fine = json[2];
-
-            gold.save();
-            commodity.gold = id;
-        } else if (token.category == BigInt.fromI32(2)) {
-            let diamond = new Diamond(id);
-            let token = ERC721.bind(event.address);
-            diamond.token = event.address.toHexString();
-            diamond.isLive = true;
-            diamond.isFake = false;
-
-            let ref = token.try_getRefById(event.params.tokenId);
-
-            if (!ref.reverted) {
-                diamond.reference = ref.value;
-            } else {
-                diamond.reference = "reverted";
+        } else {
+            if (diamond == null) {
+                diamond = new Diamond(id);
             }
-
-            let json: Array<BigInt> = event.params.json;
-            diamond.color = json[0];
-            diamond.clarity = json[1];
-            diamond.cut = json[2];
-            diamond.carat_weight = json[3];
-
-            diamond.save();
-            commodity.diamond = id;
         }
+    }
+
+    commodity.tokenId = event.params.tokenId;
+
+    if (token.category == BigInt.fromI32(1)) {
+        let tokenNFT = ERC721.bind(event.address);
+        gold.token = event.address.toHexString();
+        gold.isLive = true;
+        gold.isFake = false;
+
+        let ref = tokenNFT.try_getRefById(event.params.tokenId);
+
+        if (!ref.reverted) {
+            gold.reference = ref.value;
+        } else {
+            gold.reference = "reverted";
+        }
+
+        let json: Array<BigInt> = event.params.json;
+        gold.weight_brute = json[0];
+        gold.law = json[1];
+        gold.weight_fine = json[2];
+
+        gold.save();
+        commodity.gold = id;
+    } else if (token.category == BigInt.fromI32(2)) {
+        let token = ERC721.bind(event.address);
+        diamond.token = event.address.toHexString();
+        diamond.isLive = true;
+        diamond.isFake = false;
+
+        let ref = token.try_getRefById(event.params.tokenId);
+
+        if (!ref.reverted) {
+            diamond.reference = ref.value;
+        } else {
+            diamond.reference = "reverted";
+        }
+
+        let json: Array<BigInt> = event.params.json;
+        diamond.color = json[0];
+        diamond.clarity = json[1];
+        diamond.cut = json[2];
+        diamond.carat_weight = json[3];
+
+        diamond.save();
+        commodity.diamond = id;
     }
 
     commodity.save();
@@ -123,17 +131,21 @@ function burnCommodity(tokenAddress: string, tokenId: BigInt): void {
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(id);
         
-        if (gold != null) {
-            gold.isLive = false;
-            gold.save();
+        if (gold == null) {
+            gold = new Gold(id);
         }
+
+        gold.isLive = false;
+        gold.save();
     } else if (token.category == BigInt.fromI32(2)) {
         let diamond = Diamond.load(id);
         
-        if (diamond != null) {
-            diamond.isLive = false;
-            diamond.save();
+        if (diamond == null) {
+            diamond = new Diamond(id);
         }
+        
+        diamond.isLive = false;
+        diamond.save();
     }
 }
 
@@ -144,17 +156,21 @@ export function mintCommodity(tokenAddress: string, tokenId: BigInt): void {
     if (token.category == BigInt.fromI32(1)) {
         let gold = Gold.load(id);
         
-        if (gold != null) {
-            gold.isLive = true;
-            gold.save();
+        if (gold == null) {
+            gold = new Gold(id);
         }
+
+        gold.isLive = true;
+        gold.save();
     } else if (token.category == BigInt.fromI32(2)) {
         let diamond = Diamond.load(id);
         
-        if (diamond != null) {
-            diamond.isLive = true;
-            diamond.save();
+        if (diamond == null) {
+            diamond = new Diamond(id);
         }
+        
+        diamond.isLive = true;
+        diamond.save();
     }
 }
 

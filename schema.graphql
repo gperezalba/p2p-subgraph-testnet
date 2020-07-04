@@ -105,21 +105,21 @@ type Commodity @entity {
 
 type Gold @entity {
   id: ID!
-  reference: String!
-  token: Token!
+  reference: String
+  token: Token
   weight_brute: BigInt
   weight_fine: BigInt
   law: BigInt
   isLive: Boolean
   isP2P: Boolean
   isFake: Boolean
-  commodity: Commodity! @derivedFrom(field: "gold")
+  commodity: Commodity @derivedFrom(field: "gold")
 }
 
 type Diamond @entity {
   id: ID!
-  reference: String!
-  token: Token!
+  reference: String
+  token: Token
   color: BigInt
   clarity: BigInt #cambiar a BigDecimal para filtrar?
   cut: BigInt
@@ -127,7 +127,7 @@ type Diamond @entity {
   isLive: Boolean
   isP2P: Boolean
   isFake: Boolean
-  commodity: Commodity! @derivedFrom(field: "diamond")
+  commodity: Commodity @derivedFrom(field: "diamond")
 }
 
 type Auditor @entity {

@@ -1159,22 +1159,38 @@ export class Gold extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get reference(): string {
+  get reference(): string | null {
     let value = this.get("reference");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set reference(value: string) {
-    this.set("reference", Value.fromString(value));
+  set reference(value: string | null) {
+    if (value === null) {
+      this.unset("reference");
+    } else {
+      this.set("reference", Value.fromString(value as string));
+    }
   }
 
-  get token(): string {
+  get token(): string | null {
     let value = this.get("token");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set token(value: string) {
-    this.set("token", Value.fromString(value));
+  set token(value: string | null) {
+    if (value === null) {
+      this.unset("token");
+    } else {
+      this.set("token", Value.fromString(value as string));
+    }
   }
 
   get weight_brute(): BigInt | null {
@@ -1255,13 +1271,21 @@ export class Gold extends Entity {
     this.set("isFake", Value.fromBoolean(value));
   }
 
-  get commodity(): string {
+  get commodity(): string | null {
     let value = this.get("commodity");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set commodity(value: string) {
-    this.set("commodity", Value.fromString(value));
+  set commodity(value: string | null) {
+    if (value === null) {
+      this.unset("commodity");
+    } else {
+      this.set("commodity", Value.fromString(value as string));
+    }
   }
 }
 
@@ -1295,22 +1319,38 @@ export class Diamond extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get reference(): string {
+  get reference(): string | null {
     let value = this.get("reference");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set reference(value: string) {
-    this.set("reference", Value.fromString(value));
+  set reference(value: string | null) {
+    if (value === null) {
+      this.unset("reference");
+    } else {
+      this.set("reference", Value.fromString(value as string));
+    }
   }
 
-  get token(): string {
+  get token(): string | null {
     let value = this.get("token");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set token(value: string) {
-    this.set("token", Value.fromString(value));
+  set token(value: string | null) {
+    if (value === null) {
+      this.unset("token");
+    } else {
+      this.set("token", Value.fromString(value as string));
+    }
   }
 
   get color(): BigInt | null {
@@ -1408,13 +1448,21 @@ export class Diamond extends Entity {
     this.set("isFake", Value.fromBoolean(value));
   }
 
-  get commodity(): string {
+  get commodity(): string | null {
     let value = this.get("commodity");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set commodity(value: string) {
-    this.set("commodity", Value.fromString(value));
+  set commodity(value: string | null) {
+    if (value === null) {
+      this.unset("commodity");
+    } else {
+      this.set("commodity", Value.fromString(value as string));
+    }
   }
 }
 
