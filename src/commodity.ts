@@ -9,6 +9,10 @@ export function handleTransfer(event: Transfer): void {
     if (event.params._to == Address.fromString(ZERO_ADDRESS)) {
         burnCommodity(event.address.toHexString(), event.params._tokenId);
     }
+
+    if (event.params._from == Address.fromString(ZERO_ADDRESS)) {
+        mintCommodity(event.address.toHexString(), event.params._tokenId);
+    }
 }
 
 export function handleNewJson(event: NewJson): void {
