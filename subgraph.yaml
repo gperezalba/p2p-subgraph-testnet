@@ -127,7 +127,7 @@ dataSources:
       eventHandlers:
         - event: CreateName(string,indexed address,indexed address)
           handler: handleCreateName
-      file: ./src/nameService.ts
+      file: ./src/user.ts
 templates:
   - name: Token
     kind: ethereum/contract
