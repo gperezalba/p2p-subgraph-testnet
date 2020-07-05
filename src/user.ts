@@ -3,6 +3,10 @@ import { BigInt, Address } from "@graphprotocol/graph-ts";
 import { PIBP2P } from "../generated/PIBP2P/PIBP2P";
 import { NameService, CreateName } from "../generated/templates/NameService/NameService";
 
+export function handleCreateName(event: CreateName): void {
+    createUserIfNull(event.params.wallet.toHexString());
+}
+
 export function pushOffer(userId: string, offerId: string): void {
     createUserIfNull(userId);
     let user = User.load(userId);
@@ -94,8 +98,4 @@ export function getNickname(walletAddress: string): string {
     } else {
         return "reverted";
     }
-}
-
-export function handleCreateName(event: CreateName): void {
-
 }

@@ -107,6 +107,27 @@ dataSources:
         - event: NewNFToken(address,uint256)
           handler: handleNewNFToken
       file: ./src/controller.ts
+  - kind: ethereum/contract
+    name: NameService
+    network: mainnet
+    source:
+      address: "0xbdb5af45C3F2C814fcbEb5c3117bA8737D982CEE"
+      abi: NameService
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - CreateName
+        - ChangeWallet
+        - ChangeOwner
+      abis:
+        - name: NameService
+          file: ./abis/NameService.json
+      eventHandlers:
+        - event: CreateName(string,indexed address,indexed address)
+          handler: handleCreateName
+      file: ./src/nameService.ts
 templates:
   - name: Token
     kind: ethereum/contract
@@ -148,21 +169,3 @@ templates:
           handler: handleNewJson
         - event: FakeToken(indexed uint256)
           handler: handleFakeToken
-  - name: NameService
-    kind: ethereum/contract
-    network: mainnet
-    source:
-      abi: NameService
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.1
-      language: wasm/assemblyscript
-      file: ./src/user.ts
-      entities:
-        - Transfer
-      abis:
-        - name: NameService
-          file: ./abis/NameService.json
-      eventHandlers:
-        - event: CreateName(string,indexed address,indexed address)
-          handler: handleCreateName
