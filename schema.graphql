@@ -29,6 +29,7 @@ type Offer @entity {
   country: [BigInt!]
   timestamp: BigInt
   payMethod: [BigInt!]
+  payAccount: [BigInt!]
   deals: [Deal!]
 }
 

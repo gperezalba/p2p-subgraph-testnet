@@ -37,8 +37,10 @@ export function createOffer(event: NewOffer): void {
     let metadata: Array<BigInt> = event.params.metadata;
     
     let isCountry = true;
+    let isPayMethod = true;
     let countries: Array<BigInt> = [];
     let methods: Array<BigInt> = [];
+    let accounts: Array<BigInt> = [];
 
     for (let i = 0; i < metadata.length; i++) {
 
@@ -47,13 +49,19 @@ export function createOffer(event: NewOffer): void {
             if (metadata[i] == BigInt.fromI32(0)) {
                 isCountry = false;
             }
-        } else {
+        } else if (isPayMethod) {
             methods.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isPayMethod = false;
+            }
+        } else {
+            accounts.push(metadata[i]);
         }
     }
 
     offer.country = countries;
     offer.payMethod = methods;
+    offer.payAccount = accounts;
 
     offer.save();
 }

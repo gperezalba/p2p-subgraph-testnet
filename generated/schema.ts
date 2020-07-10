@@ -341,6 +341,23 @@ export class Offer extends Entity {
     }
   }
 
+  get payAccount(): Array<BigInt> | null {
+    let value = this.get("payAccount");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set payAccount(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("payAccount");
+    } else {
+      this.set("payAccount", Value.fromBigIntArray(value as Array<BigInt>));
+    }
+  }
+
   get deals(): Array<string> | null {
     let value = this.get("deals");
     if (value === null) {
