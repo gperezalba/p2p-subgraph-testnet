@@ -6,7 +6,7 @@ dataSources:
     name: PIBP2P
     network: mainnet
     source:
-      address: "0x7e8067bc4B5e20C64D034829d863FD872bc90806"
+      address: "0x3e936dCC5Fb7b7f74D2880dE56873443Dc9d16B0"
       abi: PIBP2P
     mapping:
       kind: ethereum/events
@@ -51,7 +51,7 @@ dataSources:
     name: PIBP2PCommodity
     network: mainnet
     source:
-      address: "0x07f729c0FC50eD6aCAE75c4684E3a1297A0F9869"
+      address: "0x8c05000821ADC43B802f77401ca92d336b49800e"
       abi: PIBP2PCommodity
     mapping:
       kind: ethereum/events
@@ -85,7 +85,7 @@ dataSources:
     name: Controller
     network: mainnet
     source:
-      address: "0xb3A5c676647B7adeeF7aE8c24F81aaF5BcF1147C"
+      address: "0x55B165c50AB0824F96B59C9aB369656EF67d7ba2"
       abi: Controller
     mapping:
       kind: ethereum/events
@@ -111,7 +111,7 @@ dataSources:
     name: NameService
     network: mainnet
     source:
-      address: "0xFeAA9226a6d155fb46a18dAfbde12f4b3EF3c977"
+      address: "0x6eF6DeD453c1e82B0B7ebC082E0Be4b6482F7fdC"
       abi: NameService
     mapping:
       kind: ethereum/events
