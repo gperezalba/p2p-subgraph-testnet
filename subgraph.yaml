@@ -102,9 +102,9 @@ dataSources:
         - name: Token
           file: ./abis/Token.json
       eventHandlers:
-        - event: NewToken(address)
+        - event: NewToken(address,uint256,bool)
           handler: handleNewToken
-        - event: NewNFToken(address,uint256)
+        - event: NewNFToken(address,uint256,bool)
           handler: handleNewNFToken
       file: ./src/controller.ts
   - kind: ethereum/contract
