@@ -60,7 +60,15 @@ export function updateVote(event: VoteDeal): void {
     let deal = Deal.load(event.params.dealId.toHexString());
 
     if (deal != null) {
-        let offer = Offer.load(deal.offer);
+        if (event.transaction.from == Address.fromString(deal.buyer)) {
+            deal.buyerVote = BigInt.fromI32(event.params.vote);
+            deal.sellerVote = BigInt.fromI32(event.params.counterpartVote);
+        } else {
+            deal.sellerVote = BigInt.fromI32(event.params.vote);
+            deal.buyerVote = BigInt.fromI32(event.params.counterpartVote);
+        }
+
+        /*let offer = Offer.load(deal.offer);
 
         if (offer != null) {
             if (event.transaction.from == Address.fromString(offer.owner)) {
@@ -70,7 +78,7 @@ export function updateVote(event: VoteDeal): void {
 
         if (event.transaction.from == Address.fromString(deal.buyer)) {
             deal.buyerVote = BigInt.fromI32(event.params.vote);
-        }
+        }*/
 
         deal.save();
     }
