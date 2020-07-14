@@ -68,6 +68,7 @@ type Deal @entity {
   isSuccess: Boolean
   executor: Bytes
   timestamp: BigInt
+  aux: Bytes
 }
 
 type DealCommodity @entity {

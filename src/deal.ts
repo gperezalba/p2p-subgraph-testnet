@@ -60,6 +60,7 @@ export function updateVote(event: VoteDeal): void {
     let deal = Deal.load(event.params.dealId.toHexString());
 
     if (deal != null) {
+        deal.aux = event.transaction.from;
         if (event.transaction.from == Address.fromString(deal.buyer)) {
             deal.buyerVote = BigInt.fromI32(event.params.vote);
             deal.sellerVote = BigInt.fromI32(event.params.counterpartVote);
