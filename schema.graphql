@@ -67,12 +67,14 @@ type Deal @entity {
   isPending: Boolean!
   isSuccess: Boolean
   executor: Bytes
+  timestamp: BigInt
 }
 
 type DealCommodity @entity {
   id: ID!
   offer: OfferCommodity!
   buyer: User!
+  timestamp: BigInt
 }
 
 type User @entity {

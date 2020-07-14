@@ -20,6 +20,7 @@ export function createDeal(event: NewPendingDeal): void {
         deal.buyerVote = BigInt.fromI32(0);
         deal.auditorVote = BigInt.fromI32(0);
         deal.isPending = true;
+        deal.timestamp = event.block.timestamp;
 
         deal.save();
 
@@ -35,6 +36,7 @@ export function createCommodityDeal(event: NewDeal): void {
 
         deal.offer = event.params.offerId.toHexString();
         deal.buyer = event.params.buyer.toHexString();
+        deal.timestamp = event.block.timestamp;
 
         deal.save();
 
