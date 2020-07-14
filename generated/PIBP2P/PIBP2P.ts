@@ -198,12 +198,16 @@ export class VoteDeal__Params {
     return this._event.parameters[0].value.toBytes();
   }
 
+  get sender(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
   get vote(): i32 {
-    return this._event.parameters[1].value.toI32();
+    return this._event.parameters[2].value.toI32();
   }
 
   get counterpartVote(): i32 {
-    return this._event.parameters[2].value.toI32();
+    return this._event.parameters[3].value.toI32();
   }
 }
 

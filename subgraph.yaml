@@ -6,7 +6,7 @@ dataSources:
     name: PIBP2P
     network: mainnet
     source:
-      address: "0x3e936dCC5Fb7b7f74D2880dE56873443Dc9d16B0"
+      address: "0x775BB60CaFD9702392E02D0a33071936fF437330"
       abi: PIBP2P
     mapping:
       kind: ethereum/events
@@ -36,7 +36,7 @@ dataSources:
           handler: handleUpdateOffer
         - event: CancelOffer(indexed bytes32)
           handler: handleCancelOffer
-        - event: VoteDeal(indexed bytes32,uint8,uint8)
+        - event: VoteDeal(indexed bytes32,address,uint8,uint8)
           handler: handleVoteDeal
         - event: AuditorNotification(indexed bytes32)
           handler: handleAuditorNotification

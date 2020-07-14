@@ -493,6 +493,11 @@
       },
       {
         "indexed": false,
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
         "name": "vote",
         "type": "uint8"
       },

@@ -767,23 +767,6 @@ export class Deal extends Entity {
       this.set("timestamp", Value.fromBigInt(value as BigInt));
     }
   }
-
-  get aux(): Bytes | null {
-    let value = this.get("aux");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set aux(value: Bytes | null) {
-    if (value === null) {
-      this.unset("aux");
-    } else {
-      this.set("aux", Value.fromBytes(value as Bytes));
-    }
-  }
 }
 
 export class DealCommodity extends Entity {
