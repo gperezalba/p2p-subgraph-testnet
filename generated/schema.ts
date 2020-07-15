@@ -979,37 +979,20 @@ export class User extends Entity {
     this.set("isDealLocked", Value.fromBoolean(value));
   }
 
-  get goodReputation(): BigInt | null {
-    let value = this.get("goodReputation");
+  get reputations(): Array<string> | null {
+    let value = this.get("reputations");
     if (value === null) {
       return null;
     } else {
-      return value.toBigInt();
+      return value.toStringArray();
     }
   }
 
-  set goodReputation(value: BigInt | null) {
+  set reputations(value: Array<string> | null) {
     if (value === null) {
-      this.unset("goodReputation");
+      this.unset("reputations");
     } else {
-      this.set("goodReputation", Value.fromBigInt(value as BigInt));
-    }
-  }
-
-  get badReputation(): BigInt | null {
-    let value = this.get("badReputation");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set badReputation(value: BigInt | null) {
-    if (value === null) {
-      this.unset("badReputation");
-    } else {
-      this.set("badReputation", Value.fromBigInt(value as BigInt));
+      this.set("reputations", Value.fromStringArray(value as Array<string>));
     }
   }
 }
@@ -1562,5 +1545,81 @@ export class Auditor extends Entity {
     } else {
       this.set("requests", Value.fromStringArray(value as Array<string>));
     }
+  }
+}
+
+export class Reputation extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Reputation entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Reputation entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Reputation", id.toString(), this);
+  }
+
+  static load(id: string): Reputation | null {
+    return store.get("Reputation", id) as Reputation | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get user(): string {
+    let value = this.get("user");
+    return value.toString();
+  }
+
+  set user(value: string) {
+    this.set("user", Value.fromString(value));
+  }
+
+  get token(): string {
+    let value = this.get("token");
+    return value.toString();
+  }
+
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
+  }
+
+  get goodReputation(): BigInt {
+    let value = this.get("goodReputation");
+    return value.toBigInt();
+  }
+
+  set goodReputation(value: BigInt) {
+    this.set("goodReputation", Value.fromBigInt(value));
+  }
+
+  get badReputation(): BigInt {
+    let value = this.get("badReputation");
+    return value.toBigInt();
+  }
+
+  set badReputation(value: BigInt) {
+    this.set("badReputation", Value.fromBigInt(value));
+  }
+
+  get totalDeals(): BigInt {
+    let value = this.get("totalDeals");
+    return value.toBigInt();
+  }
+
+  set totalDeals(value: BigInt) {
+    this.set("totalDeals", Value.fromBigInt(value));
   }
 }

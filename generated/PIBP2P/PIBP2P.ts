@@ -251,6 +251,36 @@ export class UpdateReputation__Params {
   }
 }
 
+export class HandleDealReputation extends EthereumEvent {
+  get params(): HandleDealReputation__Params {
+    return new HandleDealReputation__Params(this);
+  }
+}
+
+export class HandleDealReputation__Params {
+  _event: HandleDealReputation;
+
+  constructor(event: HandleDealReputation) {
+    this._event = event;
+  }
+
+  get seller(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get isSuccess(): boolean {
+    return this._event.parameters[1].value.toBoolean();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get dealAmount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
 export class DealLock extends EthereumEvent {
   get params(): DealLock__Params {
     return new DealLock__Params(this);
@@ -433,40 +463,6 @@ export class PIBP2P extends SmartContract {
     return CallResult.fromValue(value[0].toBoolean());
   }
 
-  goodReputation(param0: Address): BigInt {
-    let result = super.call("goodReputation", [
-      EthereumValue.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_goodReputation(param0: Address): CallResult<BigInt> {
-    let result = super.tryCall("goodReputation", [
-      EthereumValue.fromAddress(param0)
-    ]);
-    if (result.reverted) {
-      return new CallResult();
-    }
-    let value = result.value;
-    return CallResult.fromValue(value[0].toBigInt());
-  }
-
-  reputationHandler(): Address {
-    let result = super.call("reputationHandler", []);
-
-    return result[0].toAddress();
-  }
-
-  try_reputationHandler(): CallResult<Address> {
-    let result = super.tryCall("reputationHandler", []);
-    if (result.reverted) {
-      return new CallResult();
-    }
-    let value = result.value;
-    return CallResult.fromValue(value[0].toAddress());
-  }
-
   offers(param0: Bytes): PIBP2P__offersResult {
     let result = super.call("offers", [EthereumValue.fromFixedBytes(param0)]);
 
@@ -587,25 +583,6 @@ export class PIBP2P extends SmartContract {
     return CallResult.fromValue(value[0].toBigInt());
   }
 
-  badReputation(param0: Address): BigInt {
-    let result = super.call("badReputation", [
-      EthereumValue.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_badReputation(param0: Address): CallResult<BigInt> {
-    let result = super.tryCall("badReputation", [
-      EthereumValue.fromAddress(param0)
-    ]);
-    if (result.reverted) {
-      return new CallResult();
-    }
-    let value = result.value;
-    return CallResult.fromValue(value[0].toBigInt());
-  }
-
   salt(): BigInt {
     let result = super.call("salt", []);
 
@@ -713,12 +690,8 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _reputation(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
   get _commission(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[1].value.toBigInt();
   }
 }
 
@@ -756,36 +729,6 @@ export class SetCommissionCall__Outputs {
   _call: SetCommissionCall;
 
   constructor(call: SetCommissionCall) {
-    this._call = call;
-  }
-}
-
-export class SetReputationHandlerCall extends EthereumCall {
-  get inputs(): SetReputationHandlerCall__Inputs {
-    return new SetReputationHandlerCall__Inputs(this);
-  }
-
-  get outputs(): SetReputationHandlerCall__Outputs {
-    return new SetReputationHandlerCall__Outputs(this);
-  }
-}
-
-export class SetReputationHandlerCall__Inputs {
-  _call: SetReputationHandlerCall;
-
-  constructor(call: SetReputationHandlerCall) {
-    this._call = call;
-  }
-
-  get _newHandler(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class SetReputationHandlerCall__Outputs {
-  _call: SetReputationHandlerCall;
-
-  constructor(call: SetReputationHandlerCall) {
     this._call = call;
   }
 }

@@ -86,8 +86,7 @@ type User @entity {
   commodityDeals: [DealCommodity!]
   offchainReputation: BigInt
   isDealLocked: Boolean
-  goodReputation: BigInt
-  badReputation: BigInt
+  reputations: [Reputation!]
 }
 
 type Token @entity {
@@ -136,4 +135,13 @@ type Diamond @entity {
 type Auditor @entity {
   id: ID!
   requests: [Deal!]
+}
+
+type Reputation @entity {
+  id: ID! #wallet-token
+  user: User!
+  token: Token!
+  goodReputation: BigInt!
+  badReputation: BigInt!
+  totalDeals: BigInt!
 }

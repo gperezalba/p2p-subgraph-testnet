@@ -1,6 +1,6 @@
-import { User } from "../generated/schema";
+import { User, Reputation } from "../generated/schema";
 import { BigInt, Address } from "@graphprotocol/graph-ts";
-import { PIBP2P } from "../generated/PIBP2P/PIBP2P";
+import { PIBP2P, HandleDealReputation } from "../generated/PIBP2P/PIBP2P";
 import { NameService, CreateName } from "../generated/templates/NameService/NameService";
 
 export function handleCreateName(event: CreateName): void {
@@ -51,25 +51,6 @@ export function pushCommodityDeal(userId: string, dealId: string): void {
     user.save();
 }
 
-export function updateReputation(userId: string, p2pAddress: Address): void {
-    let user = User.load(userId);
-
-    let p2p = PIBP2P.bind(p2pAddress);
-    let goodReputation = p2p.try_goodReputation(Address.fromString(userId));
-    let badReputation = p2p.try_badReputation(Address.fromString(userId));
-
-    if (!goodReputation.reverted) {
-        user.goodReputation = goodReputation.value;
-    }
-
-    if (!badReputation.reverted) {
-        user.badReputation = badReputation.value;
-    }
-
-    user.save();
-
-}
-
 export function createUserIfNull(userId: string): void {
     let user = User.load(userId);
 
@@ -79,8 +60,7 @@ export function createUserIfNull(userId: string): void {
         user.commodityOffers = [];
         user.deals = [];
         user.commodityDeals = [];
-        user.goodReputation = BigInt.fromI32(0);
-        user.badReputation = BigInt.fromI32(0);
+        user.reputations = [];
         user.name = getNickname(userId);
         user.offchainReputation = BigInt.fromI32(0);
         user.isDealLocked = false;
@@ -97,5 +77,57 @@ export function getNickname(walletAddress: string): string {
         return name.value;
     } else {
         return "reverted";
+    }
+}
+
+export function updateReputation(event: HandleDealReputation): void {
+    createUserIfNull(event.params.seller.toHexString());
+    let user = User.load(event.params.seller.toHexString());
+    let reputationId = event.params.seller.toHexString().concat("-").concat(event.params.tokenAddress.toHexString());
+    createReputationIfNull(reputationId, event.params.seller.toHexString(), event.params.tokenAddress.toHexString());
+    let reputation = Reputation.load(reputationId);
+
+    reputation.totalDeals = reputation.totalDeals.plus(BigInt.fromI32(1));
+
+    if (event.params.isSuccess) {
+        reputation.goodReputation = reputation.goodReputation.plus(event.params.dealAmount);
+    } else {
+        reputation.badReputation = reputation.badReputation.plus(event.params.dealAmount);
+    }
+}
+
+function createReputationIfNull(id: string, user: string, tokenAddress: string): void {
+    let reputation = Reputation.load(id);
+
+    if (reputation == null) {
+        reputation = new Reputation(id);
+
+        reputation.user = user;
+        reputation.token = tokenAddress;
+        reputation.goodReputation = BigInt.fromI32(0);
+        reputation.badReputation = BigInt.fromI32(0);
+        reputation.totalDeals = BigInt.fromI32(0);
+
+        reputation.save();
+
+        pushReputation(user, id);
+    }
+}
+
+function pushReputation(userId: string, reputationId: string): void {
+    let user = User.load(userId);
+
+    if (user != null) {
+        let reputation = Reputation.load(reputationId);
+
+        if (reputation != null) {
+            let reputations = user.reputations;
+
+            if (!reputations.includes(reputationId)) {
+                reputations.push(reputationId);
+                user.reputations = reputations;
+                user.save();
+            }
+        }
     }
 }

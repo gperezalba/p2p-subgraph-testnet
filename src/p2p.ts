@@ -10,10 +10,11 @@ import {
   AuditorNotification,
   UpdateReputation,
   DealLock,
-  NewCommission
+  NewCommission,
+  HandleDealReputation
 } from "../generated/PIBP2P/PIBP2P"
 import { Offer, Deal, Auditor, User, P2P } from "../generated/schema"
-import { pushOffer, pushPendingDeal, updateReputation, createUserIfNull } from "./user";
+import { pushOffer, pushPendingDeal, createUserIfNull, updateReputation } from "./user";
 import { createDeal, finishDeal, updateVote } from "./deal";
 import { createOffer, updateOffer, cancelOffer } from "./offer";
 
@@ -24,16 +25,6 @@ export function handleNewOffer(event: NewOffer): void {
 
 export function handleNewDeal(event: NewDeal): void {
   finishDeal(event.params.dealId.toHexString(), event.params.success, event.params.sender);
-  let deal = Deal.load(event.params.dealId.toHexString());
-
-  if (deal != null) {
-    let offer = Offer.load(deal.offer);
-    updateReputation(deal.buyer, event.address);
-
-    if(offer != null) {
-      updateReputation(offer.owner, event.address);
-    }
-  }
 }
 
 export function handleNewPendingDeal(event: NewPendingDeal): void {
@@ -107,4 +98,8 @@ export function handleNewCommission(event: NewCommission): void {
   p2p.commission = event.params.commission;
 
   p2p.save();
+}
+
+export function handleHandleDealReputation(event: HandleDealReputation): void {
+  updateReputation(event);
 }

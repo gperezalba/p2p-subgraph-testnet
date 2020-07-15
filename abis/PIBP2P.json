@@ -23,39 +23,6 @@
     "inputs": [
       {
         "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "goodReputation",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "reputationHandler",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
         "type": "bytes32"
       }
     ],
@@ -208,25 +175,6 @@
   },
   {
     "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "badReputation",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
     "inputs": [],
     "name": "salt",
     "outputs": [
@@ -313,10 +261,6 @@
     "inputs": [
       {
         "name": "_controllerAddress",
-        "type": "address"
-      },
-      {
-        "name": "_reputation",
         "type": "address"
       },
       {
@@ -544,6 +488,33 @@
     "inputs": [
       {
         "indexed": true,
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "isSuccess",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "dealAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "HandleDealReputation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "name": "user",
         "type": "address"
       },
@@ -577,20 +548,6 @@
       }
     ],
     "name": "setCommission",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_newHandler",
-        "type": "address"
-      }
-    ],
-    "name": "setReputationHandler",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
