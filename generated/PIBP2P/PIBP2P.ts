@@ -60,8 +60,8 @@ export class NewOffer__Params {
     return this._event.parameters[7].value.toBigIntArray();
   }
 
-  get auditor(): Address {
-    return this._event.parameters[8].value.toAddress();
+  get accounts(): Array<Address> {
+    return this._event.parameters[8].value.toAddressArray();
   }
 
   get description(): string {
@@ -334,6 +334,7 @@ export class PIBP2P__offersResult {
   value9: BigInt;
   value10: BigInt;
   value11: Address;
+  value12: Address;
 
   constructor(
     value0: Address,
@@ -347,7 +348,8 @@ export class PIBP2P__offersResult {
     value8: BigInt,
     value9: BigInt,
     value10: BigInt,
-    value11: Address
+    value11: Address,
+    value12: Address
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -361,6 +363,7 @@ export class PIBP2P__offersResult {
     this.value9 = value9;
     this.value10 = value10;
     this.value11 = value11;
+    this.value12 = value12;
   }
 
   toMap(): TypedMap<string, EthereumValue> {
@@ -377,6 +380,7 @@ export class PIBP2P__offersResult {
     map.set("value9", EthereumValue.fromUnsignedBigInt(this.value9));
     map.set("value10", EthereumValue.fromUnsignedBigInt(this.value10));
     map.set("value11", EthereumValue.fromAddress(this.value11));
+    map.set("value12", EthereumValue.fromAddress(this.value12));
     return map;
   }
 }
@@ -478,7 +482,8 @@ export class PIBP2P extends SmartContract {
       result[8].toBigInt(),
       result[9].toBigInt(),
       result[10].toBigInt(),
-      result[11].toAddress()
+      result[11].toAddress(),
+      result[12].toAddress()
     );
   }
 
@@ -503,7 +508,8 @@ export class PIBP2P extends SmartContract {
         value[8].toBigInt(),
         value[9].toBigInt(),
         value[10].toBigInt(),
-        value[11].toAddress()
+        value[11].toAddress(),
+        value[12].toAddress()
       )
     );
   }
@@ -881,6 +887,64 @@ export class OfferCall__Outputs {
   _call: OfferCall;
 
   constructor(call: OfferCall) {
+    this._call = call;
+  }
+
+  get value0(): Bytes {
+    return this._call.outputValues[0].value.toBytes();
+  }
+}
+
+export class OfferFixedCall extends EthereumCall {
+  get inputs(): OfferFixedCall__Inputs {
+    return new OfferFixedCall__Inputs(this);
+  }
+
+  get outputs(): OfferFixedCall__Outputs {
+    return new OfferFixedCall__Outputs(this);
+  }
+}
+
+export class OfferFixedCall__Inputs {
+  _call: OfferFixedCall;
+
+  constructor(call: OfferFixedCall) {
+    this._call = call;
+  }
+
+  get _tokens(): Array<Address> {
+    return this._call.inputValues[0].value.toAddressArray();
+  }
+
+  get _amounts(): Array<BigInt> {
+    return this._call.inputValues[1].value.toBigIntArray();
+  }
+
+  get _settings(): Array<boolean> {
+    return this._call.inputValues[2].value.toBooleanArray();
+  }
+
+  get _limits(): Array<BigInt> {
+    return this._call.inputValues[3].value.toBigIntArray();
+  }
+
+  get _accounts(): Array<Address> {
+    return this._call.inputValues[4].value.toAddressArray();
+  }
+
+  get _description(): string {
+    return this._call.inputValues[5].value.toString();
+  }
+
+  get _metadata(): Array<BigInt> {
+    return this._call.inputValues[6].value.toBigIntArray();
+  }
+}
+
+export class OfferFixedCall__Outputs {
+  _call: OfferFixedCall;
+
+  constructor(call: OfferFixedCall) {
     this._call = call;
   }
 

@@ -17,7 +17,7 @@ export function createOffer(event: NewOffer): void {
     offer.buyAmount = event.params.buyAmount;
     offer.isPartial = event.params.isPartial;
     offer.isBuyFiat = event.params.isBuyFiat;
-    offer.auditor = event.params.auditor;
+    offer.auditor = event.params.accounts[0];
     let limits = event.params.limits;
     offer.minDealAmount = limits[0];
     offer.maxDealAmount = limits[1];

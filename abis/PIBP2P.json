@@ -75,6 +75,10 @@
       {
         "name": "auditor",
         "type": "address"
+      },
+      {
+        "name": "fixedBuyer",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -317,8 +321,8 @@
       },
       {
         "indexed": false,
-        "name": "auditor",
-        "type": "address"
+        "name": "accounts",
+        "type": "address[2]"
       },
       {
         "indexed": false,
@@ -635,6 +639,49 @@
       }
     ],
     "name": "offer",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokens",
+        "type": "address[2]"
+      },
+      {
+        "name": "_amounts",
+        "type": "uint256[2]"
+      },
+      {
+        "name": "_settings",
+        "type": "bool[2]"
+      },
+      {
+        "name": "_limits",
+        "type": "uint256[3]"
+      },
+      {
+        "name": "_accounts",
+        "type": "address[2]"
+      },
+      {
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "name": "_metadata",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "offerFixed",
     "outputs": [
       {
         "name": "",
