@@ -94,6 +94,8 @@ export function updateReputation(event: HandleDealReputation): void {
     } else {
         reputation.badReputation = reputation.badReputation.plus(event.params.dealAmount);
     }
+
+    reputation.save();
 }
 
 function createReputationIfNull(id: string, user: string, tokenAddress: string): void {
