@@ -6,7 +6,7 @@ dataSources:
     name: PIBP2P
     network: mainnet
     source:
-      address: "0x61A84049Ca4C27146EB5EEE5628af098fa6c1c95"
+      address: "0xa066e116ca46B45788A0e2b245C53442618eebfb"
       abi: PIBP2P
     mapping:
       kind: ethereum/events
@@ -26,7 +26,7 @@ dataSources:
         - name: NameService
           file: ./abis/NameService.json
       eventHandlers:
-        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,bool,bool,uint256[3],address[2],string,indexed bytes32,uint256[])
+        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,bool,bool,uint256[3],address,string,indexed bytes32,uint256[])
           handler: handleNewOffer
         - event: NewDeal(indexed bytes32,bool,indexed address)
           handler: handleNewDeal
