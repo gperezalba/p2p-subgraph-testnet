@@ -75,10 +75,6 @@
       {
         "name": "auditor",
         "type": "address"
-      },
-      {
-        "name": "fixedBuyer",
-        "type": "address"
       }
     ],
     "payable": false,
@@ -230,6 +226,25 @@
   },
   {
     "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "offerFixedBuyer",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "controller",
     "outputs": [
@@ -321,8 +336,8 @@
       },
       {
         "indexed": false,
-        "name": "accounts",
-        "type": "address[2]"
+        "name": "auditor",
+        "type": "address"
       },
       {
         "indexed": false,
@@ -544,6 +559,23 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "offerId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "fixedBuyer",
+        "type": "address"
+      }
+    ],
+    "name": "FixedBuyer",
+    "type": "event"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -636,9 +668,13 @@
       {
         "name": "_metadata",
         "type": "uint256[]"
+      },
+      {
+        "name": "_fixedBuyer",
+        "type": "address"
       }
     ],
-    "name": "offer",
+    "name": "offerFixed",
     "outputs": [
       {
         "name": "",
@@ -669,8 +705,8 @@
         "type": "uint256[3]"
       },
       {
-        "name": "_accounts",
-        "type": "address[2]"
+        "name": "_auditor",
+        "type": "address"
       },
       {
         "name": "_description",
@@ -681,7 +717,7 @@
         "type": "uint256[]"
       }
     ],
-    "name": "offerFixed",
+    "name": "offer",
     "outputs": [
       {
         "name": "",
