@@ -51,7 +51,7 @@ type OfferCommodity @entity {
   country: [BigInt!]
   timestamp: BigInt
   payMethod: [BigInt!]
-  deals: [Deal!]
+  deals: [DealCommodity!]
 }
 
 type Deal @entity {
