@@ -93,43 +93,27 @@ type Token @entity {
   id: ID!
   tokenSymbol: String!
   tokenName: String!
-  isNFT: Boolean!
-  category: BigInt
+  tokenKind: BigInt!
+  assetCategory: BigInt
+  nftCategory: BigInt
+  pnftCategory: BigInt
 }
 
 type Commodity @entity {
   id: ID!
-  tokenId: BigInt!
-  gold: Gold
-  diamond: Diamond
+  token: Token
+  tokenId: BigInt
+  reference: String
+  isLive: Boolean
+  isP2P: Boolean
+  isFake: Boolean
+  key0: BigInt
+  key1: BigInt
+  key2: BigInt
+  key3: BigInt
+  key4: BigInt
+  nftCategory: BigInt
   offer: OfferCommodity @derivedFrom(field: "sellId")
-}
-
-type Gold @entity {
-  id: ID!
-  reference: String
-  token: Token
-  weight_brute: BigInt
-  weight_fine: BigInt
-  law: BigInt
-  isLive: Boolean
-  isP2P: Boolean
-  isFake: Boolean
-  commodity: Commodity @derivedFrom(field: "gold")
-}
-
-type Diamond @entity {
-  id: ID!
-  reference: String
-  token: Token
-  color: BigInt
-  clarity: BigInt #cambiar a BigDecimal para filtrar?
-  cut: BigInt
-  carat_weight: BigInt
-  isLive: Boolean
-  isP2P: Boolean
-  isFake: Boolean
-  commodity: Commodity @derivedFrom(field: "diamond")
 }
 
 type Auditor @entity {

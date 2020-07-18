@@ -7,9 +7,9 @@ import {
 import { createToken } from "./token";
 
 export function handleNewToken(event: NewToken): void {
-  createToken(event.params.newToken, false, BigInt.fromI32(0));
+  createToken(event.params.newToken, BigInt.fromI32(1), event.params.category);
 }
 
 export function handleNewNFToken(event: NewNFToken): void {
-  createToken(event.params.newToken, true, event.params.category);
+  createToken(event.params.newToken, BigInt.fromI32(2), event.params.category);
 }
