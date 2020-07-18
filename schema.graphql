@@ -44,8 +44,8 @@ type OfferCommodity @entity {
   sellId: Commodity! #tokenAddress - tokenId
   buyAmount: BigInt!
   price: BigInt!
-  price_per_brute_weight: BigInt!
-  price_per_fine_weight: BigInt!
+  price_per_brute_weight: BigInt! #BORRAR
+  price_per_fine_weight: BigInt! #BORRAR
   description: String
   isOpen: Boolean!
   country: [BigInt!]
@@ -114,6 +114,9 @@ type Commodity @entity {
   key4: BigInt
   nftCategory: BigInt
   offer: OfferCommodity @derivedFrom(field: "sellId")
+  gold: Gold #BORRAR
+  diamond: Diamond #BORRAR
+
 }
 
 type Auditor @entity {
@@ -128,4 +131,33 @@ type Reputation @entity {
   goodReputation: BigInt!
   badReputation: BigInt!
   totalDeals: BigInt!
+}
+
+#BORRAR
+
+type Gold @entity {
+  id: ID!
+  reference: String
+  token: Token
+  weight_brute: BigInt
+  weight_fine: BigInt
+  law: BigInt
+  isLive: Boolean
+  isP2P: Boolean
+  isFake: Boolean
+  commodity: Commodity @derivedFrom(field: "gold")
+}
+
+type Diamond @entity {
+  id: ID!
+  reference: String
+  token: Token
+  color: BigInt
+  clarity: BigInt #cambiar a BigDecimal para filtrar?
+  cut: BigInt
+  carat_weight: BigInt
+  isLive: Boolean
+  isP2P: Boolean
+  isFake: Boolean
+  commodity: Commodity @derivedFrom(field: "diamond")
 }
