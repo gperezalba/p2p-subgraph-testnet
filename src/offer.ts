@@ -156,7 +156,7 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
     offer.isOpen = false;
 
     let commodity = Commodity.load(offer.sellId);
-    popP2P(offer.sellToken, commodity.tokenId);
+    popP2P(offer.sellToken, commodity.tokenId as BigInt);
 
     offer.save();
 }

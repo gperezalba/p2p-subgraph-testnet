@@ -4,6 +4,7 @@ import { pushCommodityOffer, pushCommodityDeal } from "./user";
 import { createCommodityDeal } from "./deal";
 import { OfferCommodity, Commodity, P2PCommodity } from "../generated/schema";
 import { popP2P } from "./commodity";
+import { BigInt } from "@graphprotocol/graph-ts";
 
 
 export function handleNewOffer(event: NewOffer): void {
@@ -20,7 +21,7 @@ export function handleNewDeal(event: NewDeal): void {
     
     pushCommodityDeal(event.params.buyer.toHexString(), event.params.offerId.toHexString());
     let commodity = Commodity.load(offer.sellId)
-    popP2P(offer.sellToken, commodity.tokenId);
+    popP2P(offer.sellToken, commodity.tokenId as BigInt);
 }
 
 export function handleUpdateOffer(event: UpdateOffer): void {
