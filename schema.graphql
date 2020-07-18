@@ -107,6 +107,7 @@ type Commodity @entity {
   isLive: Boolean
   isP2P: Boolean
   isFake: Boolean
+  metadata: [BigInt!]
   key0: BigInt
   key1: BigInt
   key2: BigInt
