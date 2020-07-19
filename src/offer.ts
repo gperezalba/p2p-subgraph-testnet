@@ -134,7 +134,7 @@ export function createOfferPackable(event: NewOfferPackable): void {
 
     offer.owner = event.params.owner.toHexString();
     offer.sellToken = event.params.sellToken.toHexString();
-    offer.sellId = event.params.sellId.toHexString();
+    offer.sellId = event.params.sellToken.toHex().concat("-").concat(event.params.sellId.toHexString());
     offer.sellAmount = event.params.sellAmount;
     offer.buyToken = event.params.buyToken.toHexString();
     offer.buyAmount = event.params.buyAmount;
