@@ -116,7 +116,7 @@ dataSources:
           handler: handleCancelOffer
         - event: NewCommission(uint256)
           handler: handleNewCommission
-      file: ./src/p2p-nft.ts
+      file: ./src/p2p-pnft.ts
   - kind: ethereum/contract
     name: Controller
     network: mainnet
