@@ -6,7 +6,7 @@ import { createPackableDeal } from "./deal";
 
 
 export function handleNewOffer(event: NewOffer): void {
-    createOfferPackable(event);
+    //createOfferPackable(event);
     pushPackableOffer(event.params.owner.toHexString(), event.params.offerId.toHexString());
 }
 
