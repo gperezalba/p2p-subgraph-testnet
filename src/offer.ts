@@ -144,6 +144,8 @@ export function createOfferPackable(event: NewOfferPackable): void {
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
     offer.deals = [];
+
+    offer.save();
 }
 
 export function updateOffer(event: UpdateOffer): void {
