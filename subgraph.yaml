@@ -142,6 +142,8 @@ dataSources:
           handler: handleNewToken
         - event: NewNFToken(address,uint256,bool)
           handler: handleNewNFToken
+        - event: NewPNFToken(address,uint256,bool)
+          handler: handleNewPNFToken
       file: ./src/controller.ts
   - kind: ethereum/contract
     name: NameService
