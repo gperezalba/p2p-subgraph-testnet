@@ -84,6 +84,40 @@ dataSources:
           handler: handleNewCommission
       file: ./src/p2p-nft.ts
   - kind: ethereum/contract
+    name: PIBP2PPackable
+    network: mainnet
+    source:
+      address: "0xA36D82706D3205ac479f9c9764FeFB107e1aA84A"
+      abi: PIBP2PPackable
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - NewOffer
+        - NewDeal
+        - UpdateOffer
+        - CancelOffer
+      abis:
+        - name: PIBP2PPackable
+          file: ./abis/PIBP2PPackable.json
+        - name: PNFTInterface
+          file: ./abis/PNFTInterface.json
+        - name: NameService
+          file: ./abis/NameService.json
+      eventHandlers:
+        - event: NewOffer(indexed address,indexed address,address,bytes32,uint256,uint256,string,indexed bytes32,uint256[])
+          handler: handleNewOffer
+        - event: NewDeal(indexed bytes32,indexed address,uint256,uint256)
+          handler: handleNewDeal
+        - event: UpdateOffer(indexed bytes32,bytes32,uint256,uint256)
+          handler: handleUpdateOffer
+        - event: CancelOffer(indexed bytes32)
+          handler: handleCancelOffer
+        - event: NewCommission(uint256)
+          handler: handleNewCommission
+      file: ./src/p2p-nft.ts
+  - kind: ethereum/contract
     name: Controller
     network: mainnet
     source:
@@ -171,3 +205,23 @@ templates:
           handler: handleNewJson
         - event: FakeToken(indexed uint256)
           handler: handleFakeToken
+  - name: PNFTInterface
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: PNFTInterface
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.1
+      language: wasm/assemblyscript
+      file: ./src/packable.ts
+      entities:
+        - Transfer
+      abis:
+        - name: PNFTInterface
+          file: ./abis/PNFTInterface.json
+        - name: Token
+          file: ./abis/Token.json
+      eventHandlers:
+        - event: NewJson(indexed bytes32,uint256[5])
+          handler: handleNewJson

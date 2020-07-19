@@ -92,6 +92,46 @@ export class P2PCommodity extends Entity {
   }
 }
 
+export class P2PPackable extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save P2PPackable entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save P2PPackable entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("P2PPackable", id.toString(), this);
+  }
+
+  static load(id: string): P2PPackable | null {
+    return store.get("P2PPackable", id) as P2PPackable | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get commission(): BigInt {
+    let value = this.get("commission");
+    return value.toBigInt();
+  }
+
+  set commission(value: BigInt) {
+    this.set("commission", Value.fromBigInt(value));
+  }
+}
+
 export class Offer extends Entity {
   constructor(id: string) {
     super();
@@ -590,6 +630,170 @@ export class OfferCommodity extends Entity {
   }
 }
 
+export class OfferPackable extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save OfferPackable entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save OfferPackable entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("OfferPackable", id.toString(), this);
+  }
+
+  static load(id: string): OfferPackable | null {
+    return store.get("OfferPackable", id) as OfferPackable | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    return value.toString();
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
+  get sellToken(): string {
+    let value = this.get("sellToken");
+    return value.toString();
+  }
+
+  set sellToken(value: string) {
+    this.set("sellToken", Value.fromString(value));
+  }
+
+  get buyToken(): string {
+    let value = this.get("buyToken");
+    return value.toString();
+  }
+
+  set buyToken(value: string) {
+    this.set("buyToken", Value.fromString(value));
+  }
+
+  get sellId(): string {
+    let value = this.get("sellId");
+    return value.toString();
+  }
+
+  set sellId(value: string) {
+    this.set("sellId", Value.fromString(value));
+  }
+
+  get sellAmount(): BigInt {
+    let value = this.get("sellAmount");
+    return value.toBigInt();
+  }
+
+  set sellAmount(value: BigInt) {
+    this.set("sellAmount", Value.fromBigInt(value));
+  }
+
+  get initialSellAmount(): BigInt {
+    let value = this.get("initialSellAmount");
+    return value.toBigInt();
+  }
+
+  set initialSellAmount(value: BigInt) {
+    this.set("initialSellAmount", Value.fromBigInt(value));
+  }
+
+  get buyAmount(): BigInt {
+    let value = this.get("buyAmount");
+    return value.toBigInt();
+  }
+
+  set buyAmount(value: BigInt) {
+    this.set("buyAmount", Value.fromBigInt(value));
+  }
+
+  get price(): BigInt {
+    let value = this.get("price");
+    return value.toBigInt();
+  }
+
+  set price(value: BigInt) {
+    this.set("price", Value.fromBigInt(value));
+  }
+
+  get price_per_unit(): BigInt {
+    let value = this.get("price_per_unit");
+    return value.toBigInt();
+  }
+
+  set price_per_unit(value: BigInt) {
+    this.set("price_per_unit", Value.fromBigInt(value));
+  }
+
+  get isOpen(): boolean {
+    let value = this.get("isOpen");
+    return value.toBoolean();
+  }
+
+  set isOpen(value: boolean) {
+    this.set("isOpen", Value.fromBoolean(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get deals(): Array<string> | null {
+    let value = this.get("deals");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set deals(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("deals");
+    } else {
+      this.set("deals", Value.fromStringArray(value as Array<string>));
+    }
+  }
+}
+
 export class Deal extends Entity {
   constructor(id: string) {
     super();
@@ -835,6 +1039,90 @@ export class DealCommodity extends Entity {
   }
 }
 
+export class DealPackable extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save DealPackable entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save DealPackable entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("DealPackable", id.toString(), this);
+  }
+
+  static load(id: string): DealPackable | null {
+    return store.get("DealPackable", id) as DealPackable | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get offer(): string {
+    let value = this.get("offer");
+    return value.toString();
+  }
+
+  set offer(value: string) {
+    this.set("offer", Value.fromString(value));
+  }
+
+  get buyer(): string {
+    let value = this.get("buyer");
+    return value.toString();
+  }
+
+  set buyer(value: string) {
+    this.set("buyer", Value.fromString(value));
+  }
+
+  get sellAmount(): BigInt {
+    let value = this.get("sellAmount");
+    return value.toBigInt();
+  }
+
+  set sellAmount(value: BigInt) {
+    this.set("sellAmount", Value.fromBigInt(value));
+  }
+
+  get buyAmount(): BigInt {
+    let value = this.get("buyAmount");
+    return value.toBigInt();
+  }
+
+  set buyAmount(value: BigInt) {
+    this.set("buyAmount", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt | null {
+    let value = this.get("timestamp");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timestamp(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timestamp");
+    } else {
+      this.set("timestamp", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
 export class User extends Entity {
   constructor(id: string) {
     super();
@@ -919,6 +1207,23 @@ export class User extends Entity {
     }
   }
 
+  get packableOffers(): Array<string> | null {
+    let value = this.get("packableOffers");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set packableOffers(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("packableOffers");
+    } else {
+      this.set("packableOffers", Value.fromStringArray(value as Array<string>));
+    }
+  }
+
   get deals(): Array<string> | null {
     let value = this.get("deals");
     if (value === null) {
@@ -950,6 +1255,23 @@ export class User extends Entity {
       this.unset("commodityDeals");
     } else {
       this.set("commodityDeals", Value.fromStringArray(value as Array<string>));
+    }
+  }
+
+  get packableDeals(): Array<string> | null {
+    let value = this.get("packableDeals");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set packableDeals(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("packableDeals");
+    } else {
+      this.set("packableDeals", Value.fromStringArray(value as Array<string>));
     }
   }
 
@@ -1506,6 +1828,138 @@ export class Reputation extends Entity {
 
   set totalDeals(value: BigInt) {
     this.set("totalDeals", Value.fromBigInt(value));
+  }
+}
+
+export class Packable extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Packable entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Packable entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Packable", id.toString(), this);
+  }
+
+  static load(id: string): Packable | null {
+    return store.get("Packable", id) as Packable | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get token(): string {
+    let value = this.get("token");
+    return value.toString();
+  }
+
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
+  }
+
+  get tokenKind(): BigInt {
+    let value = this.get("tokenKind");
+    return value.toBigInt();
+  }
+
+  set tokenKind(value: BigInt) {
+    this.set("tokenKind", Value.fromBigInt(value));
+  }
+
+  get ids(): Array<string> | null {
+    let value = this.get("ids");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set ids(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("ids");
+    } else {
+      this.set("ids", Value.fromStringArray(value as Array<string>));
+    }
+  }
+}
+
+export class PackableId extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save PackableId entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save PackableId entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("PackableId", id.toString(), this);
+  }
+
+  static load(id: string): PackableId | null {
+    return store.get("PackableId", id) as PackableId | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get packable(): string {
+    let value = this.get("packable");
+    return value.toString();
+  }
+
+  set packable(value: string) {
+    this.set("packable", Value.fromString(value));
+  }
+
+  get tokenId(): string {
+    let value = this.get("tokenId");
+    return value.toString();
+  }
+
+  set tokenId(value: string) {
+    this.set("tokenId", Value.fromString(value));
+  }
+
+  get metadata(): Array<BigInt> | null {
+    let value = this.get("metadata");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set metadata(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("metadata");
+    } else {
+      this.set("metadata", Value.fromBigIntArray(value as Array<BigInt>));
+    }
   }
 }
 

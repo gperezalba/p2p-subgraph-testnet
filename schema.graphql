@@ -8,6 +8,11 @@ type P2PCommodity @entity {
   commission: BigInt!
 }
 
+type P2PPackable @entity {
+  id: ID!
+  commission: BigInt!
+}
+
 type Offer @entity {
   id: ID!
   owner: User! # address
@@ -54,6 +59,23 @@ type OfferCommodity @entity {
   deals: [DealCommodity!]
 }
 
+type OfferPackable @entity {
+  id: ID!
+  owner: User!
+  name: String
+  sellToken: Token!
+  buyToken: Token!
+  sellId: PackableId!
+  sellAmount: BigInt!
+  initialSellAmount: BigInt!
+  buyAmount: BigInt!
+  price: BigInt!
+  price_per_unit: BigInt!
+  isOpen: Boolean!
+  timestamp: BigInt!
+  deals: [DealPackable!]
+}
+
 type Deal @entity {
   id: ID!
   offer: Offer!
@@ -77,13 +99,24 @@ type DealCommodity @entity {
   timestamp: BigInt
 }
 
+type DealPackable @entity {
+  id: ID!
+  offer: OfferPackable!
+  buyer: User!
+  sellAmount: BigInt!
+  buyAmount: BigInt!
+  timestamp: BigInt
+}
+
 type User @entity {
   id: ID!
   name: String
   offers: [Offer!]
   commodityOffers: [OfferCommodity!]
+  packableOffers: [OfferPackable!]
   deals: [Deal!]
   commodityDeals: [DealCommodity!]
+  packableDeals: [DealPackable!]
   offchainReputation: BigInt
   isDealLocked: Boolean
   reputations: [Reputation!]
@@ -132,6 +165,20 @@ type Reputation @entity {
   goodReputation: BigInt!
   badReputation: BigInt!
   totalDeals: BigInt!
+}
+
+type Packable @entity {
+    id: ID! #tokenAddress
+    token: Token!
+    tokenKind: BigInt!
+    ids: [PackableId!]
+}
+
+type PackableId @entity {
+    id: ID! #tokenAddress + tokenKind (hacerlo tokenAddress-wallet para usar el start_with?)
+    packable: Packable! 
+    tokenId: String!
+    metadata: [BigInt!]
 }
 
 #BORRAR

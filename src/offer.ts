@@ -1,6 +1,7 @@
 import { NewOffer, UpdateOffer, CancelOffer } from "../generated/PIBP2P/PIBP2P";
 import { NewOffer as NewOfferCommodity, UpdateOffer as UpdateOfferCommodity, CancelOffer as CancelOfferCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
-import { Offer, OfferCommodity, Commodity, Token, Gold } from "../generated/schema";
+import { NewOffer as NewOfferPackable, UpdateOffer as UpdateOfferPackable, CancelOffer as CancelOfferPackable } from "../generated/PIBP2PPackable/PIBP2PPackable";
+import { Offer, OfferCommodity, Commodity, Token, Gold, OfferPackable } from "../generated/schema";
 import { pushP2P, popP2P } from "./commodity";
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 import { getNickname } from "./user";
@@ -128,6 +129,23 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.save();
 }
 
+export function createOfferPackable(event: NewOfferPackable): void {
+    let offer = new OfferPackable(event.params.offerId.toHexString());
+
+    offer.owner = event.params.owner.toHexString();
+    offer.sellToken = event.params.sellToken.toHexString();
+    offer.sellId = event.params.sellId.toHexString();
+    offer.sellAmount = event.params.sellAmount;
+    offer.buyToken = event.params.buyToken.toHexString();
+    offer.buyAmount = event.params.buyAmount;
+    offer.price = event.params.buyAmount;
+    offer.price_per_unit = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
+    offer.initialSellAmount = event.params.sellAmount;
+    offer.isOpen = true;
+    offer.timestamp = event.block.timestamp;
+    offer.deals = [];
+}
+
 export function updateOffer(event: UpdateOffer): void {
     let offer = Offer.load(event.params.offerId.toHexString());
 
@@ -190,6 +208,21 @@ export function updateOfferCommodity(event: UpdateOfferCommodity): void {
     offer.save();
 }
 
+export function updateOfferPackable(event: UpdateOfferPackable): void {
+    let offer = OfferPackable.load(event.params.offerId.toHexString());
+
+    offer.sellAmount = event.params.sellAmount;
+    offer.buyAmount = event.params.buyAmount;
+    offer.price = event.params.buyAmount;
+    offer.price_per_unit = offer.price.times(getOneEther()).div(offer.sellAmount);
+
+    if ((event.params.sellAmount == BigInt.fromI32(0)) && (event.params.buyAmount == BigInt.fromI32(0))) {
+        offer.isOpen = false;
+    }
+
+    offer.save();
+}
+
 export function cancelOffer(event: CancelOffer): void {
     let offer = Offer.load(event.params.offerId.toHexString());
 
@@ -209,6 +242,14 @@ export function cancelOfferCommodity(event: CancelOfferCommodity): void {
     offer.save();
 }
 
+export function cancelOfferPackable(event: CancelOfferPackable): void {
+    let offer = OfferPackable.load(event.params.offerId.toHexString());
+
+    offer.isOpen = false;
+
+    offer.save();
+}
+
 export function pushDealToOffer(offerId: string, dealId: string): void {
     let offer = Offer.load(offerId);
 
@@ -223,6 +264,18 @@ export function pushDealToOffer(offerId: string, dealId: string): void {
 
 export function pushDealToOfferCommodity(offerId: string, dealId: string): void {
     let offer = OfferCommodity.load(offerId);
+
+    if (offer != null) {
+        let array = offer.deals;
+        array.push(dealId);
+        offer.deals = array;
+
+        offer.save();
+    }
+}
+
+export function pushDealToOfferPackable(offerId: string, dealId: string): void {
+    let offer = OfferPackable.load(offerId);
 
     if (offer != null) {
         let array = offer.deals;

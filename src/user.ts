@@ -29,6 +29,17 @@ export function pushCommodityOffer(userId: string, offerId: string): void {
     user.save();
 }
 
+export function pushPackableOffer(userId: string, offerId: string): void {
+    createUserIfNull(userId);
+    let user = User.load(userId);
+
+    let offers = user.packableOffers;
+    offers.push(offerId);
+    user.packableOffers = offers;
+
+    user.save();
+}
+
 export function pushPendingDeal(userId: string, dealId: string): void {
     createUserIfNull(userId);
     let user = User.load(userId);
@@ -51,6 +62,17 @@ export function pushCommodityDeal(userId: string, dealId: string): void {
     user.save();
 }
 
+export function pushPackableDeal(userId: string, dealId: string): void {
+    createUserIfNull(userId);
+    let user = User.load(userId);
+
+    let deals = user.packableDeals;
+    deals.push(dealId);
+    user.packableDeals = deals;
+
+    user.save();
+}
+
 export function createUserIfNull(userId: string): void {
     let user = User.load(userId);
 
@@ -58,8 +80,10 @@ export function createUserIfNull(userId: string): void {
         user = new User(userId);
         user.offers = [];
         user.commodityOffers = [];
+        user.packableOffers = [];
         user.deals = [];
         user.commodityDeals = [];
+        user.packableDeals = [];
         user.reputations = [];
         user.name = getNickname(userId);
         user.offchainReputation = BigInt.fromI32(0);
