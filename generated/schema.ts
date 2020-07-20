@@ -758,6 +758,33 @@ export class OfferPackable extends Entity {
     this.set("price_per_unit", Value.fromBigInt(value));
   }
 
+  get isPartial(): boolean {
+    let value = this.get("isPartial");
+    return value.toBoolean();
+  }
+
+  set isPartial(value: boolean) {
+    this.set("isPartial", Value.fromBoolean(value));
+  }
+
+  get minDealAmount(): BigInt {
+    let value = this.get("minDealAmount");
+    return value.toBigInt();
+  }
+
+  set minDealAmount(value: BigInt) {
+    this.set("minDealAmount", Value.fromBigInt(value));
+  }
+
+  get maxDealAmount(): BigInt {
+    let value = this.get("maxDealAmount");
+    return value.toBigInt();
+  }
+
+  set maxDealAmount(value: BigInt) {
+    this.set("maxDealAmount", Value.fromBigInt(value));
+  }
+
   get description(): string | null {
     let value = this.get("description");
     if (value === null) {

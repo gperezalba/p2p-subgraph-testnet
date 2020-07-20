@@ -141,6 +141,9 @@ export function createOfferPackable(event: NewOfferPackable): void {
     offer.price = event.params.buyAmount;
     offer.price_per_unit = event.params.buyAmount.times(getOneEther()).div(event.params.sellAmount);
     offer.initialSellAmount = event.params.sellAmount;
+    offer.isPartial = event.params.isPartial;
+    offer.minDealAmount = event.params.minDealAmount;
+    offer.maxDealAmount = event.params.maxDealAmount;
     offer.description = event.params.description;
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;

@@ -87,7 +87,7 @@ dataSources:
     name: PIBP2PPackable
     network: mainnet
     source:
-      address: "0xddcb4BC3DF52ae0EDBfff3b0814258Dd0eEa7CA6"
+      address: "0xfD26f30A56F9567A2b7Fe05a2C79dcbCd27DA54e"
       abi: PIBP2PPackable
     mapping:
       kind: ethereum/events
@@ -106,7 +106,7 @@ dataSources:
         - name: NameService
           file: ./abis/NameService.json
       eventHandlers:
-        - event: NewOffer(indexed address,indexed address,address,bytes32,uint256,uint256,string,indexed bytes32,uint256[])
+        - event: NewOffer(indexed address,indexed address,address,bytes32,uint256,uint256,bool,uint256,uint256,string,indexed bytes32,uint256[])
           handler: handleNewOffer
         - event: NewDeal(indexed bytes32,indexed address,uint256,uint256)
           handler: handleNewDeal

@@ -52,16 +52,28 @@ export class NewOffer__Params {
     return this._event.parameters[5].value.toBigInt();
   }
 
+  get isPartial(): boolean {
+    return this._event.parameters[6].value.toBoolean();
+  }
+
+  get minDealAmount(): BigInt {
+    return this._event.parameters[7].value.toBigInt();
+  }
+
+  get maxDealAmount(): BigInt {
+    return this._event.parameters[8].value.toBigInt();
+  }
+
   get description(): string {
-    return this._event.parameters[6].value.toString();
+    return this._event.parameters[9].value.toString();
   }
 
   get offerId(): Bytes {
-    return this._event.parameters[7].value.toBytes();
+    return this._event.parameters[10].value.toBytes();
   }
 
   get metadata(): Array<BigInt> {
-    return this._event.parameters[8].value.toBigIntArray();
+    return this._event.parameters[11].value.toBigIntArray();
   }
 }
 
@@ -168,6 +180,9 @@ export class PIBP2PPackable__offersResult {
   value3: BigInt;
   value4: Address;
   value5: BigInt;
+  value6: boolean;
+  value7: BigInt;
+  value8: BigInt;
 
   constructor(
     value0: Address,
@@ -175,7 +190,10 @@ export class PIBP2PPackable__offersResult {
     value2: Bytes,
     value3: BigInt,
     value4: Address,
-    value5: BigInt
+    value5: BigInt,
+    value6: boolean,
+    value7: BigInt,
+    value8: BigInt
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -183,6 +201,9 @@ export class PIBP2PPackable__offersResult {
     this.value3 = value3;
     this.value4 = value4;
     this.value5 = value5;
+    this.value6 = value6;
+    this.value7 = value7;
+    this.value8 = value8;
   }
 
   toMap(): TypedMap<string, EthereumValue> {
@@ -193,6 +214,9 @@ export class PIBP2PPackable__offersResult {
     map.set("value3", EthereumValue.fromUnsignedBigInt(this.value3));
     map.set("value4", EthereumValue.fromAddress(this.value4));
     map.set("value5", EthereumValue.fromUnsignedBigInt(this.value5));
+    map.set("value6", EthereumValue.fromBoolean(this.value6));
+    map.set("value7", EthereumValue.fromUnsignedBigInt(this.value7));
+    map.set("value8", EthereumValue.fromUnsignedBigInt(this.value8));
     return map;
   }
 }
@@ -211,7 +235,10 @@ export class PIBP2PPackable extends SmartContract {
       result[2].toBytes(),
       result[3].toBigInt(),
       result[4].toAddress(),
-      result[5].toBigInt()
+      result[5].toBigInt(),
+      result[6].toBoolean(),
+      result[7].toBigInt(),
+      result[8].toBigInt()
     );
   }
 
@@ -230,7 +257,10 @@ export class PIBP2PPackable extends SmartContract {
         value[2].toBytes(),
         value[3].toBigInt(),
         value[4].toAddress(),
-        value[5].toBigInt()
+        value[5].toBigInt(),
+        value[6].toBoolean(),
+        value[7].toBigInt(),
+        value[8].toBigInt()
       )
     );
   }
@@ -462,12 +492,24 @@ export class OfferCall__Inputs {
     return this._call.inputValues[4].value.toBigInt();
   }
 
+  get _isPartial(): boolean {
+    return this._call.inputValues[5].value.toBoolean();
+  }
+
+  get _minDealAmount(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
+  }
+
+  get _maxDealAmount(): BigInt {
+    return this._call.inputValues[7].value.toBigInt();
+  }
+
   get _description(): string {
-    return this._call.inputValues[5].value.toString();
+    return this._call.inputValues[8].value.toString();
   }
 
   get _metadata(): Array<BigInt> {
-    return this._call.inputValues[6].value.toBigIntArray();
+    return this._call.inputValues[9].value.toBigIntArray();
   }
 }
 
