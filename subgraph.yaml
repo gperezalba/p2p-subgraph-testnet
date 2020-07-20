@@ -87,7 +87,7 @@ dataSources:
     name: PIBP2PPackable
     network: mainnet
     source:
-      address: "0xfD26f30A56F9567A2b7Fe05a2C79dcbCd27DA54e"
+      address: "0xD0f92f238358fee1DF066008025936884D23061B"
       abi: PIBP2PPackable
     mapping:
       kind: ethereum/events
