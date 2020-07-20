@@ -71,6 +71,7 @@ type OfferPackable @entity {
   buyAmount: BigInt!
   price: BigInt!
   price_per_unit: BigInt!
+  description: String
   isOpen: Boolean!
   timestamp: BigInt!
   deals: [DealPackable!]

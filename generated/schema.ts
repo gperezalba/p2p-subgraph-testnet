@@ -758,6 +758,23 @@ export class OfferPackable extends Entity {
     this.set("price_per_unit", Value.fromBigInt(value));
   }
 
+  get description(): string | null {
+    let value = this.get("description");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (value === null) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(value as string));
+    }
+  }
+
   get isOpen(): boolean {
     let value = this.get("isOpen");
     return value.toBoolean();
