@@ -6,7 +6,7 @@ dataSources:
     name: PIBP2P
     network: mainnet
     source:
-      address: "0x2aB943778e01bC64B42C028bE7645430527aAABF"
+      address: "0xedc187f70c74dF8e47EBA72B80DA99386f31C4ce"
       abi: PIBP2P
     mapping:
       kind: ethereum/events
